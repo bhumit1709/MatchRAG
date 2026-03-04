@@ -1,0 +1,5 @@
+langgraph
+chromadb
+ollama
+flask
+flask-cors

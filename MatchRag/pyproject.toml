@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "matchrag"
+version = "0.1.0"
+description = "Local RAG chatbot for cricket match commentary using LangGraph + Ollama + ChromaDB"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "langgraph",
+    "chromadb",
+    "ollama",
+    "flask",
+    "flask-cors",
+]
+
+[project.scripts]
+matchrag-chat   = "chat:main"
+matchrag-server = "server:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

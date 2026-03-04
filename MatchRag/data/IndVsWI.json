@@ -1,0 +1,3246 @@
+{
+  "meta": {
+    "data_version": "1.1.0",
+    "created": "2026-03-01",
+    "revision": 1
+  },
+  "info": {
+    "balls_per_over": 6,
+    "city": "Kolkata",
+    "dates": [
+      "2026-03-01"
+    ],
+    "event": {
+      "name": "ICC Men's T20 World Cup",
+      "match_number": 52,
+      "group": "1"
+    },
+    "gender": "male",
+    "match_type": "T20",
+    "match_type_number": 3750,
+    "officials": {
+      "match_referees": [
+        "RS Madugalle"
+      ],
+      "reserve_umpires": [
+        "CM Brown"
+      ],
+      "tv_umpires": [
+        "RA Kettleborough"
+      ],
+      "umpires": [
+        "AG Wharf",
+        "CB Gaffaney"
+      ]
+    },
+    "outcome": {
+      "winner": "India",
+      "by": {
+        "wickets": 5
+      }
+    },
+    "overs": 20,
+    "player_of_match": [
+      "SV Samson"
+    ],
+    "players": {
+      "West Indies": [
+        "SD Hope",
+        "RL Chase",
+        "SO Hetmyer",
+        "SE Rutherford",
+        "R Powell",
+        "JO Holder",
+        "R Shepherd",
+        "MW Forde",
+        "G Motie",
+        "AJ Hosein",
+        "S Joseph"
+      ],
+      "India": [
+        "Abhishek Sharma",
+        "SV Samson",
+        "Ishan Kishan",
+        "SA Yadav",
+        "Tilak Varma",
+        "HH Pandya",
+        "S Dube",
+        "AR Patel",
+        "Arshdeep Singh",
+        "CV Varun",
+        "JJ Bumrah"
+      ]
+    },
+    "registry": {
+      "people": {
+        "AG Wharf": "2e0fcc58",
+        "AJ Hosein": "4d7f517e",
+        "AR Patel": "2e171977",
+        "Abhishek Sharma": "f29185a1",
+        "Arshdeep Singh": "244048f6",
+        "CB Gaffaney": "d5ac41d8",
+        "CM Brown": "448f4f1c",
+        "CV Varun": "5b7ab5a9",
+        "G Motie": "97bdec3d",
+        "HH Pandya": "dbe50b21",
+        "Ishan Kishan": "752f7486",
+        "JJ Bumrah": "462411b3",
+        "JO Holder": "0f721006",
+        "MW Forde": "83d17bbc",
+        "R Powell": "650d5e49",
+        "R Shepherd": "c5aef772",
+        "RA Kettleborough": "4017868f",
+        "RL Chase": "3feda4fa",
+        "RS Madugalle": "766b5798",
+        "S Dube": "a4e37e47",
+        "S Joseph": "97290faf",
+        "SA Yadav": "271f83cd",
+        "SD Hope": "1fc6ef83",
+        "SE Rutherford": "d014d5ac",
+        "SO Hetmyer": "48a1d7b7",
+        "SV Samson": "a4cc73aa",
+        "Tilak Varma": "b0482a1d"
+      }
+    },
+    "season": "2025/26",
+    "team_type": "international",
+    "teams": [
+      "West Indies",
+      "India"
+    ],
+    "toss": {
+      "decision": "field",
+      "winner": "India"
+    },
+    "venue": "Eden Gardens, Kolkata"
+  },
+  "innings": [
+    {
+      "team": "West Indies",
+      "overs": [
+        {
+          "over": 0,
+          "deliveries": [
+            {
+              "batter": "SD Hope",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Perfect starting ball. On a length, off-stump line, defended to cover"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "A bit of swing in. Back of length on leg, flicked towards midwicket"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Punched neatly to mid-on's left. Fullish ball on middle, this went straight on. 133ks"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Away swing! Great ball. Opens up Hope but he defends to the left of the bowler. Fuller side of length, landed on middle and went away. 129ks"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Length on off, more outswing, defended towards mid-off"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length just outside off, guided to deep-backward point's left"
+            }
+          ]
+        },
+        {
+          "over": 1,
+          "deliveries": [
+            {
+              "batter": "SD Hope",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Length on leg, a bit of away swing, worked to mid-on"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Length just outside off, punched to cover"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Heave, under-edge. On the bounce to the keeper. Hope cleared the stumps, saw it was a hard-length ball and decided to spring up and belt it over extra cover. 134ks"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "Picked up and the cheers from the crowd die down. Decent length ball angling in and cramping him up, but Hope's cranked elbows were good enough to swing across the line. Picked off the hip!"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Long-on and fine leg out, so Hope tries to go off side. Misses. Danced down and made room, looked to slap it off a length. The ball swung away and almost clipped off stump"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Lovely cover drive. Makes room and caresses it with full follow-through. Uses the away swing to get more room. Along the ground, between cover point and cover."
+            }
+          ]
+        },
+        {
+          "over": 2,
+          "deliveries": [
+            {
+              "batter": "RL Chase",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Length on leg, defended to the bowler"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "<strong>Run-out chance missed!</strong> Varun should've thrown it to the keeper, but it went to the non-striker's, misdirected too. Chase didn't look at his partner, same from Hope, both were ball-watching. Chase went three-fourth of the way down, which is when the throw came in, and jogged back. Was a full ball outside off that was driven to cover"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Looks to drive on the up through mid-off, inside edge onto thigh. Rolls off side"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Shortish outside off, cut to deep point"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Straight, up and over. Arshdeep overpitches, don't get swing. Small stride forward and an extended drive through the line"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Better than the last one. Cover driven along the ground. Holds his shape again. Got the bat just beyond the perpendicular to check it"
+            }
+          ]
+        },
+        {
+          "over": 3,
+          "deliveries": [
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Makes room late to square drive it past backward point. Good ball, arrowing in and finishing top of off, slow enough off the pitch for Hope to get his hands through"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Axar gives it air and induces a false shot. Looks to go inside out and the fullish ball gets an inside edge onto pad"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Thick outside edge off the back-foot square drive goes to short third. Axar going shortish"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Swept hard, not great timing. Rolls to square leg. Hope making room and getting followed"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Goes back and square drives the shortish ball to point"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "101ks dart on a length, lands on leg and slides down. Hope slides leg side and punches to long-off"
+            }
+          ]
+        },
+        {
+          "over": 4,
+          "deliveries": [
+            {
+              "batter": "SD Hope",
+              "bowler": "JJ Bumrah",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Length in the channel, what else can one expect from him first ball? Driven to cover"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "JJ Bumrah",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Slower one creates the false shot. Chase wanted to slap it off a length as it was wide, but was too early into the shot. Ball rolls to point"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "JJ Bumrah",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Should've been four, neatly timed cover drive but finds the fielder. Short cover parried it to extra cover and the batters took off, no direct hit"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "JJ Bumrah",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Scooped out of sight! Walking scoop at it. Chase crawled across with a lateral stance, bent to his right to get inside the line and help the full ball fine and high. One-bounce four"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "JJ Bumrah",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "<strong>Slower one should do the trick... and Abhishek drops it!</strong> Regulation catch goes down and the crowd is stunned! He juggled it and then tried to snaffle it to the right but the ball went down too quickly. 119ks length ball on off, Chase made room and looked to drive it over cover. Too early into the shot"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "JJ Bumrah",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Lots of slower ones. This is on the fuller side of length, guided to deep point"
+            }
+          ]
+        },
+        {
+          "over": 5,
+          "deliveries": [
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Low full toss punished. Hope makes room and slaps it along the ground through point"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Makes room and drives it on top of the bounce to cover"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Better ball. Top of middle, from a length, Hope looks to drive through cover. Ricochets off the pad to point"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "AR Patel",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Goes to the edge of the crease before coming back, defends it on the last second"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "AR Patel",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Helped over. Risky shot as he pick-up swept the fullish length ball from middle and off. Got on on knee and used his wrists to go behind square"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "AR Patel",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length ball, looks to drive through mid-on, inside edge goes to square leg. Drinks"
+            }
+          ]
+        },
+        {
+          "over": 6,
+          "deliveries": [
+            {
+              "batter": "RL Chase",
+              "bowler": "HH Pandya",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Seamed away to find the outside edge. Good length, top of off, Chase indecisive as he looks to punch to mid-on. Angled bat but it doesn't cost him, ball rolls to deep point"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "HH Pandya",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Looks to slap it through cover, misses. Chase a bit late to try and drive the wobble ball off a length, seamed back in a touch"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "HH Pandya",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Shortish just outside off, 127ks, looked slow. Guided off the back foot to backward point"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length at the stumps, 135ks, slides leg side and punches to cover"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "HH Pandya",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "Clobbered five rows back over cow corner. Fifty up for WI. Chase gets upright to a length ball and gets his body weight into the downswing as he drives across the line"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "HH Pandya",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length just outside off, defended to backward point"
+            }
+          ]
+        },
+        {
+          "over": 7,
+          "deliveries": [
+            {
+              "batter": "RL Chase",
+              "bowler": "AR Patel",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Pre-meditated reverse gets four despite not coming off. A touch short and on off, Chase was on one knee, with bent elbows and swung fully. Got it off the gloves"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "AR Patel",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Punched off the back foot to long-on"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Backs away and square drives it off a length, from just down leg, to deep point"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Under-edge into the pitch, back to the bowler. 95ks length ball. Hope made room and looked to slap over cover"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Clears the front leg and sweeps the full ball to long-on"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "AR Patel",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "A bit of room, bit more made by Hope. He then slaps it nicely, SKY half-stops it at cover to save at least one more"
+            }
+          ]
+        },
+        {
+          "over": 8,
+          "deliveries": [
+            {
+              "batter": "SD Hope",
+              "bowler": "CV Varun",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Not to start. Just a gentle punch to deep cover. Googly on a length on top of off"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "CV Varun",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Appeal for lbw but that hit him outside off. Chase trying to sweep it on top of the bounce, got his front leg well outside off. Ball pops up behind square"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "CV Varun",
+              "non_striker": "SD Hope",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length just outside off, punched to long-on. This, too, spun in"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "CV Varun",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Beats the cut. A bit of room, this one spun away off a length"
+            },
+            {
+              "batter": "SD Hope",
+              "bowler": "CV Varun",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "wickets": [
+                {
+                  "player_out": "SD Hope",
+                  "kind": "bowled"
+                }
+              ],
+              "commentary": "<strong>Beats him and rattles the stumps</strong>. 99ks back of length ball spun back in to beat Hope's indecisive cut. He's not tried to accelerate and ends up with a strike rate under 100"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "CV Varun",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Tucked off the back foot to deep-backward square"
+            }
+          ]
+        },
+        {
+          "over": 9,
+          "deliveries": [
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Hits a good length, 134ks, around off. Punched back to the bowler"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "Muscles it across the line. Not that short a ball, pulled off a length. 134ks, picked up from thigh-high over midwicket"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Pitched up on off, punched to long-on"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "HH Pandya",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "SO Hetmyer",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Slower one very wide of off. Chase made room and overbalanced across trying to slap it while on one leg. Misses"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "HH Pandya",
+              "non_striker": "SO Hetmyer",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Wide and fullish, 121ks, smeared to deep cover"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "HH Pandya",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length on leg, flicked to deep midwicket"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "HH Pandya",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "SO Hetmyer",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Full ball goes wide down leg, past the flick. Samson has to run across while catching"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "HH Pandya",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "SO Hetmyer",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Makes room and Hardik goes wide of off this time. The length ball beats the one-handed cut despite Chase reaching out and losing his bottom hand"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "HH Pandya",
+              "non_striker": "SO Hetmyer",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Makes room and walks back, then he drives the fullish ball outside off to deep cover"
+            }
+          ]
+        },
+        {
+          "over": 10,
+          "deliveries": [
+            {
+              "batter": "RL Chase",
+              "bowler": "CV Varun",
+              "non_striker": "SO Hetmyer",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Spins in from a length outside off, pulled along the ground through midwicket"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "CV Varun",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "<b>Hetty goes boom!</b> That's just a tad short and that's all Hetmyer needs. His eyes light up and he rocks back and swats it over midwicket"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "CV Varun",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "On a length outside off, clipped away through midwicket"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "CV Varun",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Shot!</b> Too short again and with width on offer this time. Hetmyer spanks it away through cover. The off side sweeper had a long way to go and can't stop it in the end"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "CV Varun",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Dropped on a length outside off, Hetmyer again picks up a couple of runs through midwicket"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "CV Varun",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Full outside off, again tapped into the midwicket area and they pick up two more. Easy does it. Seventeen off the over"
+            }
+          ]
+        },
+        {
+          "over": 11,
+          "deliveries": [
+            {
+              "batter": "RL Chase",
+              "bowler": "JJ Bumrah",
+              "non_striker": "SO Hetmyer",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Back of length outside off, veering in on him. Chase backs away and dabs it down to deep third"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "JJ Bumrah",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Length ball on leg, tucked through square leg and it's another easy two. Great running from Hetmyer today, using the gaps so well"
+            },
+            {
+              "batter": "SO Hetmyer",
+              "bowler": "JJ Bumrah",
+              "non_striker": "RL Chase",
+              "review": {
+                "by": "West Indies",
+                "umpire": "CB Gaffaney",
+                "batter": "SO Hetmyer",
+                "decision": "struck down",
+                "type": "wicket"
+              },
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "wickets": [
+                {
+                  "player_out": "SO Hetmyer",
+                  "fielders": [
+                    {
+                      "name": "SV Samson"
+                    }
+                  ],
+                  "kind": "caught"
+                }
+              ],
+              "commentary": "<b>Has he nicked that? Umpire thinks so! Hetmyer reviews immediately.</b> Length ball angled across, Hetmyer has a swipe across the line. <b>And it looks like that's off the thigh pad, and not the bat. Oh no! TThere's a small spike and that's a huge moment! Bumrah has got the big wicket of Shimron Hetmyer</b>. Hetmyer not happy, he thinks there was a gap. Sammy not happy either. But he has to go. Hetmyer shakes his head as he walks off. But for India, cometh the hour, cometh the man."
+            },
+            {
+              "batter": "SE Rutherford",
+              "bowler": "JJ Bumrah",
+              "non_striker": "RL Chase",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length ball on leg, tapped through point and Rutherford is quick to get off the mark"
+            },
+            {
+              "batter": "RL Chase",
+              "bowler": "JJ Bumrah",
+              "non_striker": "SE Rutherford",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "wickets": [
+                {
+                  "player_out": "RL Chase",
+                  "fielders": [
+                    {
+                      "name": "SA Yadav"
+                    }
+                  ],
+                  "kind": "caught"
+                }
+              ],
+              "commentary": "<b>Two in the over! Both set batters gone. Bumrah does it again!</b> This man is different gravy! Bumrah takes the pace off and Chase was early into the shot. Ends up lobbing it to cover and Suryakumar Yadav makes no mistake. he had to move to the left but does well, hopping in front to grab the catch. This could be the over that changes the game"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "JJ Bumrah",
+              "non_striker": "SE Rutherford",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Full around off, 137kph, Powell keeps it out"
+            }
+          ]
+        },
+        {
+          "over": 12,
+          "deliveries": [
+            {
+              "batter": "SE Rutherford",
+              "bowler": "AR Patel",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "<b>Dropped and it goes through for six!</b> Dragged down on off and angled across, Rutherford rocks back and pulls it in front of square. Tilak at deep midwicket runs to his left and jumps to try and grab the catch above head height, but it bursts through his hands"
+            },
+            {
+              "batter": "SE Rutherford",
+              "bowler": "AR Patel",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Steered out through forward point for a couple"
+            },
+            {
+              "batter": "SE Rutherford",
+              "bowler": "AR Patel",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "This one skids through"
+            },
+            {
+              "batter": "SE Rutherford",
+              "bowler": "AR Patel",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Chipped into the square leg region for a single"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "AR Patel",
+              "non_striker": "SE Rutherford",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Blocks this back to the bowler"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "AR Patel",
+              "non_striker": "SE Rutherford",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Full on middle, worked through wide long-on"
+            }
+          ]
+        },
+        {
+          "over": 13,
+          "deliveries": [
+            {
+              "batter": "R Powell",
+              "bowler": "CV Varun",
+              "non_striker": "SE Rutherford",
+              "review": {
+                "by": "India",
+                "umpire": "CB Gaffaney",
+                "batter": "R Powell",
+                "decision": "struck down",
+                "type": "wicket",
+                "umpires_call": true
+              },
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "<b>Huge appeal and the umpire says no. India review now!</b> There's no bat. <b>Umpire's call as it's clipping leg stump!</b> Powell survives! Arm ball outside off beats the inside edge as Powell tries to work it leg side and thuds into the knee roll of the front pad. Very close call"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "CV Varun",
+              "non_striker": "SE Rutherford",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Flicked through midwicket for a single"
+            },
+            {
+              "batter": "SE Rutherford",
+              "bowler": "CV Varun",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "On a length outside off, clipped square on the leg side for a single"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "CV Varun",
+              "non_striker": "SE Rutherford",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Punches this length ball out to deep point"
+            },
+            {
+              "batter": "SE Rutherford",
+              "bowler": "CV Varun",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Very full on middle and leg, clipped through midwicket. They race for two"
+            },
+            {
+              "batter": "SE Rutherford",
+              "bowler": "CV Varun",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length ball outside off, angling in at 95kph, chipped into the vacant midwicket region"
+            }
+          ]
+        },
+        {
+          "over": 14,
+          "deliveries": [
+            {
+              "batter": "SE Rutherford",
+              "bowler": "HH Pandya",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "wickets": [
+                {
+                  "player_out": "SE Rutherford",
+                  "fielders": [
+                    {
+                      "name": "SV Samson"
+                    }
+                  ],
+                  "kind": "caught"
+                }
+              ],
+              "commentary": "<b>Nicked behind and Pandya strikes after the drinks break!</b>. It's the offcutter, angled across. Rutherford wafts at it and gets the outside edge, and Samson does the rest. That's another big, big wicket"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "HH Pandya",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Great ball! 134.3kph length ball outside off just holds its line and beats the outside edge as Holder tentatively pokes at it"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "HH Pandya",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Full outside off and angling in, blocked towards cover"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "HH Pandya",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Full outside off, blocked back towards the bowler"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "HH Pandya",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Full outside off, 130kph, blocked back to Pandya's left"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "HH Pandya",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "<b>Glorious shot to end the over!</b> Pandya may have been eyeing a wicket maiden, but Holder makes up for the dots instead. Casually walks out and lofts this slot ball straight down the ground"
+            }
+          ]
+        },
+        {
+          "over": 15,
+          "deliveries": [
+            {
+              "batter": "R Powell",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Full ball outside off, bunted towards point"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "On a length on middle, blocked back to the bowler"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "<b>Skies it, but it lands safe</b>. Mistimes it as he looks for a big hoick but there's no one in the mid-on region where the ball lands"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "Arshdeep Singh",
+              "extras": {
+                "wides": 5
+              },
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 0,
+                "extras": 5,
+                "total": 5
+              },
+              "commentary": "Very sharp bouncer, but it's even beaten Sanju Samson. Given wide too, to add to the woes. Powell ducked under this bouncer, and that definitely was too short. Samson dived to his left, but couldn't get anything on it"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "<b>Oh, masssive!</b> Cross-seam full delivery and Powell just clears his front leg and whacks this 98m and into the stands over midwicket"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "Arshdeep Singh",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Looks to take it away from Powell's hitting arc, and manages to keep him from reaching it, but it's too wide"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "<b>Second six of the over!</b> Right in the slot and Powell coolly flicks it away over square leg. 69m, into the first tier"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Poor bowling and Powell crashes in. Short and wide, pace on, and Powell just cuts this over the backward point fielder. 24 runs off the over!"
+            }
+          ]
+        },
+        {
+          "over": 16,
+          "deliveries": [
+            {
+              "batter": "JO Holder",
+              "bowler": "CV Varun",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "This one spins in from outside off as Holder has a big swing. Gets an inside edge past the stumps to short fine leg's right"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "CV Varun",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Looks to take Varun on but gets it off the inside half of the bat through square leg"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "CV Varun",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "<b>Massive again!</b> Jason Holder punishes this slot ball with a step-hit over cow corner. You can't bowl there, Varun!"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "CV Varun",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Great stop by Ishan Kishan running to his left from deep point. Holder carves a length ball over backward point, but Kishan prevents the boundary"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "CV Varun",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Clubbed down the ground!</b> Doesn't get a hold of this as well as he'd have liked but hits it hard and straight of long-on. Another slot ball put away"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "CV Varun",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Angles this across the ball. Not given wide. Holder asks the question about a wide, as he leaves, but the umpire is unmoved"
+            }
+          ]
+        },
+        {
+          "over": 17,
+          "deliveries": [
+            {
+              "batter": "R Powell",
+              "bowler": "JJ Bumrah",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Looks for the yorker, Powell manages to dig it out wide of long-on. Could have been two probably, but Holder sends Powell back. Maybe rightly so"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "JJ Bumrah",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Pulled into the gap in front of square leg!</b> Slower bouncer outside off, and for most batters, maybe he'd have beaten him, but Holder is a giant, and he is able to pull it away"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "JJ Bumrah",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Works this down to long-on for a single"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "JJ Bumrah",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Low full toss on off, flicked away through midwicket"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "JJ Bumrah",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Holder takes a step out early and Bumrah aims for the blockhole. It's a low full toss in the end, driven down to long-on"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "JJ Bumrah",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Gets it past the fielder!</b> Bumrah looks for a yorker around middle, doesn't get it full enough. Powell clips it fine on the leg side and Varun at short fine leg doesn't get down quickly enough and West Indies finish the over with a boundary. 12 runs off a Bumrah over, West Indies will take that"
+            }
+          ]
+        },
+        {
+          "over": 18,
+          "deliveries": [
+            {
+              "batter": "JO Holder",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Full and wide, he tries to take it on and skies it off the toe end. But it's too straight of long-off and he gets away with that slight mis-hit"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "<b>Past a diving Samson!</b> Slower ball angled across him. Powell shuffles across and swipes across the line, but it's wide of Samson at full stretch"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "<b>Abhishek drops one again!</b> Powell flicks this off his toes and Abhishek runs in from deep midwicket, but shells it diving forward! That was a rather simple chance"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "Arshdeep Singh",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Angles this across Holder, and that's not given wide. The umpire has a check and ends up calling it wide after a check with the third umpire"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Angles this across him again, Holder tries to hit it but gets an underedge to the keeper"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Low full toss angled across, driven along the ground through cover. They take two"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "Arshdeep Singh",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Nails the wide yorker. Holder can only drill it down to long-off. Excellent death bowling by Arshdeep Singh. 24 off his last over, just five off this one. Some comeback"
+            }
+          ]
+        },
+        {
+          "over": 19,
+          "deliveries": [
+            {
+              "batter": "JO Holder",
+              "bowler": "JJ Bumrah",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "<b>Holder hammers this over midwicket!</b> Bumrah overpitches, and Holder lines him up and sends the ball flying"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "JJ Bumrah",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Now Bumrah hits the block hole. Holder squeezes it out to long-on"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "JJ Bumrah",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Oh, nails the yorker. Powell digs it out towards long-on and they manage to run two. West Indies get to 190"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "JJ Bumrah",
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Finds the gap!</b> This is a low full toss on the stumps, Powell whips it away wide of long-on"
+            },
+            {
+              "batter": "R Powell",
+              "bowler": "JJ Bumrah",
+              "extras": {
+                "legbyes": 1
+              },
+              "non_striker": "JO Holder",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "That's more like it! Yorker and Powell can only hit it into his pads and the ball deflects to the off side"
+            },
+            {
+              "batter": "JO Holder",
+              "bowler": "JJ Bumrah",
+              "non_striker": "R Powell",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Bumrah nails the yorker, Holder can't get it away, hitting it onto his feet. Holder wants to run, but Powell doesn't. And it's a dot to finish. <b>India need 196 to win</b>"
+            }
+          ]
+        }
+      ],
+      "powerplays": [
+        {
+          "from": 0.1,
+          "to": 5.6,
+          "type": "mandatory"
+        }
+      ]
+    },
+    {
+      "team": "India",
+      "overs": [
+        {
+          "over": 0,
+          "deliveries": [
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "AJ Hosein",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Length on leg, worked to the bowler. 95ks"
+            },
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "AJ Hosein",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Gives a bit of room, goes touch too full as well. Abhishek stays leg side of the ball and launches a drive over cover"
+            },
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "AJ Hosein",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Similar ball, Abhishek looked to launch it over long-off. Misses out. That one angled away and that's what did him in"
+            },
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "AJ Hosein",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Flat length ball on leg, flicked to square leg"
+            },
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "AJ Hosein",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Length on off, swerving away, punched to cover"
+            },
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "AJ Hosein",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length just outside off, punched to cover"
+            }
+          ]
+        },
+        {
+          "over": 1,
+          "deliveries": [
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "MW Forde",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Top-edges a pull, gets four anyway. Short ball around belly-height, Abhishek rushed a touch but went through with the shot. Landed in the outfield at midwicket"
+            },
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "MW Forde",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Wide and back of length, beats the cut"
+            },
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "MW Forde",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Fullish ball on off, defended to point"
+            },
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "MW Forde",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Extra bounce catches Abhishek off-guard. Jumped off a length, hit the arm and then the helmet. There'll be a concussion test anyway. Abhishek tried to go over square leg with a slog"
+            },
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "MW Forde",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length on off, flicked to square leg"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "MW Forde",
+              "non_striker": "Abhishek Sharma",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "And gets cut in half. He was outside the crease and looked to flick it off the front foot but the 128ks length ball seamed in sharply and went over the stumps"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "MW Forde",
+              "non_striker": "Abhishek Sharma",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Flicked to deep square leg. Pitched up on leg, easily placed"
+            }
+          ]
+        },
+        {
+          "over": 2,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "AJ Hosein",
+              "non_striker": "Abhishek Sharma",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Backs away and carves through point. Showed all his stumps before the ball was delivered, got a length ball at the stumps and hit it sweetly"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "AJ Hosein",
+              "non_striker": "Abhishek Sharma",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "Change in line and length, Samson pounces. Gets on one knee and sweeps it aerially over backward square"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "AJ Hosein",
+              "non_striker": "Abhishek Sharma",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Flat length ball at the stumps, punched to cover. 96ks"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "AJ Hosein",
+              "non_striker": "Abhishek Sharma",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "Touch short and it's muscled. Samson rocks back and pulls it, from the stumps again, over midwicket"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "AJ Hosein",
+              "non_striker": "Abhishek Sharma",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "A bit of turn away. Landed on off and straightened, the length ball is punched to long-off"
+            },
+            {
+              "batter": "Abhishek Sharma",
+              "bowler": "AJ Hosein",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "wickets": [
+                {
+                  "player_out": "Abhishek Sharma",
+                  "fielders": [
+                    {
+                      "name": "SO Hetmyer"
+                    }
+                  ],
+                  "kind": "caught"
+                }
+              ],
+              "commentary": "<strong>Very high, taken and crowd silenced!</strong> Hosein shushes them literally after Hetmyer took it running in from deep square leg. No room on the 96ks back of length ball on leg, Abhishek was getting down and swiped across the line. Got it off the upper-half of the bat. Abhishek's indifferent tournament continues"
+            }
+          ]
+        },
+        {
+          "over": 3,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "MW Forde",
+              "non_striker": "Ishan Kishan",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length on leg, flicked to deep-backward square"
+            },
+            {
+              "batter": "Ishan Kishan",
+              "bowler": "MW Forde",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length outside off, guided to deep point"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "MW Forde",
+              "non_striker": "Ishan Kishan",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Full outside off, punched to cover"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "MW Forde",
+              "non_striker": "Ishan Kishan",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Goes back in the crease to a fullish ball and punches it to the left of mid-on"
+            },
+            {
+              "batter": "Ishan Kishan",
+              "bowler": "MW Forde",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Whipped second ball Kishan faces. Pitched up on off, bat-face had closed early and got it over midwicket"
+            },
+            {
+              "batter": "Ishan Kishan",
+              "bowler": "MW Forde",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Inside edged just behind square. Kishan looks to drive through cover, reached out too far at the fullish ball"
+            }
+          ]
+        },
+        {
+          "over": 4,
+          "deliveries": [
+            {
+              "batter": "Ishan Kishan",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Holder brings height-based bounce straight away. Gets it to rise off a length, seam-up ball lands just outside off and rises around chest-height to beat the cut"
+            },
+            {
+              "batter": "Ishan Kishan",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Shades of Rishabh Pant in that cover drive. Bat-face opened but he followed through with the front-foot hit to a fullish ball and cleared the infield"
+            },
+            {
+              "batter": "Ishan Kishan",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "wickets": [
+                {
+                  "player_out": "Ishan Kishan",
+                  "fielders": [
+                    {
+                      "name": "SO Hetmyer"
+                    }
+                  ],
+                  "kind": "caught"
+                }
+              ],
+              "commentary": "Kishan is ready for the bounce.... and holes out to deep square leg! Silence returns, Holder roars, Forde is pumped too! Not that short a ball, came around waist-height, pulled to Hetmyer, who ensured he was far enough from the boundary while taking it. Replay shows Kishan was into the shot too early, ball hit low on the bat"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Looks to tuck it off the thigh, misses. Good length again"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "JO Holder",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Length ball down leg, goes past the flick"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "JO Holder",
+              "extras": {
+                "legbyes": 2
+              },
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 2,
+                "total": 2
+              },
+              "commentary": "Fullish length ball on leg, beats the flick and goes to deep fine leg"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "A bit away movement off a length. Length ball outside off, guided to deep-backward point's right"
+            }
+          ]
+        },
+        {
+          "over": 5,
+          "deliveries": [
+            {
+              "batter": "SA Yadav",
+              "bowler": "MW Forde",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Down leg, soft appeal. Not given. Length ball goes past the flick"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "MW Forde",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length on leg, flicked to deep square leg"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "MW Forde",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Slower one, Samson throws his hands at it. Edged four over third brings up India's fifty. Pitched up outside off, back of hand slower ball, Samson's stride was straight and reached out with his hands to try and go over cover"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "MW Forde",
+              "extras": {
+                "legbyes": 1
+              },
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Length on leg, beats the flick and goes behind square leg"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "MW Forde",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Length on leg, bat's in front of the body as he defends off the sticker to the bowler's right"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "MW Forde",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length on off, flicked off the top of the stumps to midwicket"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "MW Forde",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Nearly a chop-on. Back of length outside off, Samson looks to slap it through point. Gets it behind the stumps. Drinks"
+            }
+          ]
+        },
+        {
+          "over": 6,
+          "deliveries": [
+            {
+              "batter": "SA Yadav",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length on leg, flicked to deep backward square"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "JO Holder",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Makes room and belts it wide of mid-off. Shortish ball just outside off, Samson gets on his tip-toe, swirls his front leg just a touch while flat-bating it along the ground"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "JO Holder",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Hard length at the stumps, flicked to deep midwicket"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "That's old-school SKY, shows how good the pitch is bounce-wise. Gets across and <em>Suplas</em> the length ball from top-of-pad height over long leg. Bat going low to high as ball made connection"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Pitched up on leg, worked to long-on"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "JO Holder",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Shortish ball on off has been check-pulled to deep square leg. Excellent over for India"
+            }
+          ]
+        },
+        {
+          "over": 7,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "G Motie",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Short and wide, slapped wide of long-off. Sat up nicely, carved it with a flat-bat"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "G Motie",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length on leg, punched to long-off"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "G Motie",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Length on off, square driven to point"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "G Motie",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Looped this time. Pitched up on leg, worked to long-on"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "G Motie",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length on off, straightened a touch, bunted to long-on"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "G Motie",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Sweeps, beats short fine leg! Too full and on the pads from Motie, SKY got on one knee quickly, got real low and hit it along the ground"
+            }
+          ]
+        },
+        {
+          "over": 8,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "R Shepherd",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Goes back in the crease early and cuffs it to long-off. Back of length ball outside off, Samson hitting with a horizontal bat"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "R Shepherd",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Pitched up on middle, driven to long-on"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "R Shepherd",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "Legcutter has been met with! Samson saw it early, made room and slashed it over extra cover. Did well to generate power. 87 metres"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "R Shepherd",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Misfield at long-on and massive cheers. Overpitched at the stumps, Samson punched it off the middle. Motie ran to the left and slid through. Wonder if that's due to dew"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "R Shepherd",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Appeal for caught behind, no interest. Scramle-seam ball decked away sharply, that's why Samson missed it. He wanted to tuck it through mid-on, poked air eventually"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "R Shepherd",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Pitched up on middle, punched to the bowler's boot. Ricochets to the right. <strong>Fifty partership up</strong>"
+            }
+          ]
+        },
+        {
+          "over": 9,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "G Motie",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Motie, from around, shoots one low. Back of length on off, punched to deep point. Bat came down a touch late"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "G Motie",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "<strong>Sharp chance goes down</strong>. Motie, in follow-through, moved to the right and got both hands on it. Hit the flesh of the right palm and popped to the right. Was a full ball that SKY drove straight"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "G Motie",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Low full toss on leg, flicked to long-on"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "G Motie",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Slapped through point and <strong>Samson reaches his first fifty in the comp</strong>. Big occasion to bring it too. Raises his bat. Motie offering room, Samson widening his stance and getting low to nail it"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "G Motie",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "A bit of turn away. Length ball on off, defended to the bowler's left"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "G Motie",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Length on leg, worked to long-on"
+            }
+          ]
+        },
+        {
+          "over": 10,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "S Joseph",
+              "non_striker": "SA Yadav",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Full around off, clipped away through square leg"
+            },
+            {
+              "batter": "SA Yadav",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "wickets": [
+                {
+                  "player_out": "SA Yadav",
+                  "fielders": [
+                    {
+                      "name": "SE Rutherford"
+                    }
+                  ],
+                  "kind": "caught"
+                }
+              ],
+              "commentary": "<b>Sliced to deep point. Shamar Joseph breaks through! Excellent catch from Rutherford</b>. SKY backs away to this very full delivery outside off, and looks to go inside out. Ends up slicing it and Rutherford takes a good low catch running in from the boundary rope. India lose their captain. And the win predictor puts WI ahead again, marginally"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Full and angled across him, driven out in front of point and Varma is off the mark"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "S Joseph",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Full on off, Samson takes an early step back and punches it to mid-off"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "S Joseph",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Full on middle and off, 144.3kph, driven straight into the non-striker's end"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "S Joseph",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Fired in full on off, Samson works it to long-on. A wicket and just three runs. Great first over for Shamar Joseph"
+            }
+          ]
+        },
+        {
+          "over": 11,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "RL Chase",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "On a length around leg, clipped away in front of square"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "RL Chase",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Flat and quick at 94kph outside off, punched to cover"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "RL Chase",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "On a length outside off, punched back to the bowler"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "RL Chase",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Clipped away through midwicket and they just get one run"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "RL Chase",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "On a length, not short enough to be dispatched, but Samson goes on the back foot and swings it away anyway. Goes to deep midwicket on the bounce"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "RL Chase",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Arm ball around off cramps Tilak for room. Blocked back towards the bowler. Another quiet over from West Indies"
+            }
+          ]
+        },
+        {
+          "over": 12,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "S Joseph",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Battered down the ground!</b> Samson in stunning form. In the slot outside off, and Samson creams it straight down the ground along the carpet"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "S Joseph",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Short and wide, cut away to deep cover on the bounce"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Stunning shot!</b> Full ball angled across him, Tilak meets it with a punchy lofted drive over mid-off. Holds the pose as the ball bounces just short of the boundary"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Tilak shuffles across a little, Shamar tries to follow him but ends up going short and wide. Tilak crouches a little and crunches it away through point"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Misfield gets the crowd going!</b> Attempts a yorker that turns into a low full toss, Tilak clips it away through square leg. Should have been a regulation stop for Rutherford, but he somehow lets it slip out from under him"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Looks for the wide yorker, Tilak leaves, expecting a wide to be given, but he manages to keep it just inside the wide line"
+            }
+          ]
+        },
+        {
+          "over": 13,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "RL Chase",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Bowls a yorker length outside off, but Samson is on a roll here today. Beautifully opens the face and squeezes it out through point. Lovely batting"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "RL Chase",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "On a length on off, punched down to long-off"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "RL Chase",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Works this through midwicket for a single"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "RL Chase",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "On a length on leg, knocks it down to long-on"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "RL Chase",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "ON a length outside off, punched out through point. Great running as they make two"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "RL Chase",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "<b>Gets this over long-on!</b> Tilak backs away and as Chase tosses up a slot ball, he frees his arms and tonks this down the ground"
+            }
+          ]
+        },
+        {
+          "over": 14,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "JO Holder",
+              "non_striker": "Tilak Varma",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Low full toss outside off, driven straight of long-off"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Full outside off, he thrashes a drive to point"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Crunched away over cover!</b> Too full, too wide, and Tilak with a fast bat swing goes inside out between cover and point"
+            },
+            {
+              "batter": "Tilak Varma",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "wickets": [
+                {
+                  "player_out": "Tilak Varma",
+                  "fielders": [
+                    {
+                      "name": "SO Hetmyer"
+                    }
+                  ],
+                  "kind": "caught"
+                }
+              ],
+              "commentary": "<b>Hettie takes a good catch at mid-off, and is there another twist?</b> Slower ball on middle, Tilak tries to back away and go inside out, but can't get enough height on that. Hetmyer is backtracking and grabs it above his head. A good cameo from Tilak comes to an end"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "On a length outside off, punched away to deep point"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "JO Holder",
+              "non_striker": "HH Pandya",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<strong>Cracked away through point!</strong> Length ball outside off, Samson waits on it and uses his fast hands to send it flying square on the off side"
+            }
+          ]
+        },
+        {
+          "over": 15,
+          "deliveries": [
+            {
+              "batter": "HH Pandya",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Nicely done by Pandya. Joseph looked for the yorker around leg, but it strays too much leg side. Pandya just glances it past the short fine leg fielder to his left. Starts the over well"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 2,
+                "extras": 0,
+                "total": 2
+              },
+              "commentary": "Now he looks to go for the wide yorker. Hardik tries to swing it away and gets an inside edge into the vacant square leg region. They pick up two"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "S Joseph",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Short ball goes down leg. Called wide"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Full outside off, driven out to long-off"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "S Joseph",
+              "non_striker": "HH Pandya",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Yorker outside off, Samson squeezes it through mid-on"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Full toss on the pads, whipped away to deep square leg"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "S Joseph",
+              "non_striker": "HH Pandya",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Oh, Samson'll take those!</b> Low full toss straying down leg, Samson just needed to get a touch on that and he does, goes past the keeper and it races away"
+            }
+          ]
+        },
+        {
+          "over": 16,
+          "deliveries": [
+            {
+              "batter": "HH Pandya",
+              "bowler": "R Shepherd",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Starts with a wide as he tries to keep it away from Pandya's arc"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "R Shepherd",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "<b>He's put it down! That was a sitter!</b> Pandya looks to slap away a length ball outside off and hits it to Holder's left at cover. Holder tries to grab it away from his body but it pops out. He tries to juggle but can't get his hands around the ball. Oh, what a big moment this can prove to be!"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "R Shepherd",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Looks for a wide yorker, squeezed out in front of point"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "R Shepherd",
+              "non_striker": "HH Pandya",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Very full on leg, flicked away to deep square leg"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "R Shepherd",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Looks for a cutter into the ground, but that one veers away too much. Another wide"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "R Shepherd",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Good bowling from Shepherd. In the blockhole around off and Pandya manages to squeeze it behind square on the off side"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "R Shepherd",
+              "extras": {
+                "wides": 1
+              },
+              "non_striker": "HH Pandya",
+              "runs": {
+                "batter": 0,
+                "extras": 1,
+                "total": 1
+              },
+              "commentary": "Looks for a wide yorker, but goes beyond the wide line"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "R Shepherd",
+              "non_striker": "HH Pandya",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Nails the wide yorker, but Pandya reaches out with an open blade to steer it to deep third"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "R Shepherd",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Oh, stunning from Pandya</b>. Shepherd again goes for the wide yorker, but Pandya was expecting it. Reaches out with an open face and launches this over cover. A couple of bounces and four. He nearly swung himself off his feet in the follow through"
+            }
+          ]
+        },
+        {
+          "over": 17,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "JO Holder",
+              "non_striker": "HH Pandya",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Low yorker on the base of off stump, Samson works it down to long-on"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Yorker outside off squeezes under Pandya's bat and through to the keeper"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Very full around middle and leg, clipped away to deep square leg"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "JO Holder",
+              "non_striker": "HH Pandya",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Length ball outside off, he stays still and crunches it away through point! That's the highest score by an Indian batter in a T20 World Cup chase! Goes past Kohli's 82 not outs against Australia and Pakistan"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "JO Holder",
+              "non_striker": "HH Pandya",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Eased to long-on"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "JO Holder",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 1,
+                "extras": 0,
+                "total": 1
+              },
+              "commentary": "Low full toss, flicked out to deep midwicket"
+            }
+          ]
+        },
+        {
+          "over": 18,
+          "deliveries": [
+            {
+              "batter": "HH Pandya",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Yorker, Hardik jams his bat down and some how squeezes it past leg stump"
+            },
+            {
+              "batter": "HH Pandya",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "wickets": [
+                {
+                  "player_out": "HH Pandya",
+                  "fielders": [
+                    {
+                      "name": "JO Holder"
+                    }
+                  ],
+                  "kind": "caught"
+                }
+              ],
+              "commentary": "<b>Chipped to extra cover!</b> Shamar lets out a roar of celebration, but is it too little too late? Goes for a yorker but it's a very low full toss, Pandya tries to squeeze it out with an open face, but slices it into the air and this time Holder holds on"
+            },
+            {
+              "batter": "S Dube",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "Joseph again can't nail the yorker and Dube puts away this low full toss. Whips it away through midwicket and finds the gap. The crowd immediately finds its voice again"
+            },
+            {
+              "batter": "S Dube",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 0,
+                "total": 0
+              },
+              "commentary": "Squeezed to backward point. Opens the face to a very full ball"
+            },
+            {
+              "batter": "S Dube",
+              "bowler": "S Joseph",
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>This time he finds the gap. That should be that, surely?</b> Joseph again misses the yorker and Dube opens the face and pings this full toss away between backward point and short third"
+            },
+            {
+              "batter": "S Dube",
+              "bowler": "S Joseph",
+              "extras": {
+                "legbyes": 2
+              },
+              "non_striker": "SV Samson",
+              "runs": {
+                "batter": 0,
+                "extras": 2,
+                "total": 2
+              },
+              "commentary": "Looks to swing away this yorker, it bobs up into the midwicket area off his pads and they do so well to run two"
+            }
+          ]
+        },
+        {
+          "over": 19,
+          "deliveries": [
+            {
+              "batter": "SV Samson",
+              "bowler": "R Shepherd",
+              "non_striker": "S Dube",
+              "runs": {
+                "batter": 6,
+                "extras": 0,
+                "total": 6
+              },
+              "commentary": "<b>Heaved over square leg and <b>scores are level!</b> Attempted yorker turns into a slot ball and he flicks it high and handsome square on the leg side"
+            },
+            {
+              "batter": "SV Samson",
+              "bowler": "R Shepherd",
+              "non_striker": "S Dube",
+              "runs": {
+                "batter": 4,
+                "extras": 0,
+                "total": 4
+              },
+              "commentary": "<b>Clears mid-on, and Samson has won this for India!</b> In the slot and Samson chips it over a leaping mid-on fielder. <b>India are into the semi-finals, West Indies' campaign comes to an end</b>. Samson gets on his knees, takes off his helmet and says a prayer. What a knock, and what a win for India"
+            }
+          ]
+        }
+      ],
+      "powerplays": [
+        {
+          "from": 0.1,
+          "to": 5.7,
+          "type": "mandatory"
+        }
+      ],
+      "target": {
+        "overs": 20,
+        "runs": 196
+      }
+    }
+  ]
+}
