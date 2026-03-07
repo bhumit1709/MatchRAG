@@ -186,6 +186,212 @@ body {
   border-color: var(--border-accent);
 }
 
+.new-chat-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255, 153, 51, 0.08);
+  border: 1px solid var(--border-accent);
+  border-radius: 99px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+
+.new-chat-btn:hover {
+  background: rgba(255, 153, 51, 0.18);
+  color: var(--accent-saffron);
+  border-color: var(--accent-saffron);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(255, 153, 51, 0.2);
+}
+
+.new-chat-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Pipeline Inspector ───────────────────────────── */
+.inspector {
+  margin: -8px 0 0 52px;
+  /* align with message body, reduce gap */
+  max-width: 650px;
+}
+
+.inspector-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.inspector-toggle:hover {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-subtle);
+}
+
+.inspector-icon {
+  font-size: 12px;
+}
+
+.inspector-chevron {
+  font-size: 10px;
+  opacity: 0.6;
+  margin-left: auto;
+}
+
+.inspector-body {
+  margin-top: 6px;
+  padding: 12px 14px;
+  background: rgba(10, 12, 25, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.2s ease;
+}
+
+.inspector-section {
+  margin-bottom: 10px;
+}
+
+.inspector-section:last-child {
+  margin-bottom: 0;
+}
+
+.inspector-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.inspector-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.inspector-badge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.inspector-badge.rewrite {
+  background: rgba(255, 153, 51, 0.15);
+  color: var(--accent-saffron);
+  border: 1px solid rgba(255, 153, 51, 0.3);
+}
+
+.inspector-badge.standalone {
+  background: rgba(56, 189, 86, 0.12);
+  color: var(--accent-green);
+  border: 1px solid rgba(56, 189, 86, 0.25);
+}
+
+.inspector-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 6px;
+  font-size: 11px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.inspector-table th {
+  text-align: left;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-dim);
+  padding: 4px 8px 4px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.inspector-table td {
+  padding: 4px 8px 4px 0;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.inspector-table tr:last-child td {
+  border-bottom: none;
+}
+
+.inspector-event {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+}
+
+.ev-wicket {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.ev-six {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+}
+
+.ev-four {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+.ev-dot {
+  background: rgba(156, 163, 175, 0.12);
+  color: #9ca3af;
+}
+
+.ev-single {
+  background: rgba(156, 163, 175, 0.08);
+  color: #9ca3af;
+}
+
+.ev-run {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ── Chat area ────────────────────────────────────── */
 .chat-area {
   position: relative;

@@ -197,7 +197,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length outside off. A bit of shape away and Markram opens his bat face to dab it down to deep backward point"
             },
             {
               "batter": "AK Markram",
@@ -207,7 +208,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "shortish outside off. Kishan hangs back and cuts it straight to backward point"
             },
             {
               "batter": "AK Markram",
@@ -217,7 +219,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length outside off and this hoops back in sharply. de Kock plays it late and runs it down to short third"
             },
             {
               "batter": "Q de Kock",
@@ -227,7 +230,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "pushed in on a length on middle and off. Kishan gets half forward and defends"
             },
             {
               "batter": "Q de Kock",
@@ -243,7 +247,8 @@
                   "player_out": "Q de Kock",
                   "kind": "bowled"
                 }
-              ]
+              ],
+              "commentary": "another in-coming ball, on a back of a length and cramping de Kock on off stump. Prodded back to the bowler"
             },
             {
               "batter": "RD Rickelton",
@@ -253,7 +258,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>just short!</strong> Flighted up a touch on a fullish length on middle and off. Kishan tries to go downtown and nearly picks out mid on"
             }
           ]
         },
@@ -268,7 +274,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "full outside off and leaving the batter late. de Kock throws his hands at it and slices it uppishly through cover point for a single"
             },
             {
               "batter": "RD Rickelton",
@@ -278,7 +285,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>nicked and gone! Tilak charges, and now he has to charge back to the shed! But hang on, Tilak has reviewed this!</strong> Length ball in the fifth stump channel. Tilak hares down and then swishes at it with all his might. There seemed to be a noise in real time. SA went up instantly, but Tilak clearly thinks there is no bat involved. Well, he is wrong. <b>Because there is a huge spike when the ball is next to the bat. Tilak has to go, and he burns a review</b> along the way too!"
             },
             {
               "batter": "AK Markram",
@@ -288,7 +296,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length, honing into off stump. Stops a little in the surface and Markram checks his drive to find mid on"
             },
             {
               "batter": "AK Markram",
@@ -309,7 +318,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "<strong>off the mark in pristine fashion!</strong> Length ball on leg stump. SKY gets a half stride in, snaps his wrists into action and clips it beautifully through the vacant mid wicket region!"
             },
             {
               "batter": "D Brevis",
@@ -319,7 +329,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>oh!</strong> Back of a length just outside off. Markram has a stab at it and squirts it off the inside edge towards long leg. Good work on the fence by Rinku to save three"
             },
             {
               "batter": "RD Rickelton",
@@ -329,7 +340,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "back of a length on leg stump. SKY waits in his crease and taps it to mid wicket, who was moved into position after the previous ball"
             }
           ]
         },
@@ -344,7 +356,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "slanted across on a length outside off. Abhishek tries to smash it into the nearby river but only connects with fresh air"
             },
             {
               "batter": "D Brevis",
@@ -354,7 +367,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length just outside off. Rickelton hops up onto his toes and pushes it to mid off to open his account"
             },
             {
               "batter": "RD Rickelton",
@@ -364,7 +378,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>another swish and miss!</strong> Hard length on middle and leg. Abhishek steps out further to the leg side, tries to force it through the off side but makes no contact"
             },
             {
               "batter": "RD Rickelton",
@@ -374,7 +389,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "length just outside off. Markram presses half forward before tapping it towards extra cover"
             },
             {
               "batter": "RD Rickelton",
@@ -384,7 +400,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "off-pace on a back of a length outside off. Abhishek has an ungainly waft at it and misses the ball by a fair distance. That did not bounce a great deal either"
             },
             {
               "batter": "RD Rickelton",
@@ -405,7 +422,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "<strong>smart, smart batting!</strong> Banged in short outside off and Abhishek reads it very early. He arches his back, creates room and upper-cuts it over the keeper!"
             }
           ]
         },
@@ -420,7 +438,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "hard length, honing into middle and off. SKY presses half forward and taps it back to the bowler"
             },
             {
               "batter": "DA Miller",
@@ -430,7 +449,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length on middle and leg. Brevis waits for it before punching it towards mid on"
             },
             {
               "batter": "DA Miller",
@@ -440,7 +460,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "off-pace on a fullish length outside off. SKY does not pick it initially but does so just in time to check it and prod it back to the bowler"
             },
             {
               "batter": "DA Miller",
@@ -450,7 +471,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "slower ball on a full length on leg stump. Rickelton lets the ball come to him before flicking it to mid on"
             },
             {
               "batter": "DA Miller",
@@ -460,7 +482,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "another slower ball, bowled full outside off. SKY pushes it to mid off"
             },
             {
               "batter": "DA Miller",
@@ -470,7 +493,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length on leg stump. Rickelton gets up on his toes and turns it towards mid wicket"
             }
           ]
         },
@@ -485,7 +509,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "fired in on a fullish length on the pads. Brevis works it into the open spaces in the square leg region and gets off strike"
             },
             {
               "batter": "DA Miller",
@@ -495,7 +520,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "shortish on middle and leg and this skids through. Abhishek looks to help it over short fine leg and gets tagged in the midriff for his troubles"
             },
             {
               "batter": "DA Miller",
@@ -505,7 +531,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "fizzed through on a length outside off. Straightens off the pitch and Miller, fishing at it, is beaten on the outside"
             },
             {
               "batter": "DA Miller",
@@ -518,7 +545,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length outside off. Abhishek charges down and whooshes wildly at it. Misses it altogether"
             },
             {
               "batter": "DA Miller",
@@ -528,7 +556,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "much fuller outside off, meaning Miller can get close to it. Opens his bat face slightly and drives it through point for a couple of runs"
             },
             {
               "batter": "DA Miller",
@@ -538,7 +567,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>oh my - this has gone way up, and nearly a collision, but Bosch ends up with the ball!</strong> Slower ball does it for Abhishek tonight. On a fullish length on off. Abhishek too early into the lofted shot. The knuckle-ball holds up and then touches the moon before coming down. Bosch, running into the wide mid on region from mid wicket, and Maharaj, running from mid wicket, nearly get into a tangle but in the end, Bosch comes up with the catch, holding it close to his chest as he tumbles to the ground. Stunned silence in Ahmedabad!"
             },
             {
               "batter": "DA Miller",
@@ -548,7 +578,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>streaky but SA will take that! Of course they will!</strong> Another revving delivery, on a fullish length on off. Nips away and Miller, stabbing at it, gets a thick enough outside edge to beat slip to his left!"
             }
           ]
         },
@@ -563,7 +594,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "shortish outside off. Brevis hops up onto his toes and jabs it towards deep backward point"
             },
             {
               "batter": "D Brevis",
@@ -573,7 +605,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "hard length just outside off. Sundar gets up on his toes and stabs it towards extra cover"
             },
             {
               "batter": "D Brevis",
@@ -583,7 +616,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "angled in on a length on off. Miller gets a half stride in and pokes it towards mid wicket"
             },
             {
               "batter": "DA Miller",
@@ -593,7 +627,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "length ball pushed across the batter outside off. Sundar walks across, trying to whip it behind square and misses. Pinged on the pad but the impact was well outside the line"
             },
             {
               "batter": "D Brevis",
@@ -603,7 +638,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>through the gap!</strong> Marginally short just outside off. Miller stands up tall and uses his bottom hand to tug this between mid wicket and mid on!"
             },
             {
               "batter": "DA Miller",
@@ -613,7 +649,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "sharp bumper just outside off and this sails through. Sundar tries to upper-cut it, like Abhishek earlier in the evening, but is beaten for pace"
             }
           ]
         },
@@ -628,7 +665,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>dragged down and punished!</strong> Sits up really nicely, especially on this slowish surface. Brevis rocks back and thunders it to extra cover's left!"
             },
             {
               "batter": "DA Miller",
@@ -638,7 +676,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "on a length just outside off. SKY gets down on one knee and sweeps it towards deep backward square leg"
             },
             {
               "batter": "DA Miller",
@@ -648,7 +687,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "length just outside off. Brevis goes back and plays it towards the bowler"
             },
             {
               "batter": "D Brevis",
@@ -658,7 +698,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length on middle and leg. Sundar opts to stay back and tugs it towards deep mid wicket"
             },
             {
               "batter": "D Brevis",
@@ -668,7 +709,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on middle and leg. Brevis hangs back and stabs it towards deep mid wicket"
             },
             {
               "batter": "DA Miller",
@@ -678,7 +720,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "pushed in full on middle and leg. SKY tucks it off his pads towards deep mid wicket"
             }
           ]
         },
@@ -693,7 +736,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length on the stumps. Brevis hangs back and prods it down to long on"
             },
             {
               "batter": "DA Miller",
@@ -703,7 +747,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "back of a length on middle and leg. SKY presses half forward and knocks it to long on"
             },
             {
               "batter": "DA Miller",
@@ -713,7 +758,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on middle and leg. Seams away and that squares up Miller, who plonks it off the leading edge towards extra cover"
             },
             {
               "batter": "D Brevis",
@@ -723,7 +769,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "<strong>feathered through, and Bosch has a wicket too!</strong> Back of a length outside off. Sundar's front foot goes to the leg side, and the bat goes chasing after the ball, a fair distance away from the body. All he musters is a healthy nick and de Kock gobbles it up with minimal fuss. India in deep trouble now!"
             },
             {
               "batter": "D Brevis",
@@ -733,7 +780,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "back of a length on off. Miller hops up onto his toes and knocks it to long off"
             },
             {
               "batter": "D Brevis",
@@ -743,7 +791,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "short and wide outside off. Dube reaches out for it and chops it towards deep point"
             }
           ]
         },
@@ -758,7 +807,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "short outside off. Miller goes back and scuffs it towards extra cover"
             },
             {
               "batter": "D Brevis",
@@ -768,7 +818,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "length ball on the pads. Dube tucks it towards deep mid wicket"
             },
             {
               "batter": "DA Miller",
@@ -778,7 +829,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>oh my - that is enormous!</strong> A little slower and floatier, and in the slot on leg stump. Miller goes through the line and launches it over long on. 95m six!"
             },
             {
               "batter": "DA Miller",
@@ -788,7 +840,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "on the shorter side, outside off. SKY dabs it down to short third. Maharaj goes down in instalments, with Rickelton following it up with a slip. Run conceded"
             },
             {
               "batter": "D Brevis",
@@ -798,7 +851,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "darted in on a length on off. Miller gets forward and pushes it towards long on"
             },
             {
               "batter": "D Brevis",
@@ -811,7 +865,8 @@
                 "batter": 1,
                 "extras": 1,
                 "total": 2
-              }
+              },
+              "commentary": "full just outside off. Dube winds up and shanks it into the turf, with the ball bouncing up over the bowler"
             },
             {
               "batter": "DA Miller",
@@ -821,7 +876,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "<strong>this is a terrific shot too!</strong> Shortish and angling into leg stump. Brevis creates his own width, hops back and scythes it just behind point!"
             }
           ]
         },
@@ -836,7 +892,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "hard length on off. Miller goes back and knocks it to long on"
             },
             {
               "batter": "D Brevis",
@@ -846,7 +903,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>oh dear, what have you done, Suryakumar Yadav?!</strong> SKY throws his head back in disappointment. SA could not care one bit. Bosch could not care one bit. This is a length ball well down leg. There to be tonked but all SKY does is ping it off the toe-end straight to Brevis at mid wicket. Bosch has his arms up in celebration, and the India captain will not have a part to play in this run-chase anymore!"
             },
             {
               "batter": "D Brevis",
@@ -859,7 +917,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "hard length on middle and leg, and this skids onto Brevis. He hurriedly stabs it towards long on and has to shelve the ideas of a second run due to Rinku's sharpness"
             },
             {
               "batter": "D Brevis",
@@ -869,7 +928,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "back of a length just outside off. Hardik gets up on his toes and blocks"
             },
             {
               "batter": "D Brevis",
@@ -879,7 +939,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "back of a length on middle and leg. No room to work with for Miller and he plays it back to Hardik"
             },
             {
               "batter": "D Brevis",
@@ -892,7 +953,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length delivery drifting down leg. Hardik is late on the flick and the ball passes the pad too. Called a wide"
             },
             {
               "batter": "D Brevis",
@@ -902,7 +964,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "back of a length on leg stump. Miller turns it towards deep mid wicket. Thinks about two initially but decides against it"
             },
             {
               "batter": "D Brevis",
@@ -912,7 +975,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on the stumps. Hardik gets on top of the bounce and punches it past mid wicket. Off the mark with a brace"
             }
           ]
         },
@@ -927,7 +991,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "slower ball hung up full and wide. Brevis throws his hands at it and squirts it off the inside edge towards short fine leg"
             },
             {
               "batter": "DA Miller",
@@ -940,7 +1005,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Hardik lands his first punch!</strong> Not the most convincing he has ever landed, though. On a fullish length outside off. A bit of a slice but it has enough legs to clear long off, despite Stubbs hurling himself to his left!"
             },
             {
               "batter": "DA Miller",
@@ -950,7 +1016,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "low full toss hugging the tramlines. Brevis has a waft at it and shanks it towards extra cover"
             },
             {
               "batter": "DA Miller",
@@ -960,7 +1027,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on middle and off. Punched to long off"
             },
             {
               "batter": "D Brevis",
@@ -973,7 +1041,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "tries to hide it outside off again but this is far too wide. Left alone and called a wide"
             },
             {
               "batter": "DA Miller",
@@ -983,7 +1052,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "short and wide outside off. Dube fetches it and slaps it down the ground to long off"
             },
             {
               "batter": "D Brevis",
@@ -996,7 +1066,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "full and wide again (surprise, surprise). Brevis does well to reach out and clinks it just over extra cover for a couple of runs"
             },
             {
               "batter": "D Brevis",
@@ -1009,7 +1080,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "shortish again and sneaking down leg. Hardik swings and misses, and the umpire signals for a wide"
             },
             {
               "batter": "D Brevis",
@@ -1019,7 +1091,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>very full outside off, and Brevis has sent this hurtling to the fence!</strong> Amazing wrist-work on this. Brevis sits deep in his crease and then shovels it back past the bowler!"
             }
           ]
         },
@@ -1034,7 +1107,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "shortish and angling across outside off. Brevis reaches out and cuts it towards deep point"
             },
             {
               "batter": "D Brevis",
@@ -1055,7 +1129,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "dug into the track outside off. Dube goes for broke but chunks it off the bottom half of the bat towards long on"
             },
             {
               "batter": "T Stubbs",
@@ -1068,7 +1143,8 @@
                 "batter": 1,
                 "extras": 1,
                 "total": 2
-              }
+              },
+              "commentary": "speared a mile outside off. Miller shoulders arms and the umpire has no qualms in calling it a wide"
             },
             {
               "batter": "DA Miller",
@@ -1078,7 +1154,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "back of a length outside off. Hardik uses the pace and runs it down to deep third"
             },
             {
               "batter": "DA Miller",
@@ -1088,7 +1165,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>four more!</strong> Not the most athletic of efforts at extra cover. Short outside off. Miller slaps it and gets it to the fielder's left, who ends up diving over it eventually. SKY the fielder!"
             },
             {
               "batter": "T Stubbs",
@@ -1098,7 +1176,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "slower ball on a back of a length outside off. Dube winds up but powers it straight to mid off"
             },
             {
               "batter": "DA Miller",
@@ -1108,7 +1187,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "shortish on off. Miller opens up his stance and hacks it to long on"
             }
           ]
         },
@@ -1123,7 +1203,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>going, going and gone! Just!</strong> Brevis' heart-rate would have gone through the roof there. Slower ball bowled full outside off. Brevis cloths it off the toe-end, and slices across it too. But still manages to clear long off!"
             },
             {
               "batter": "T Stubbs",
@@ -1133,7 +1214,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "bashed into the track outside off. Dube swings for the hills but shanks it badly towards long on"
             },
             {
               "batter": "DA Miller",
@@ -1143,7 +1225,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>another miscue, and this time, Brevis bites the dust! Dube answers India's prayers, and that is a huge wicket!</strong> Banged in short and wide. Brevis has a swipe across the line but this shot has led to his undoing so many times. Pings it straight up and Abhishek makes no mistake at deep mid wicket. Dube is pumped. The crowd are thrilled, and Brevis is dejected!"
             },
             {
               "batter": "T Stubbs",
@@ -1153,7 +1236,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "slower ball on a back of a length on off. Hardik sits deep in his crease before tugging it towards deep mid wicket"
             },
             {
               "batter": "DA Miller",
@@ -1163,7 +1247,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on off. Stubbs presses half forward and pushes it to long on. And now Dube has overstepped too. Oh dear!"
             },
             {
               "batter": "T Stubbs",
@@ -1173,7 +1258,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "banged in short outside off. Barely gets up and Dube hacks it down the ground to long on"
             }
           ]
         },
@@ -1188,7 +1274,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on middle and off. Miller goes back and turns it into the mid wicket region"
             },
             {
               "batter": "DA Miller",
@@ -1198,7 +1285,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "length outside off. Hardik gets forward and tips it to mid off. Saunters across to the other end, despite a bit of hesitation"
             },
             {
               "batter": "DA Miller",
@@ -1208,7 +1296,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on middle and leg. Stubbs tucks it away towards deep mid wicket"
             },
             {
               "batter": "T Stubbs",
@@ -1218,7 +1307,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "devilish dipping slower ball. Drops on Dube late just outside off, meaning he cannot cash in on what is essentially a full toss. Swings and misses"
             },
             {
               "batter": "T Stubbs",
@@ -1228,7 +1318,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "shortish and sliding into leg stump. Miller opens up his stance and hacks it towards deep mid wicket"
             },
             {
               "batter": "T Stubbs",
@@ -1238,7 +1329,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "another top slower ball, ripping down into the blockhole on middle and leg. Dube glances it behind square"
             }
           ]
         },
@@ -1253,7 +1345,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "slower ball on a fullish length on middle and off. Stubbs stretches forward and squeezes it between the bowler and the stumps"
             },
             {
               "batter": "T Stubbs",
@@ -1263,7 +1356,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "<strong>nerveless by Stubbs on the fence, and Hardik falls!</strong> Back of a length delivery wide outside off. Hardik tries to flat-bat it but does not generate the requisite power to clear long off. Stubbs catches it over his head and then realizes he might step over. Does the little juggling act on the fence that is so common these days, and India are now six down!"
             },
             {
               "batter": "T Stubbs",
@@ -1273,7 +1367,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>the runs keep on flowing!</strong> An educated edge, as they call it. On a back of a length outside off. Miller opens his bat face a touch and the more you look at it, the more it seems like a clever guide fine of short third!"
             },
             {
               "batter": "DA Miller",
@@ -1294,7 +1389,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "back of a length outside off. Rinku hops back and cuts it towards backward point"
             },
             {
               "batter": "M Jansen",
@@ -1304,7 +1400,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "hard length on middle and leg. Miller takes a step down the track and plonks it into the point region"
             },
             {
               "batter": "M Jansen",
@@ -1314,7 +1411,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>another terrible shank, and Maharaj has two in the over! India falling apart now!</strong> Pulls the length back and angles it across the batter outside off. Rinku tries to fetch it but does not get it anywhere near the middle of the bat. Spoons it towards long on, where Stubbs sprints and slides to his right to hand Maharaj another wicket!"
             }
           ]
         },
@@ -1329,7 +1427,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "hung up on a length way outside off. Miller reaches it but clinks it off the toe-end towards sweeper cover"
             },
             {
               "batter": "M Jansen",
@@ -1339,7 +1438,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Dube continues to fight!</strong> Most likely in vain, though. On a length on middle and leg. Dube gets his front foot out of the way and clubs it over long on!"
             },
             {
               "batter": "T Stubbs",
@@ -1349,7 +1449,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>clean as a whistle!</strong> Floated up into the slot outside off and it does not matter where it is spinning when that full. Stubbs goes through the line and hoists it over the bowler's head!"
             },
             {
               "batter": "M Jansen",
@@ -1359,7 +1460,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>Dube goes back to back!</strong> Slower ball on a back of a length outside off. Dube spots it in time and pounds it over long on!"
             },
             {
               "batter": "M Jansen",
@@ -1369,7 +1471,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on middle and off. Stubbs goes back and taps it to long on"
             },
             {
               "batter": "T Stubbs",
@@ -1379,7 +1482,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "dug in short just outside off. Dube opens up his stance and heaves it towards deep mid wicket. Denies the single, rightly"
             }
           ]
         },
@@ -1394,7 +1498,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "cutter on a length, honing into off stump. Stubbs pats it into the extra cover region and settles for a single"
             },
             {
               "batter": "M Jansen",
@@ -1415,7 +1520,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "short and wide. Dube slaps it straight to extra cover. Bosch's third over begins with a dot"
             },
             {
               "batter": "C Bosch",
@@ -1428,7 +1534,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "banged into the track outside off. Jansen gets up on his toes and cuts it towards sweeper cover"
             },
             {
               "batter": "T Stubbs",
@@ -1438,7 +1545,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "on the shorter side again, on leg stump. Dube swivels a little but picks out deep square leg. Another dot"
             },
             {
               "batter": "C Bosch",
@@ -1448,7 +1556,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "pin-point yorker on middle and off. Stubbs jams down on it and digs it out into the off side. Top bowling"
             },
             {
               "batter": "C Bosch",
@@ -1458,7 +1567,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "hard length, tucking up the batter on leg stump. Dube swings for the hills again and shanks it towards deep backward square leg"
             }
           ]
         },
@@ -1473,7 +1583,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on the pads. Stubbs tucks it towards deep backward square leg and hands Jansen the strike"
             },
             {
               "batter": "C Bosch",
@@ -1483,7 +1594,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "superb yorker on leg stump. Dube jams down on it and squirts it off the inside edge towards short fine leg"
             },
             {
               "batter": "T Stubbs",
@@ -1493,7 +1605,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>another high ball, and Jansen bites the dust too!</strong> Dug in short, bowled from around the wicket and finishing on off. Jansen has a mow across the line and shanks it. No legs on it at all and deep mid wicket, stationed well inside the fence, makes no mistake. India turning this game around again!"
             },
             {
               "batter": "C Bosch",
@@ -1503,7 +1616,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "low full toss on leg stump. Dube gets under it and drags it towards deep mid wicket, where Brevis fumbles and ends up conceding the second"
             },
             {
               "batter": "C Bosch",
@@ -1519,7 +1633,8 @@
                   "player_out": "C Bosch",
                   "kind": "caught and bowled"
                 }
-              ]
+              ],
+              "commentary": "shortish and angling into the hips from around the wicket. Bosch helps it to short fine leg and opens his account"
             },
             {
               "batter": "K Rabada",
@@ -1529,7 +1644,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "slower yorker outside off. Dube cannot get under this and he drills it all along the carpet to long on"
             }
           ]
         },
@@ -1544,7 +1660,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "slow, short and wide outside off. Stubbs reaches out for it and prods it towards sweeper cover"
             },
             {
               "batter": "T Stubbs",
@@ -1554,7 +1671,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "<strong>just over!</strong> Slower ball dug in short outside off. Dube gives it all he has and smears it towards deep mid wicket. Rickelton lunges over his left shoulder but can only parry it beyond the fence!"
             },
             {
               "batter": "T Stubbs",
@@ -1564,7 +1682,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "low full toss zinged into leg stump. Bosch clinks it out to long on and settles for a run. Over to you, Stubbs"
             },
             {
               "batter": "T Stubbs",
@@ -1574,7 +1693,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "slower bumper outside off. Dube lets it go but the ball does not bounce high enough to be called a wide"
             },
             {
               "batter": "T Stubbs",
@@ -1584,7 +1704,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "slower bouncer on off. Stubbs rolls his wrists but pulls it straight to deep backward square leg. Just another single"
             },
             {
               "batter": "T Stubbs",
@@ -1594,7 +1715,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "shortish just outside off. Dube clears his front hip and tugs it to long on"
             }
           ]
         }
@@ -1715,7 +1837,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "shorter outside off and this moves away a touch. de Kock gets up on his toes and jabs it towards deep backward point"
             },
             {
               "batter": "SA Yadav",
@@ -1725,7 +1848,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "<strong>this goes a mile up, and Rickelton hangs on! Markram does the trick. Off-spin does the trick again, and India rocked early!</strong> Given a bit of air on a fullish length just outside off. Sticks in the surface a smidgen and Kishan hacks across it a little too much. Rickelton back-pedals from extra cover and consigns another India opener to a duck at this T20 World Cup!"
             },
             {
               "batter": "SA Yadav",
@@ -1735,7 +1859,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "fired in full on the stumps. Tilak backs away and punches it down to long off to open his account"
             },
             {
               "batter": "SA Yadav",
@@ -1745,7 +1870,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "<strong>lbw shout, not given!</strong> In-swinger, on a length outside off. Jags back in and de Kock, looking for the scoop (rather ambitiously), misses. Gets pinged on the back thigh but the impact was outside off (or so it seemed)"
             },
             {
               "batter": "SA Yadav",
@@ -1755,7 +1881,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>Abhishek is off the mark in World Cup cricket!</strong> And that is followed by a huge cheer too. Short and wide, and Abhishek flays it through point!"
             },
             {
               "batter": "SA Yadav",
@@ -1780,7 +1907,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>full toss and put away!</strong> A real hit-me ball. Was perhaps going for the yorker. Over-pitched and de Kock lashed it to extra cover's right!"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1790,7 +1918,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>four more, and SKY is on the move!</strong> This is not great bowling. On a back of a length and wide outside off. SKY stays on top of the bounce and threads it between point and deep backward point!"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1800,7 +1929,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "on a length outside off. SKY laces this drive on the up too but cannot get it past point"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1810,7 +1940,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "<strong>peach to greet Rickelton!</strong> Back of a length in the channel and this decks away. Rickelton goes feeling for it and is beaten all ends up"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1820,7 +1951,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "on the shorter side again, outside off. SKY rises with the bounce before jabbing it towards point"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1845,7 +1977,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "on a length just outside off. Brevis comes forward, opens his bat face and guides it towards deep point"
             },
             {
               "batter": "SA Yadav",
@@ -1855,7 +1988,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "hard length, following the batter just outside leg. Abhishek, cramped for room, dabs it towards point"
             },
             {
               "batter": "SA Yadav",
@@ -1865,7 +1999,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>picked up and dumped a mile back into the stands!</strong> This sits up on leg stump and Rickelton has all the time in the world to swivel and wallop it over long leg!"
             },
             {
               "batter": "SA Yadav",
@@ -1875,7 +2010,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>full toss and Abhishek pounces!</strong> This is begging to be hit. Abhishek obliges and belts this wide full toss to cover point's left!"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1923,7 +2059,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "off-cutter on a full length outside off. SKY drives it towards mid on, where Rabada sprawls to his left and saves three"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1933,7 +2070,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length outside off. Rickelton stays on top of the bounce and jabs it towards cover point"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1954,7 +2092,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "another devilish slower ball. Dips on the batter late and Abhishek misses. Called a wide too. Well, that seemed to be inside the tramlines. Harsh for Ngidi"
             },
             {
               "batter": "Washington Sundar",
@@ -1964,7 +2103,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>does him like a barbecue on Sunday evening, and Rickelton is off for an early shower!</strong> Slower ball on a length on middle, and Rickelton has no clue about it. Goes searching for it way in front and watches in disbelief as the ball pops off the leading edge and then nestles into Dube's palms at mid off. Rickelton bewildered as he walks off, but he is not the first batter to have been completely deceived by Bumrah. Might not be the last either. SA on the ropes early!"
             },
             {
               "batter": "SA Yadav",
@@ -1974,7 +2114,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "another dipping yorker outside off. Abhishek picks it very late and plinks it off the toe-end towards extra cover"
             },
             {
               "batter": "Washington Sundar",
@@ -1984,7 +2125,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "yet another dipping yorker - this one finishing on off. Abhishek nurdles it into the cover region and bags a run"
             }
           ]
         },
@@ -1999,7 +2141,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length on off. Sundar drops it into the off side and calls his partner through for the single"
             },
             {
               "batter": "Washington Sundar",
@@ -2009,7 +2152,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>up and over now, and Miller is counter-punching!</strong> This is a bit of a slot ball outside off. Miller plants his front foot and lifts it over mid off!"
             },
             {
               "batter": "Washington Sundar",
@@ -2019,7 +2163,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "fullish on middle and leg. SKY bunts it towards mid off and ambles across to the other end"
             },
             {
               "batter": "Washington Sundar",
@@ -2029,7 +2174,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "much shorter and wider outside off. Miller goes back and slaps it towards extra cover. Miller will feel he missed out"
             },
             {
               "batter": "Washington Sundar",
@@ -2039,7 +2185,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "shortish and tucking up the batter on middle and leg. Sundar helps it towards deep square leg"
             },
             {
               "batter": "SA Yadav",
@@ -2064,7 +2211,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "banged in and with greater conviction on leg stump. Miller gauges it early enough and ducks under it. Called a wide on height, by the looks of it"
             },
             {
               "batter": "Washington Sundar",
@@ -2074,7 +2222,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "zipped in full on middle and leg. Sundar gets his front foot out of the way and pings it to mid on"
             },
             {
               "batter": "SA Yadav",
@@ -2084,7 +2233,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>this is classy!</strong> Back of a length outside off and Miller cashes in on the width. He rises with the bounce and cracks it between extra cover and mid off!"
             },
             {
               "batter": "Washington Sundar",
@@ -2094,7 +2244,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "shortish outside off. Sundar throws his hands at it and the ball flies off the outside edge down to deep backward point. Good work by Brevis to his right"
             },
             {
               "batter": "SA Yadav",
@@ -2104,7 +2255,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length outside off again. Miller punches it neatly but cannot get it past extra cover this time"
             },
             {
               "batter": "Washington Sundar",
@@ -2114,7 +2266,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "attempted yorker, tailing into middle and off. Ends up as a low full toss and SKY tips it to mid on for a quick single"
             }
           ]
         },
@@ -2129,7 +2282,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "shortish again, outside off. Miller hops back and cuts it towards sweeper cover"
             },
             {
               "batter": "Washington Sundar",
@@ -2150,7 +2304,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "pulls the length back on leg stump after sensing the charge. Sundar adjusts and works it towards deep mid wicket"
             },
             {
               "batter": "S Dube",
@@ -2160,7 +2315,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length just outside off. Brevis eases it out to sweeper cover"
             },
             {
               "batter": "SA Yadav",
@@ -2170,7 +2326,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length outside off. Punched off the back foot towards sweeper cover"
             },
             {
               "batter": "SA Yadav",
@@ -2183,7 +2340,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>that has sped away to the fence!</strong> Slowed up on a length on middle stump. Miller backs away, gets his hands through the ball and razes it to long off's right!"
             },
             {
               "batter": "SA Yadav",
@@ -2193,7 +2351,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Sundar goes massive!</strong> Half-tracker outside leg and that is just what Sundar wants. He bends his back knee, gets under it and hoists it over deep backward square leg!"
             },
             {
               "batter": "S Dube",
@@ -2218,7 +2377,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "first real short ball of the over. Climbs through outside off and Brevis sways out of the way very late"
             },
             {
               "batter": "SA Yadav",
@@ -2228,7 +2388,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "hard length, zoning into middle and off. SKY lets the ball come to him before meeting it right under his eyes"
             },
             {
               "batter": "S Dube",
@@ -2238,7 +2399,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on off. Brevis gets behind the line of the ball and stabs it to long on"
             },
             {
               "batter": "SA Yadav",
@@ -2248,7 +2410,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "length ball sprayed down leg. SKY does not get bat on it and the umpire calls it a wide"
             },
             {
               "batter": "SA Yadav",
@@ -2258,7 +2421,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "shortish on leg stump. Miller waits in his crease before working it towards deep mid wicket"
             },
             {
               "batter": "SA Yadav",
@@ -2268,7 +2432,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length outside off. SKY hangs back and nurdles it enough to extra cover's left for a single"
             }
           ]
         },
@@ -2294,7 +2459,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "<strong>ouch!</strong> Slower ball on a back of a length outside off. SKY shuffles across, trying to sweep it away and misses. Gets hit in an area where it usually hurts..."
             },
             {
               "batter": "HH Pandya",
@@ -2304,7 +2470,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>no-look six, and Brevis is announcing his intention to dominate too!</strong> Tossed up full on middle and off. Brevis backs away, keeps his head down and pumps it over the bowler's head!"
             },
             {
               "batter": "HH Pandya",
@@ -2317,7 +2484,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "nails the wide yorker now. SKY reaches out and chops it off the under-edge towards the keeper"
             },
             {
               "batter": "HH Pandya",
@@ -2327,7 +2495,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "zipped in on a length on the pads. Brevis can only help it straight to short fine leg"
             },
             {
               "batter": "HH Pandya",
@@ -2337,7 +2506,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length on off. SKY stands up tall and knocks it to long on"
             },
             {
               "batter": "HH Pandya",
@@ -2372,7 +2542,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "back of a length, honing into off stump. Brevis gets behind the line but cannot do much with it. Patted back to the bowler"
             },
             {
               "batter": "HH Pandya",
@@ -2382,7 +2553,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length just outside off. Hardik hangs back and drops it towards backward point"
             },
             {
               "batter": "S Dube",
@@ -2392,7 +2564,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on off. Brevis chunks it off the inside half of the bat towards deep mid wicket, and keeps strike. Well, scratch that because Hardik has overstepped..."
             },
             {
               "batter": "HH Pandya",
@@ -2405,7 +2578,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "zinged in on a length on the pads. Hardik advances and tucks it towards deep mid wicket"
             },
             {
               "batter": "HH Pandya",
@@ -2415,7 +2589,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Miller makes Hardik and India pay!</strong> Banged half-way down outside off and Miller says thank you very much. His eyes light up and he bulldozes it over wide long on!"
             },
             {
               "batter": "S Dube",
@@ -2425,7 +2600,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>top work on the fence!</strong> Length ball hung up wide outside off. Dube throws the kitchen sink at it and flays it down to deep third, where Jansen sprawls to his left and saves a certain boundary"
             },
             {
               "batter": "HH Pandya",
@@ -2450,7 +2626,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "hung up on a length outside off. Hardik tries to hit it too hard and scuffs it to long off"
             },
             {
               "batter": "HH Pandya",
@@ -2460,7 +2637,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "full and beyond the tramlines again on the off side. Brevis leaves it alone and the umpire opts to indulge in some more exercise. Brevis did move across slightly but not enough according to the ump"
             },
             {
               "batter": "S Dube",
@@ -2470,7 +2648,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "short, wide and beyond the hitting arc. Dube has to be content with a back-foot punch to sweeper cover"
             },
             {
               "batter": "S Dube",
@@ -2480,7 +2659,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "<strong>a juicy full toss, and Brevis is taking Dube down now!</strong> Not the ideal ball to bowl to Brevis. Or to anyone for that matter. Brevis winds up and slams it over long on!"
             },
             {
               "batter": "S Dube",
@@ -2490,7 +2670,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length outside off. Hardik hangs back on it before chopping it straight to backward point"
             },
             {
               "batter": "HH Pandya",
@@ -2500,7 +2681,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "another gentle full toss, laced with width too. Brevis throws his hands at it and drills it to deep point. He will feel he missed out there"
             }
           ]
         },
@@ -2515,7 +2697,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>smashed!</strong> Right into the slot on middle and off, and Dube does not miss out. Those long levers come into play and he blasts it over the bowler's head. The umpire had to duck for cover too!"
             },
             {
               "batter": "HH Pandya",
@@ -2525,7 +2708,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "shortish just outside leg, bowled from around the wicket. Brevis backs away, trying to force it through the off side and misses. Kishan fumbles and concedes a bye"
             },
             {
               "batter": "S Dube",
@@ -2535,7 +2719,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>safe, just!</strong> Off-pace and into the track on middle and leg. Dube opens up his stance and hacks it on the bounce to Stubbs at long on"
             },
             {
               "batter": "HH Pandya",
@@ -2545,7 +2730,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length delivery wide outside off. Miller punches it on the bounce to long off"
             },
             {
               "batter": "S Dube",
@@ -2558,7 +2744,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length outside off. Hardik tries to run it down for another single but only finds the keeper on this occasion"
             },
             {
               "batter": "HH Pandya",
@@ -2568,7 +2755,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "length ball well down leg. Brevis misses his flick and the umpire has to stretch out his arms again"
             }
           ]
         },
@@ -2583,7 +2771,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>carved away, and Miller gets to his fifty in style!</strong> Dube goes to his tried and tested ploy of bowling full and wide. Problem is Miller knows that is coming too. He frees his arms and creams it over deep cover. Some knock this!"
             },
             {
               "batter": "S Dube",
@@ -2593,7 +2782,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "much better short ball, in terms of how high it gets. Near the front shoulder and Hardik helps it towards deep backward square leg"
             },
             {
               "batter": "S Dube",
@@ -2603,7 +2793,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "length just outside off. Miller punches it down the ground to long off"
             },
             {
               "batter": "HH Pandya",
@@ -2613,7 +2804,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "shortish and tailing into the hips. Dube is late on his attempted pick-up shot and the ball rolls off the thigh pad behind square"
             },
             {
               "batter": "S Dube",
@@ -2623,7 +2815,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on middle and leg. Stubbs tucks it off his pads into the square leg region"
             },
             {
               "batter": "HH Pandya",
@@ -2633,7 +2826,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "full ball hidden well outside off. Hardik reaches out for it and dabs it towards deep backward point. Just six off that over!"
             }
           ]
         },
@@ -2659,7 +2853,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "back of a length on middle and leg. Stubbs hangs back and knocks it to long on"
             },
             {
               "batter": "RK Singh",
@@ -2669,7 +2864,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "knee-high full toss on middle and leg, and Hardik can still not put it away. Flicked tamely into the wide long on region"
             },
             {
               "batter": "RK Singh",
@@ -2690,7 +2886,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "back of a length on the stumps. Miller stays back and stabs it to long on"
             },
             {
               "batter": "Arshdeep Singh",
@@ -2700,7 +2897,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "slower ball on a very full length outside off. Dube cannot get under it and shanks it to long on"
             },
             {
               "batter": "S Dube",
@@ -2710,7 +2908,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "back of a length on middle and leg. Stubbs whisks it towards deep mid wicket and Sundar's second over goes for only six singles"
             },
             {
               "batter": "Arshdeep Singh",
@@ -2731,7 +2930,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "brilliant slower wide yorker to finish the over. Hardik digs it out into the off side and that is another exceptional over by Ngidi"
             }
           ]
         },
@@ -2746,7 +2946,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "fuller outside off. Stubbs tries to drive it back past the bowler but Hardik flings out his right palm and stops it clean"
             },
             {
               "batter": "S Dube",
@@ -2756,7 +2957,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "back of a length on middle and leg. Arshdeep just dangles his bat and the ball rolls off the outside edge into the point region"
             },
             {
               "batter": "S Dube",
@@ -2766,7 +2968,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "shortish and laced with width. Stubbs stays on top of the bounce and punches it enough to long off's left for a couple of runs"
             },
             {
               "batter": "S Dube",
@@ -2776,7 +2979,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "short and wide outside off. Dube goes back and clinks it to long off"
             },
             {
               "batter": "S Dube",
@@ -2786,7 +2990,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "slower bumper outside off. Stubbs jumps up onto his toes and flat-bats it between deep mid wicket and long on for another brace"
             },
             {
               "batter": "CV Varun",
@@ -2796,7 +3001,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>more catching practice for Stubbs, and India on the brink now!</strong> Holds the length back on middle and off. Arshdeep steps out and slogs at it anyway. Hits it well but also flat and straight to long on. Another nifty bit of footwork and juggling on the long on fence, and Maharaj with a three-wicket over to pile further misery on the hosts!"
             }
           ]
         },
@@ -2811,7 +3017,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>tempts Miller into the big shot, and Miller perishes!</strong> Smart bowling. Fizzed through on a back of a length outside off. Miller is forced to fetch it and slap it over long off. Slices across it a little too much, though, and arrows it straight down Tilak's throat at long off. Varun does come up with a wicket after all, and it is a biggie!"
             },
             {
               "batter": "S Dube",
@@ -2821,7 +3028,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "bashed in much shorter outside off, and perhaps wider too. Dube trie to fetch it and shanks it back to the bowler"
             },
             {
               "batter": "S Dube",
@@ -2831,7 +3039,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length outside off. Jansen stays back and pokes it towards extra cover"
             },
             {
               "batter": "S Dube",
@@ -2841,7 +3050,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>dropped by Miller - oh dear!</strong> This is a collector's item. Shortish outside off. Dube swings at it in an ungainly fashion. Skies it and Miller, running back from extra cover, shells it!"
             },
             {
               "batter": "S Dube",
@@ -2851,7 +3061,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "length ball sliding down leg. Jansen does not get bat on it but the ball seems to nick the pad on the way. Or so the umpire thinks anyway. Jansen not happy the wide was not called"
             },
             {
               "batter": "CV Varun",
@@ -2861,7 +3072,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length outside off. Varun punches it out to deep point but Dube is not even remotely interested in the single that would have kept ihm off strike"
             }
           ]
         },
@@ -2876,7 +3088,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "slower bumper outside off. Jansen thinks about swiping at it initially before bailing out of the stroke. Looks quizzically at the umpire too but gets no favours"
             },
             {
               "batter": "S Dube",
@@ -2886,7 +3099,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "back of a length outside off. Dube loads up but he cannot power it past the bowler, who gets down sharply to his right and stops it"
             },
             {
               "batter": "S Dube",
@@ -2896,7 +3110,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "zinged in very full on leg stump. Jansen flicks it down the ground to long on"
             },
             {
               "batter": "S Dube",
@@ -2906,7 +3121,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "bashed in again, and denying Dube any real room. He tugs at it and chunks it towards deep mid wicket. Does take the single this time"
             },
             {
               "batter": "S Dube",
@@ -2916,7 +3132,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "off-pace again, and hidden on a fullish length wide outside off. Stubbs pushes it out to sweeper cover and retains strike"
             },
             {
               "batter": "CV Varun",
@@ -2926,7 +3143,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "back of a length delivery wide outside off and this zips through. Varun goes fishing at it and is beaten for pace"
             }
           ]
         },
@@ -2941,7 +3159,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "back of a length, angled across the batter outside off. Stubbs eases it out to sweeper cover"
             },
             {
               "batter": "S Dube",
@@ -2951,7 +3170,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "slow and dipping low full toss outside off. Dube all at sea with the lack of pace and he chalks it back to the bowler"
             },
             {
               "batter": "S Dube",
@@ -2961,7 +3181,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>Bosch is up and running!</strong> Seems like an attempted slower bumper outside off that sits up nicely. Bosch gets on top of the bounce and pounds it between deep square leg and deep mid wicket!"
             },
             {
               "batter": "S Dube",
@@ -2982,7 +3203,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "off-pace on a full length outside off. Dube pushes it tamely to long off and picks up a single"
             },
             {
               "batter": "JJ Bumrah",
@@ -3003,7 +3225,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "back of a length outside off and this nips back in. Bosch has a waft at it and gets beaten on the inside. That came in with the angle and did not miss off stump by much"
             }
           ]
         }

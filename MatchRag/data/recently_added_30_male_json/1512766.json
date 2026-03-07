@@ -197,7 +197,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Back of length just outside off, 131ks, guided to short third"
             },
             {
               "batter": "SV Samson",
@@ -207,7 +208,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Wide and shortish, no swing, cut to deep point"
             },
             {
               "batter": "Abhishek Sharma",
@@ -217,7 +219,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Flat-batted for a... six? Yep, just cleared the cushion. Hard length outside off, Samson took a step back and stood in the crease, then had the flat-bat take over"
             },
             {
               "batter": "SV Samson",
@@ -227,7 +230,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "A bit of shape away. Length ball just outside off, defended to cover point"
             },
             {
               "batter": "SV Samson",
@@ -237,7 +241,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Nearly an edge. Looks to drive through cover, the length ball shapes in a touch to beat bat"
             },
             {
               "batter": "SV Samson",
@@ -247,7 +252,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Length on off, worked to the bowler"
             }
           ]
         },
@@ -262,7 +268,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Length on off, defended towards cover"
             },
             {
               "batter": "Abhishek Sharma",
@@ -275,7 +282,8 @@
                 "batter": 4,
                 "extras": 1,
                 "total": 5
-              }
+              },
+              "commentary": "Length outside off, guided to point"
             },
             {
               "batter": "Abhishek Sharma",
@@ -288,7 +296,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "Length outside off, punched to deep cover. Abhishek doesn't attack the first ball he faces"
             },
             {
               "batter": "Abhishek Sharma",
@@ -301,7 +310,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "Pulls the shortish ball from just outside off to midwicket"
             },
             {
               "batter": "Abhishek Sharma",
@@ -311,7 +321,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Samson decided he'll go big before the ball was bowled. Showed the stumps fully, got back in the crease and belted the shortish ball over long-on. Banged in but it rose only around hip-height though"
             },
             {
               "batter": "Abhishek Sharma",
@@ -321,7 +332,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Back of length wide of off, this swings away and gets some extra bounce to beat the cut"
             },
             {
               "batter": "SV Samson",
@@ -331,7 +343,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Slower length ball outside off, cut on the bounce to backward point"
             },
             {
               "batter": "SV Samson",
@@ -341,7 +354,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length just outside off, gentle cut to cover"
             },
             {
               "batter": "Abhishek Sharma",
@@ -351,7 +365,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Back of length just outside off, slow again, Samson stays beside the ball as he jumps and punches it with a horizontal bat through extra cover"
             }
           ]
         },
@@ -366,7 +381,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Appeal for a strangle down leg from the keeper, sounded like pad. Outswinger - didn't swing - on a length down leg, beat the flick and went off the thigh pad"
             },
             {
               "batter": "Abhishek Sharma",
@@ -376,7 +392,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Length outside off, guided to deep-backward point"
             },
             {
               "batter": "Abhishek Sharma",
@@ -386,7 +403,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Overpitched and Abhishek goes inside out, <strong>no-ball too!</strong> Foot fully over the line. This was just outside off, step-hit for Abhishek. Lofted it and checked the shot after bat reached head-height"
             },
             {
               "batter": "SV Samson",
@@ -407,7 +425,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "Misses the slog. Wanted to heave it over mid-on off a length, the ball looked to have come in. Axar did roll his fingers on"
             },
             {
               "batter": "Ishan Kishan",
@@ -417,7 +436,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Goes for the wide yorker, lands it just inside the return crease. Let go. Free hit will continue as it's wide"
             },
             {
               "batter": "Ishan Kishan",
@@ -427,7 +447,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Short ball went well down leg, ducked under"
             }
           ]
         },
@@ -442,7 +463,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Length on the pads, there's protection. Glanced to long leg"
             },
             {
               "batter": "Ishan Kishan",
@@ -452,7 +474,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Short ball follows Marumani as he tries to make room. He then tries to fend it to cover, inside edges onto body"
             },
             {
               "batter": "Abhishek Sharma",
@@ -462,7 +485,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Was there a sound? Not much interest from bowler or keeper. Was a shortish ball slanting away outside off, Abhishek looked for a flashing cut and missed it"
             },
             {
               "batter": "Abhishek Sharma",
@@ -472,7 +496,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Makes room and looks to slog the full ball across the line, inside edges it to square leg"
             },
             {
               "batter": "Abhishek Sharma",
@@ -485,7 +510,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "Back of length, slow, on leg. Flicked through midwicket"
             },
             {
               "batter": "Abhishek Sharma",
@@ -495,7 +521,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Length just outside off, pushed to deep point's right"
             },
             {
               "batter": "Abhishek Sharma",
@@ -505,7 +532,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Samsn's start reduced to a cameo. Muzarabani pumps his fists. Offcutter on a length at the hips, following Samson as he made room, seemed like he wanted to drive it more than pull it, ball hit just under the sticker and carried to deep midwicket, where Burl took a sliding catch to the right"
             }
           ]
         },
@@ -520,7 +548,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Compact pull from Kishan, not timed well enough though. Goes over the ring at square leg and gets two"
             },
             {
               "batter": "Ishan Kishan",
@@ -530,7 +559,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Hard length on leg, 135ks, flicked to midwicket"
             },
             {
               "batter": "Ishan Kishan",
@@ -540,7 +570,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Wide and full, 132ks, gets on one knee and slaps to deep point"
             },
             {
               "batter": "Ishan Kishan",
@@ -550,7 +581,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Picked up nicely, flat one-bounce four over backward square leg. No back lift, just a short-arm flick to a length ball angling in. Both feet bent and close to each other, the front leg got up just a bit as he hit it"
             },
             {
               "batter": "Ishan Kishan",
@@ -560,7 +592,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Launched over cow corner, Abhishek goes back and effectively drives a length ball with a closing bat face. Whacked the slower one off the top of the pad"
             },
             {
               "batter": "Abhishek Sharma",
@@ -570,7 +603,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Wide and slow, beats him. Bennett looks to slash the fullish ball over cover, misses"
             }
           ]
         },
@@ -585,7 +619,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Lapped over short fine leg. Ngarava misses the yorker, delivers a full toss just over the front knee-roll at 134ks, Kishan uses the angle to get on one knee and then hit it"
             },
             {
               "batter": "Ishan Kishan",
@@ -595,7 +630,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Pitched up on off, defended to backward point"
             },
             {
               "batter": "Abhishek Sharma",
@@ -605,7 +641,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Goes high, crowd aren't sure whether to cheer or not, and that's because it hasn't travelled. Lands safely though, fielder has to run back to deep square leg. Wasn't that short a ball but Kishan went through with the pull"
             },
             {
               "batter": "Abhishek Sharma",
@@ -615,7 +652,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Slower one, still Kishan uses the pace. Uses the bounce to go back on the short of length ball and then pull from chest height to the right of short fine leg"
             },
             {
               "batter": "Ishan Kishan",
@@ -625,7 +663,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Full on leg, flicked to deep midwicket"
             },
             {
               "batter": "Abhishek Sharma",
@@ -635,7 +674,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Flicks the length ball off the back foot to midwicket"
             }
           ]
         },
@@ -650,7 +690,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Angles it in from around the wicket and then spins it off a length. Landed outside off and Kishan looks to push it to cover. Misses"
             },
             {
               "batter": "Ishan Kishan",
@@ -660,7 +701,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length outside off, driven off the back foot to cover"
             },
             {
               "batter": "Abhishek Sharma",
@@ -670,7 +712,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Full on middle, driven to long-off"
             },
             {
               "batter": "Ishan Kishan",
@@ -680,7 +723,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Carved straight to cover point</strong>. Back of length just outside off, Marumani opted for the cut but didn't go through with the shot. Lobbed it to Kishan"
             },
             {
               "batter": "Abhishek Sharma",
@@ -690,7 +734,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length at the stumps, defended to the bowler's right"
             },
             {
               "batter": "Ishan Kishan",
@@ -700,7 +745,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Goes outside off to negate the lbw. Length ball hits the front pad after beating the sweep"
             }
           ]
         },
@@ -715,7 +761,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Bennett almost gets a first-ball wicket. Touch short, angling in, Abhishek cloths a pull and it lands just past the ring and then rolls to long-off"
             },
             {
               "batter": "Ishan Kishan",
@@ -725,7 +772,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length on off, defensive punch takes it to long-on"
             },
             {
               "batter": "Abhishek Sharma",
@@ -735,7 +783,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Pulls it off the top of the stumps to deep midwicket"
             },
             {
               "batter": "Abhishek Sharma",
@@ -745,7 +794,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Pitched up at the stumps, gets beside the ball and punches to the bowler"
             },
             {
               "batter": "Abhishek Sharma",
@@ -755,7 +805,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Gets leg side and cuts it off the top of leg to deep cover"
             },
             {
               "batter": "Ishan Kishan",
@@ -765,7 +816,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Good pull, goes to deep-backward square. Length ball going dow leg, Kishan swivelling and taking a big step to the left"
             }
           ]
         },
@@ -780,7 +832,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "'Catch' is the call but it lands safe and goes to deep midwicket's right. Kishan charged and was beaten in flight by the shortish length ball angling in. He lost his bottom hand as he swiped across his waist, ball went flat"
             },
             {
               "batter": "Abhishek Sharma",
@@ -790,7 +843,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Dances down and is hurried by the 94ks length ball, clipped through backward square leg"
             },
             {
               "batter": "Abhishek Sharma",
@@ -800,7 +854,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length on middle, pulled to long-on"
             },
             {
               "batter": "Ishan Kishan",
@@ -810,7 +865,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Dances down again and clears long-on! Brave call from Bennett to go down as Axar shortens his length but an on-the-up drive is nailed"
             },
             {
               "batter": "Abhishek Sharma",
@@ -820,7 +876,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Chips a drive over the bowler to a full ball... and Evans charges to the left at long-off and then throws himself forward while palming the ball back in. Brilliant"
             },
             {
               "batter": "Ishan Kishan",
@@ -830,7 +887,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Makes room, gets followed by a full ball which he pushes towards mid-off"
             }
           ]
         },
@@ -845,7 +903,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Musekiwa drops a regulation catch!</strong> Kishan shaped up for the reverse sweep before the ball was  bowled. Got a low full toss to the left but went through with the shot. Ball went low and in front of Musekiwa, who leant forward to take it but the ball burst through the hand"
             },
             {
               "batter": "Ishan Kishan",
@@ -855,7 +914,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Back of length on off, worked to deep square leg"
             },
             {
               "batter": "Ishan Kishan",
@@ -865,7 +925,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Salt-on-wound six. Dances down and pumps the fullish length ball through the line, over long-on"
             },
             {
               "batter": "Ishan Kishan",
@@ -886,7 +947,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "Makes room, gets a length ball on leg stump, cuts to deep point"
             },
             {
               "batter": "SA Yadav",
@@ -896,7 +958,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Comes down and chips a drive to long-on"
             },
             {
               "batter": "SA Yadav",
@@ -906,7 +969,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Dances down and works it through mid-on"
             }
           ]
         },
@@ -921,7 +985,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Superb fifty from Abhishek. What a welcome return to form for him. Gets there off 26 balls. </strong> Slower through the air and stifle short outside off, he pulls to deep midwicket"
             },
             {
               "batter": "Abhishek Sharma",
@@ -931,7 +996,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Fuller on off stump, he looks to loft this straight, instead drags to long-on for a run"
             },
             {
               "batter": "Abhishek Sharma",
@@ -941,7 +1007,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Too full and punished. Darted just around off, gets under it and absolutely shellacks it past Abhishek. Nothing long-on could do even with a dive"
             },
             {
               "batter": "SA Yadav",
@@ -951,7 +1018,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Fired in on off stump on a length, Bennett can only shank that as far as long-on"
             },
             {
               "batter": "SA Yadav",
@@ -961,7 +1029,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "<b>High and handsome. Don't think he got all of it, but such is Kishan's power and bat swing that he clears long-off with ease.</b> Slower through the air on the stumps, he jumps down the track and swings through the line down the ground. The bat turns in his hand a little, but he still gets six"
             },
             {
               "batter": "SA Yadav",
@@ -971,7 +1040,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "A touch slower on middle stump, he backs away and chips it over the bowler's head"
             }
           ]
         },
@@ -986,7 +1056,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "On a length on off stump, he presents the full face of the bat and pushes to long-on"
             },
             {
               "batter": "SA Yadav",
@@ -996,7 +1067,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Carrom ball on leg stump, Raza is cramped for room and defends back to the bowler"
             },
             {
               "batter": "SA Yadav",
@@ -1006,7 +1078,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Swing and a miss!</strong> Short of a good length ball outside off, he wants to go over mid-off, but loses his shape and gets beaten"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1016,7 +1089,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Marginally short and Raza cashes in. Hops back and deposits this miles over deep midwicket"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1029,7 +1103,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "Back of a length ball just outside off, Abhishek is cramped up for room and just about pats that to the right of backward point for a single"
             },
             {
               "batter": "Abhishek Sharma",
@@ -1050,7 +1125,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "Quicker length ball on the stumps, he ticks this to wide long-on for a run"
             },
             {
               "batter": "HH Pandya",
@@ -1060,7 +1136,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Lovely flick of the wrists from Surya. Good length ball on middle stump, he stands tall and whisks this to the right of midwicket for a couple of runs"
             }
           ]
         },
@@ -1075,7 +1152,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Back of a length ball on middle stump, he backs away, makes room for himself and carves it over short third for a four. That is a top shot"
             },
             {
               "batter": "HH Pandya",
@@ -1085,7 +1163,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Back of a length ball outside off, giving Raza some room. He cuts this to backward point, who collects on the bounce"
             },
             {
               "batter": "HH Pandya",
@@ -1095,7 +1174,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>GOING, GOING, GONE!</strong> Maposa goes fuller on middle and leg, Surya makes room again, jumps down the track and with a clean extension of the arms goes miles over the long-off fence"
             },
             {
               "batter": "HH Pandya",
@@ -1105,7 +1185,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<b>Oh, my word! What a shot from Bennett! </b> Backs away, giving himself room and Bumrah follows him with a bouncer. Bennett still manages to connect and with a clean swing of the bat almost flat-bats this over long-on. He gets to fifty off just 34 balls"
             },
             {
               "batter": "SA Yadav",
@@ -1115,7 +1196,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Slower offcutter outside off stump, he gets right across this time eyeing his favourite sweep over short fine. Doesn't connect with the ball clipping his thigh pad towards short fine"
             },
             {
               "batter": "HH Pandya",
@@ -1128,7 +1210,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "Goes full now right on off stump, Bennett digs this to covers"
             },
             {
               "batter": "HH Pandya",
@@ -1138,7 +1221,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<b>Slower ball picked up and thrashed with disdain.</b> Fullish outside off stump, he clears his front leg and absolutely thrashes him straight down the ground. Nothing long-off could do about it."
             }
           ]
         },
@@ -1153,7 +1237,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Fuller just on off, he guides this to short third"
             },
             {
               "batter": "HH Pandya",
@@ -1163,7 +1248,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Flatter on off stump, he gives himself room trying to whack that through covers but can only mistime to cover"
             },
             {
               "batter": "SA Yadav",
@@ -1173,7 +1259,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "<b>In Hardik's arc, the ball goes out of the park! An 89m six for him.</b> On off stump, Hardik gets under it and pummels this over long-on for a huge six"
             },
             {
               "batter": "SA Yadav",
@@ -1183,7 +1270,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Fuller on off stump, he thumps this back to Axar. Raza has to dive back to make his ground"
             },
             {
               "batter": "SA Yadav",
@@ -1204,7 +1292,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "Pushed quicker and fuller outside off, he mistimes to extra cover who makes a diving stop"
             },
             {
               "batter": "Tilak Varma",
@@ -1214,7 +1303,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Darted outside off, he backs away and carves it over point and to sweeper cover"
             }
           ]
         },
@@ -1229,7 +1319,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Back of a length ball outside off, he slaps that to the right of sweeper cover for a couple of runs"
             },
             {
               "batter": "HH Pandya",
@@ -1239,7 +1330,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Starts off with a juicy short and wide ball outside off, Bennett stands tall and crunches this aerially to the right of sweeper cover. Some nifty footwork from Arshdeep saves two"
             },
             {
               "batter": "Tilak Varma",
@@ -1249,7 +1341,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Back of a length ball angling across Pandya, he steers this fine to deep third"
             },
             {
               "batter": "Tilak Varma",
@@ -1259,7 +1352,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<b>BANG! Bennett has six more!</b> Banged halfway down the track but at his pace, Bennett just waits for the ball and thumps the pull over cow corner"
             },
             {
               "batter": "HH Pandya",
@@ -1269,7 +1363,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>He's SWATTED that away with utter disdain!</strong> Back of a length ball just outside off stump, he initially backs away and then sets a solid base, with an open stance and pummels that over deep midwicket."
             },
             {
               "batter": "Tilak Varma",
@@ -1279,7 +1374,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "<b>Six followed by four!</b> Fuller on the stumps, he clears his front leg and thrashes this past the bowler's extended right hand for four"
             }
           ]
         },
@@ -1297,7 +1393,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "Good length ball on off stump, he guides this to backward point with an angled bat. A wayward throw and they get an overthrow."
             },
             {
               "batter": "HH Pandya",
@@ -1307,7 +1404,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Marginally short and Raza this time goes for six. On middle and leg, he hammers that miles over deep midwicket"
             },
             {
               "batter": "HH Pandya",
@@ -1317,7 +1415,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "hard length delivery on the stumps, he gives himself room and pushes towards deep cover"
             },
             {
               "batter": "HH Pandya",
@@ -1327,7 +1426,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Flatter outside off, he slashes at it and gets it to sweeper cover on the bounce"
             },
             {
               "batter": "Tilak Varma",
@@ -1337,7 +1437,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "<strong>Out comes the scoop and Tilak gets four more.</strong> Short of a good length ball, he gets across and scoops this over the 'keeper's head"
             },
             {
               "batter": "Tilak Varma",
@@ -1347,7 +1448,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "BIG swing and a miss! Darted on leg stump, Bennett eyes a cross-batted swipe and misses. They collect a bye as Samson fumbles"
             },
             {
               "batter": "Tilak Varma",
@@ -1357,7 +1459,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Slower short of a good length ball on middle and leg, he works this deep backward square leg"
             }
           ]
         },
@@ -1372,7 +1475,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Full on pace ball but that is just down leg, called a wide"
             },
             {
               "batter": "HH Pandya",
@@ -1382,7 +1486,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Angles the good length ball across Raza who eyes a pull and inside-edges onto his boot"
             },
             {
               "batter": "Tilak Varma",
@@ -1392,7 +1497,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Fortunate but Hardik won't mind. The four runs are all that will matter to him. Legcutter on leg stump, he was looking to work this through the on-side, instead he gets a thick inside-edge through his legs past short fine leg"
             },
             {
               "batter": "Tilak Varma",
@@ -1402,7 +1508,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Swallowed by Abhishek at long-on.</strong> Arshdeep's knuckle ball brings about Raza's end. Angles it short of a good length around off stump. Raza looks to clear long-on, doesn't time it at all and Abhishek does the rest"
             },
             {
               "batter": "HH Pandya",
@@ -1412,7 +1519,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Full on middle and leg, he clips this to deep midwicket and again some superb running allows them to make it back for two"
             },
             {
               "batter": "Tilak Varma",
@@ -1422,7 +1530,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Banged in short on off stump, Burl sways outside the line of that."
             }
           ]
         },
@@ -1440,7 +1549,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Slower ball picked up and sent out of the ground!</strong> Short of a good length ball on off stump, he stays deep in the crease and tonks it flat and over deep midwicket"
             },
             {
               "batter": "HH Pandya",
@@ -1450,7 +1560,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Yorker on off stump, he gets a thick inside-edge to the on-side"
             },
             {
               "batter": "HH Pandya",
@@ -1460,7 +1571,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Short of a good length ball on off stump, he thrashes this flat and this time doesn't get enough elevation. Goes one bounce to long-on"
             },
             {
               "batter": "Tilak Varma",
@@ -1470,7 +1582,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Nails the yorker again on off stump, Munyonga just manages to dig that out to deep point"
             },
             {
               "batter": "Tilak Varma",
@@ -1480,7 +1593,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "The attempted yorker goes wrong. Knee-high full toss outside off, easy pickings for Tilak as he carves this over backward point"
             },
             {
               "batter": "Tilak Varma",
@@ -1490,7 +1604,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "<strong>Chipped over Bumrah and goes for four as Bennett enters the 80s!</strong> Goes fuller outside off, he gets across looking for a scoop, but realises that he can't go over the 'keeper so he goes reverse with the scoop over Bumrah's head at short third"
             },
             {
               "batter": "Tilak Varma",
@@ -1500,7 +1615,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Banged in short on off stump, he pulls to wide long-on"
             }
           ]
         },
@@ -1515,7 +1631,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Slower good length ball but waaaay outside off stump, called a wide"
             },
             {
               "batter": "Tilak Varma",
@@ -1525,7 +1642,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "backs away and Arshdeep follows him, which means that Bennett can just about squeeze this to point"
             },
             {
               "batter": "HH Pandya",
@@ -1535,7 +1653,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<b>The fifty stand is up off just 22 balls!</b> Banged in short just outside off, he pulls this hard and in the gap to the left of deep midwicket"
             },
             {
               "batter": "HH Pandya",
@@ -1545,7 +1664,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "<strong>TIMBER!</strong> Absolutely nails the yorker on middle stump. Munyonga backs away, but is nowhere near as he looks to swish it away. Misses and sees his stumps in a mess"
             },
             {
               "batter": "HH Pandya",
@@ -1555,7 +1675,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Low full toss outside off stump, he toe-ends this to long-off"
             },
             {
               "batter": "HH Pandya",
@@ -1565,7 +1686,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Another solid yorker right on off stump, Musekiwa jams that pretty neatly down to deep third"
             }
           ]
         }
@@ -1657,7 +1779,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Pulls off the bottom-half of the batt through midwicket. Deep square leg cleans up"
             },
             {
               "batter": "T Marumani",
@@ -1667,7 +1790,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>Mistimed... and gets away with it</strong>. Samson going far back in the crease again and gets a length ball at the stumps, looks to pull it hard. Ball hit just below the sticker and beat midwicket, running back. Chancy"
             },
             {
               "batter": "T Marumani",
@@ -1677,7 +1801,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Swipe and a miss. Bennett looks to go over square leg as the scramble-seam length ball comes back in and goes over off stump"
             },
             {
               "batter": "T Marumani",
@@ -1687,7 +1812,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Change-up - slow yorker may have swung in a bit. Samson looks to crunch a straight drive and gets an inside edge to fine leg"
             },
             {
               "batter": "T Marumani",
@@ -1697,7 +1823,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Yorker on middle, swings in and is defended to point"
             },
             {
               "batter": "T Marumani",
@@ -1722,7 +1849,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Swings in big off a back of length, beats the flick and hits high on the pad. Rolls behind point"
             },
             {
               "batter": "T Marumani",
@@ -1800,7 +1928,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Another wide, another free hit. Very low full toss, Abhishek didn't take a stride across and reached out to try and drive through cover. Misses. Samson thought of a run, sent back"
             },
             {
               "batter": "T Marumani",
@@ -1810,7 +1939,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Half-volleys the fielder at cover point</strong>. Wide and fullish, Marumani reached out and got on one knee to drive it with a horizontal bat"
             },
             {
               "batter": "BJ Bennett",
@@ -1820,7 +1950,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "This free hit, he connects with. Yorker missed, Abhishek gets under the full ball and drives through the line for a straight four"
             },
             {
               "batter": "BJ Bennett",
@@ -1830,7 +1961,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Beats the pull. Back of length ball skids through and goes over middle stump. Not much footwork from Marumani, didn't go back"
             },
             {
               "batter": "BJ Bennett",
@@ -1840,7 +1972,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "On the bounce to deep-backward square. Touch back of length on leg, Abhishek looking to help it along with the pull, didn't get it fine enough"
             },
             {
               "batter": "BJ Bennett",
@@ -1850,7 +1983,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Pitched up at the stumps, punched to the right of mid-on"
             }
           ]
         },
@@ -1865,7 +1999,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Nice short-arm pull finds midwicket. Made room and the Hardik tried to follow him with a back-of-length ball. It finished over leg stump"
             },
             {
               "batter": "BJ Bennett",
@@ -1875,7 +2010,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Length on off, defended to the bowler"
             },
             {
               "batter": "BJ Bennett",
@@ -1885,7 +2021,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Mid-off has a chance, does he? No. Dube runs back but it clears him easily. Bennett cleared his front leg and looked to drive the fullish ball. Wanted to go over mid-on, then straightened his bat as the ball was beside him, got it off the bottom of the bat"
             },
             {
               "batter": "BJ Bennett",
@@ -1895,7 +2032,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Length just outside off, steered to deep point"
             },
             {
               "batter": "BJ Bennett",
@@ -1905,7 +2043,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Fullish ball on leg is helped along with a flick to deep fine leg"
             },
             {
               "batter": "BJ Bennett",
@@ -1930,7 +2069,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "A bit of width on the 133ks length ball, cut hard to point. May have stuck in the pitch a touch"
             },
             {
               "batter": "T Marumani",
@@ -1940,7 +2080,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Yorker on leg, flicked to midwicket"
             },
             {
               "batter": "T Marumani",
@@ -1950,7 +2091,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Gets across well outside off, opens his stance and Evans sees him. Goes very wide and fullish, tries to slash over point, misses"
             },
             {
               "batter": "T Marumani",
@@ -1960,7 +2102,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Lot of flat-bat hits in the first dig, first one this innings. Belted back over the bowler. Slower length ball but there is room, Bennett whacks it from knee-height"
             },
             {
               "batter": "T Marumani",
@@ -1970,7 +2113,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Nearly a French cut onto the stumps. Went past off stump. Was a length ball wide of off, Abhishek took a step across and looked to pull it across to the leg side"
             },
             {
               "batter": "BJ Bennett",
@@ -1980,7 +2124,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Looks to go over midwicket and misses. Abhishek got outside off and looked to slog the length ball, slanting away from him"
             }
           ]
         },
@@ -1995,7 +2140,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Samson played a couple of these to start, now it's Abhishek. Goes back a step and flat-bats a hard length ball right on the straight boundary board. Drinks"
             },
             {
               "batter": "T Marumani",
@@ -2016,7 +2162,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "Skids through and that's pulled off the stumps. Deep midwicket runs to the left, dives across and stops it. Drinks"
             },
             {
               "batter": "D Myers",
@@ -2087,7 +2234,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length angling in towards off, makes room and slaps to deep cover does Abhishek"
             },
             {
               "batter": "BJ Bennett",
@@ -2097,7 +2245,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Length on leg, worked to midwicket"
             },
             {
               "batter": "BJ Bennett",
@@ -2107,7 +2256,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length on leg, flicked to deep midwicket"
             },
             {
               "batter": "D Myers",
@@ -2117,7 +2267,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Too full. On leg stump, 89ks, flicked to square leg"
             },
             {
               "batter": "D Myers",
@@ -2127,7 +2278,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Full ball goes down leg after beating the leg glance"
             },
             {
               "batter": "BJ Bennett",
@@ -2159,7 +2311,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Bouncer over leg, ducked under. Sharp ball, good direction and speed off the pitch."
             },
             {
               "batter": "BJ Bennett",
@@ -2169,7 +2322,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Length at the stumps, driven to long-off"
             },
             {
               "batter": "BJ Bennett",
@@ -2179,7 +2333,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Another bouncer, this is just outside off, pulled across to deep midwicket's left"
             },
             {
               "batter": "BJ Bennett",
@@ -2189,7 +2344,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length on leg, gets the front leg to his right and flicks to midwicket"
             },
             {
               "batter": "D Myers",
@@ -2199,7 +2355,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Bumrah and Samson appeal, umpire unmoved. SKY discusses and takes the review. Under-edge close to the ball, doesn't seem to have hit it. Ultra-Edge confirms it. Short ball, looked slow, just outside off. Bennett looked to slap it across to the leg side"
             },
             {
               "batter": "BJ Bennett",
@@ -2224,7 +2381,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length wide of off, cut through point. Fifty stand up"
             },
             {
               "batter": "BJ Bennett",
@@ -2234,7 +2392,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Flat and wide outside off, cut to deep cover"
             },
             {
               "batter": "D Myers",
@@ -2255,7 +2414,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "Dances down and punches it on the rise to long-off"
             },
             {
               "batter": "Sikandar Raza",
@@ -2300,7 +2460,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Looks to drive to long-off, gets an inside edge onto pad"
             },
             {
               "batter": "BJ Bennett",
@@ -2310,7 +2471,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length outside off, looks to carve it off side, chops it off the underedge behind"
             },
             {
               "batter": "Sikandar Raza",
@@ -2320,7 +2482,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length on off, chopped to deep-backward point."
             },
             {
               "batter": "BJ Bennett",
@@ -2330,7 +2493,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Worked to cover, looks for the single but it's not on"
             },
             {
               "batter": "Sikandar Raza",
@@ -2340,7 +2504,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Short on middle, punched off the back foot to the bowler's left"
             },
             {
               "batter": "Sikandar Raza",
@@ -2365,7 +2530,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<b>GOT'EM!</b> 4, 6, W and Raza is thrilled. Short and wide, was darted in by Raza. He slashes at it, gets it off a thickish outside edge straight to Muzarabani at short third"
             },
             {
               "batter": "Sikandar Raza",
@@ -2375,7 +2541,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Ah, completely mistimes this. Was stifle short on off stump, he hops back eyeing a pull but mistimes it to wide long-on"
             },
             {
               "batter": "Sikandar Raza",
@@ -2385,7 +2552,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "And he's off the mark with a boundary. Fuller outside off, out comes the hard sweep and despite there being a deep backward square leg around, he manages to get it wider of him to his right"
             },
             {
               "batter": "BJ Bennett",
@@ -2395,7 +2563,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<b>How's that missed leg stump? Oh, it's missed by a whisker!</b> Flatter and fuller that lands on middle and leg. Raza backs away looking to thump that over long-on and misses"
             },
             {
               "batter": "Sikandar Raza",
@@ -2405,7 +2574,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Fuller on the stumps, he eases to long-on"
             },
             {
               "batter": "BJ Bennett",
@@ -2415,7 +2585,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Just falls short of long-on. Pushed quicker on off and middle, he flat-bats it and doesn't get any elevation. Abhishek at long-on can't reach it in time"
             }
           ]
         },
@@ -2430,7 +2601,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Excellent stop at backward point. Marginally short outside off, he cuts this to the left of the fielder who dives and saves three"
             },
             {
               "batter": "BJ Bennett",
@@ -2440,7 +2612,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "<strong>DROPPED by Muzarabani at deep backward square leg. Oh, dear! Zimbabwe are being sloppy again in the field.</strong> Full on leg stump, he gets across and plays his favourite pick-up shot, but this time straight to the fielder. Muzarabani, I think loses the ball in the lights, moves forward late and ends up barely getting his fingertips to it. The ball goes for a four as well."
             },
             {
               "batter": "BJ Bennett",
@@ -2450,7 +2623,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Fullish on off stump, eases to long-off for a single"
             },
             {
               "batter": "BJ Bennett",
@@ -2460,7 +2634,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Length ball on middle and leg, he pushes this towards mid-on"
             },
             {
               "batter": "Sikandar Raza",
@@ -2470,7 +2645,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Bennett backs away but Varun follows him, cramping him for room. Bennett can only defend this back to the bowler"
             },
             {
               "batter": "BJ Bennett",
@@ -2495,7 +2671,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Low full toss on middle stump, he works this to deep midwicket"
             },
             {
               "batter": "BJ Bennett",
@@ -2505,7 +2682,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Another slower ball well outside off stump. Called a wide as Abhishek lets that go"
             },
             {
               "batter": "BJ Bennett",
@@ -2515,7 +2693,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Slower back of a length ball on off stump, Raza adjusts and with both feet off the ground bunts this to sweeper cover"
             },
             {
               "batter": "Sikandar Raza",
@@ -2525,7 +2704,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "<strong>Maposa after a tough start finally has something to smile about as Abhishek's innings ends.</strong> Another slower offcutter around off stump, Abhishek for once doesn't pick up the change of pace as he looks to smash this across the line. He gets it right off the toe-end of the bat to Raza at long-on, who makes no mistake. Raza had to run in from the boundary line and he did that well."
             },
             {
               "batter": "Sikandar Raza",
@@ -2535,7 +2715,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Slower ball gone wrong. Ends up being a knee-high full toss that is swatted away by Bennett to deep midwicket"
             },
             {
               "batter": "BJ Bennett",
@@ -2548,7 +2729,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "On a length on off, he pushes to backward point with an open face of the bat"
             },
             {
               "batter": "BJ Bennett",
@@ -2573,7 +2755,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Flatter and shorter outside off, he flat-bats this to long-off. Burl gets away with one"
             },
             {
               "batter": "BJ Bennett",
@@ -2583,7 +2766,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Dube has not even managed to get anywhere close to it? That's just lazy from the allrounder. Length ball outside off, Raza crashes this to the left of Dube at long-off who makes no attempt to stop that. It wasn't too far away"
             },
             {
               "batter": "BJ Bennett",
@@ -2593,7 +2777,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Pushed quicker again well outside off stump, was the seam-up ball from Burl. Surya reaches for it and gets it to deep cover"
             },
             {
               "batter": "BJ Bennett",
@@ -2603,7 +2788,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "And now some poor running from Raza. Marginally short on off stump, he pulls in the gap between deep midwicket and long-on. Raza feels that is going for four but deep midwicket moves swiftly to his left and intercepts"
             },
             {
               "batter": "BJ Bennett",
@@ -2616,7 +2802,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "Slower through the air but waaaay outside off, called a wide"
             },
             {
               "batter": "BJ Bennett",
@@ -2626,7 +2813,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Fuller but well outside off stump, called a wide"
             },
             {
               "batter": "BJ Bennett",
@@ -2639,7 +2827,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "<b>Oh, that's a sensational effort from Raza and he effectively saves five runs for his team.</b> Tossed up outside off stump, Hardik goes across the line but doesn't get all of it. The ball goes flat to Raza at wide long-on, who leaps to his right, completes the catch one-handed and chucks the ball back into the field of play. The only problem is that he doesn't get enough altitude as he throws the ball back in. That doesn't allow him to come back and complete the catch once he had overbalanced and gone out of the field of play"
             },
             {
               "batter": "BJ Bennett",
@@ -2652,7 +2841,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "Fuller outside off, he digs this past cover"
             },
             {
               "batter": "BJ Bennett",
@@ -2690,7 +2880,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Banged in short on middle stump, he keeps that open stance again in place and pulls well to the left of deep square leg where Myers sprints, puts in a dive and saves two"
             },
             {
               "batter": "Sikandar Raza",
@@ -2700,7 +2891,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Fortune favours the brave and Bennett has the fortune for the moment.</strong> Fuller outside off stump, he looks to go over extra cover, gets a thick outside edge that flies past the 'keeper"
             },
             {
               "batter": "BJ Bennett",
@@ -2713,7 +2905,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Redemption for Musekiwa as he takes a wonderful catch running in. Oh, there is some justice in this world, after all!</strong> Banged in short around off stump, rather just outside off, he backs away looking to cut this, but the ball gets big on him and he ends up slicing it straight up. Musekiwa sprints in from sweeper cover, dives and takes a good catch"
             },
             {
               "batter": "Sikandar Raza",
@@ -2723,7 +2916,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Fuller well outside off, Bennett can't reach that. Called a wide"
             },
             {
               "batter": "Sikandar Raza",
@@ -2733,7 +2927,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "<strong>Short, wide and slapped away.</strong> Tilak gets on his toes and thumps this over backward point for four to get off the mark"
             },
             {
               "batter": "Sikandar Raza",
@@ -2743,7 +2938,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Full outside off stump, Bennett walks across trying to dig that but he can't lay a bat on it"
             }
           ]
         },
@@ -2758,7 +2954,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Fired on a length outside off, he taps this to backward point"
             },
             {
               "batter": "Sikandar Raza",
@@ -2779,7 +2976,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "Mistimed to deep backward square leg and the ball falls safely. Bouncer onto his body, the ball gets big on him as he mis-hits the pull. The ball falls in no-man's land well in front deep square leg"
             },
             {
               "batter": "RP Burl",
@@ -2789,7 +2987,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "Raza not going down without a fight. Fuller outside off, he backs away, gives himself a little room and lofts to the left of long-off"
             },
             {
               "batter": "RP Burl",
@@ -2812,7 +3011,8 @@
                   "player_out": "RP Burl",
                   "kind": "lbw"
                 }
-              ]
+              ],
+              "commentary": "Slower length ball just outside off, he flicks this to deep square leg. Some excellent running gets them two"
             },
             {
               "batter": "T Munyonga",
@@ -2822,7 +3022,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "Quick single and they make it. Flatter length ball outside off, he slaps it to Surya at extra cover and sets off. A good throw and a clean collection from Varun as he whips off the bails. But Raza was in"
             },
             {
               "batter": "T Munyonga",
@@ -2847,7 +3048,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Fullish in length on off and middle, he muscles this to long-on albeit off the bottom of the bat"
             },
             {
               "batter": "T Munyonga",
@@ -2857,7 +3059,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Huge appeal for lbw... not given.</strong> Arshdeep is confident. He's hardly appealed, just put his hands up. Will they go for the review?<strong> Yep, Surya does at the last moment.</strong>  Fuller, angling into the pads of Burl. He looks to flick that and misses and is rapped on the pad. Was that sliding down leg? <strong>Oh, no it isn't.</strong> Ball tracker has that smashing into leg stump. Arshdeep has his hands up and looks at Surya. Burl departs for a two-ball duck."
             },
             {
               "batter": "BJ Bennett",
@@ -2867,7 +3070,8 @@
                 "batter": 4,
                 "extras": 0,
                 "total": 4
-              }
+              },
+              "commentary": "<b>Tilak is playing an absolute gem here.</b> Fuller outside off, he backs away and with a free swing of the arm clobbers him inside-out over extra cover for a big six"
             },
             {
               "batter": "BJ Bennett",
@@ -2877,7 +3081,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Edged for four first ball.</strong> Angles this on off stump, with the ball holding its line after pitching. Munyonga gets a healthy outside edge that flies past the keeper's right"
             },
             {
               "batter": "T Munyonga",
@@ -2887,7 +3092,8 @@
                 "batter": 2,
                 "extras": 0,
                 "total": 2
-              }
+              },
+              "commentary": "Full just around off stump, he gets across and attempts the cheeky scoop again. Only manages to inside-edge this back onto his pad"
             },
             {
               "batter": "T Munyonga",
@@ -2897,7 +3103,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>Two in two.</strong> Back of a length ball on his hips, he gets across and helps this to the right of deep backward square leg"
             }
           ]
         },
@@ -2912,7 +3119,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Pinpoint yorker on middle stump, he digs this out and they pinch a single"
             },
             {
               "batter": "T Munyonga",
@@ -2928,7 +3136,8 @@
                   "player_out": "T Munyonga",
                   "kind": "bowled"
                 }
-              ]
+              ],
+              "commentary": "On a length outside off, he mistimes this to long-on"
             },
             {
               "batter": "T Musekiwa",
@@ -2938,7 +3147,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Another solid yorker on middle, Munyonga jams this feebly to deep midwicket. They scamper back for the second and Bennett makes it with Tilak's flat throw just missing the non-striker's stumps"
             },
             {
               "batter": "BJ Bennett",
@@ -2955,7 +3165,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "<strong>India's highest score in T20 World Cups and they still have two overs to go!</strong> Slower back of a length ball outside off stump, he picks up the change of pace nice and early and off the backfoot slams this over wide long-on"
             },
             {
               "batter": "BJ Bennett",
@@ -2965,7 +3176,8 @@
                 "batter": 0,
                 "extras": 0,
                 "total": 0
-              }
+              },
+              "commentary": "BIG heave and a miss! Fuller in length on off stump, he looks for a massive across the line swipe and is beaten"
             },
             {
               "batter": "BJ Bennett",
@@ -2990,7 +3202,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Fuller on leg stump, he flicks this with power to the left of deep midwicket for a couple of runs"
             },
             {
               "batter": "T Musekiwa",
@@ -3003,7 +3216,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Another appeal from Arsdheep, this time for caught behind</strong>. Nothing from Samson as he points to Surya. Does he go for the review? He does. This time, though, Bennett is nowhere near the ball. Full outside off, he goes for a drive and misses. Doesn't connect"
             },
             {
               "batter": "T Musekiwa",
@@ -3016,7 +3230,8 @@
                 "batter": 0,
                 "extras": 1,
                 "total": 1
-              }
+              },
+              "commentary": "<strong>Tilak is in overdrive!</strong> Slower delivery that just sticks into the surface outside off stump. Tilak sets a solid base, clears his front leg and slams him over long-on"
             },
             {
               "batter": "T Musekiwa",
@@ -3026,7 +3241,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Full outside off, he carves this to backward point and they don't get the single"
             },
             {
               "batter": "T Musekiwa",
@@ -3047,7 +3263,8 @@
                   ],
                   "kind": "caught"
                 }
-              ]
+              ],
+              "commentary": "<strong>INTO THE CROWD!</strong> Slower delivery that goes awfully wrong for Ngarava. Knee-high full toss on leg stump, he bends down on one knee and swats it across the line over deep midwicket"
             },
             {
               "batter": "B Evans",
@@ -3057,7 +3274,8 @@
                 "batter": 1,
                 "extras": 0,
                 "total": 1
-              }
+              },
+              "commentary": "Angles the fuller length ball on middle stump, he gets a leading edge to long-on for a run"
             },
             {
               "batter": "BJ Bennett",
@@ -3067,7 +3285,8 @@
                 "batter": 6,
                 "extras": 0,
                 "total": 6
-              }
+              },
+              "commentary": "Nails the yorker finally and Tilak just about digs it out to the offside"
             },
             {
               "batter": "BJ Bennett",

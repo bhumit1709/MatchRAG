@@ -2,25 +2,33 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import ChatMessage from "./components/ChatMessage";
 import ThinkingIndicator from "./components/ThinkingIndicator";
 import ExampleChips from "./components/ExampleChips";
+import PipelineInspector from "./components/PipelineInspector";
 import "./index.css";
 
 const API_BASE = "http://localhost:5001";
+
+function newSessionId() {
+  return crypto.randomUUID();
+}
 
 export default function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [serverOnline, setServerOnline] = useState(null); // null=checking, true, false
+  const [serverOnline, setServerOnline] = useState(null);
+  const [sessionId, setSessionId] = useState(() => newSessionId());
 
   const chatEndRef = useRef(null);
   const textareaRef = useRef(null);
+  // Mirrors `messages` synchronously so we can read length before setState commits
+  const messagesRef = useRef([]);
 
-  // ── Auto-scroll to bottom on new messages ─────────────
+  // ── Auto-scroll ────────────────────────────────────────────────────────────
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  // ── Auto-resize textarea ───────────────────────────────
+  // ── Auto-resize textarea ───────────────────────────────────────────────────
   useEffect(() => {
     const el = textareaRef.current;
     if (!el) return;
@@ -28,7 +36,7 @@ export default function App() {
     el.style.height = Math.min(el.scrollHeight, 120) + "px";
   }, [input]);
 
-  // ── Check server status on mount ──────────────────────
+  // ── Check server status on mount ──────────────────────────────────────────
   useEffect(() => {
     fetch(`${API_BASE}/api/status`)
       .then((r) => r.json())
@@ -36,41 +44,128 @@ export default function App() {
       .catch(() => setServerOnline(false));
   }, []);
 
-  // ── Send a question to the API ─────────────────────────
+  // ── New Chat ───────────────────────────────────────────────────────────────
+  const handleNewChat = useCallback(async () => {
+    try {
+      await fetch(`${API_BASE}/api/session/clear`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionId }),
+      });
+    } catch (_) { }
+    const next = newSessionId();
+    setSessionId(next);
+    setMessages([]);
+    messagesRef.current = [];
+    setInput("");
+  }, [sessionId]);
+
+  // ── Send a question (SSE streaming) ───────────────────────────────────────
   const sendMessage = useCallback(async (question) => {
     const q = (question || input).trim();
     if (!q || loading) return;
 
     setInput("");
-    setMessages((prev) => [...prev, { role: "user", text: q }]);
     setLoading(true);
+
+    // ── Compute indices BEFORE any setState so they're stable across renders ─
+    // messagesRef.current always reflects the latest committed messages array.
+    // React StrictMode invokes setState callbacks twice in dev, so we must NOT
+    // derive the index inside a setState callback — use the ref instead.
+    const botIdx = messagesRef.current.length + 1; // +1 for the user message
+
+    // Append user message + empty bot placeholder in a single batch
+    setMessages((prev) => {
+      const next = [
+        ...prev,
+        { role: "user", text: q },
+        { role: "bot", text: "", streaming: true },
+      ];
+      messagesRef.current = next;
+      return next;
+    });
 
     try {
       const res = await fetch(`${API_BASE}/api/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: q }),
+        body: JSON.stringify({ question: q, session_id: sessionId }),
       });
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
-      setMessages((prev) => [
-        ...prev,
-        { role: "bot", text: data.answer, elapsed: data.elapsed },
-      ]);
+
+      if (!res.ok || !res.body) {
+        let msg = `HTTP ${res.status}`;
+        try { const j = await res.json(); msg = j.error || msg; } catch (_) { }
+        throw new Error(msg);
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+
+        let newlineIdx;
+        while ((newlineIdx = buffer.indexOf("\n")) !== -1) {
+          const line = buffer.slice(0, newlineIdx).trim();
+          buffer = buffer.slice(newlineIdx + 1);
+
+          if (!line.startsWith("data: ")) continue;
+          let event;
+          try { event = JSON.parse(line.slice(6)); } catch (_) { continue; }
+
+          if (event.type === "meta") {
+            // Store pipeline metadata on the bot message placeholder
+            setMessages((prev) => {
+              const updated = [...prev];
+              const cur = updated[botIdx] ?? { role: "bot", text: "", streaming: true };
+              updated[botIdx] = { ...cur, meta: event };
+              messagesRef.current = updated;
+              return updated;
+            });
+          } else if (event.type === "token") {
+            const token = event.content;
+            setMessages((prev) => {
+              const updated = [...prev];
+              const cur = updated[botIdx] ?? { role: "bot", text: "", streaming: true };
+              updated[botIdx] = { ...cur, text: cur.text + token };
+              messagesRef.current = updated;
+              return updated;
+            });
+          } else if (event.type === "done") {
+            setMessages((prev) => {
+              const updated = [...prev];
+              const cur = updated[botIdx] ?? { role: "bot", text: "" };
+              updated[botIdx] = { ...cur, streaming: false, elapsed: event.elapsed };
+              messagesRef.current = updated;
+              return updated;
+            });
+          } else if (event.type === "error") {
+            throw new Error(event.message || "Server error");
+          }
+        }
+      }
     } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "bot",
-          text: `⚠️ Error: ${err.message || "Could not reach the server."}`,
-        },
-      ]);
+      const errText = `⚠️ ${err.message || "Could not reach the server."}`;
+      setMessages((prev) => {
+        const updated = [...prev];
+        if (updated[botIdx]) {
+          updated[botIdx] = { role: "bot", text: errText, streaming: false };
+        } else {
+          updated.push({ role: "bot", text: errText, streaming: false });
+        }
+        messagesRef.current = updated;
+        return updated;
+      });
     } finally {
       setLoading(false);
     }
-  }, [input, loading]);
+  }, [input, loading, sessionId]);
 
-  // ── Handle keydown (Enter to send, Shift+Enter for newline) ──
+  // ── Keyboard handler ───────────────────────────────────────────────────────
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -108,6 +203,13 @@ export default function App() {
                   ? "● Indexed"
                   : "● Server offline"}
             </span>
+            <button
+              className="new-chat-btn"
+              onClick={handleNewChat}
+              title="Start a new conversation (clears memory)"
+            >
+              ＋ New Chat
+            </button>
           </div>
         </header>
 
@@ -117,15 +219,27 @@ export default function App() {
             <ExampleChips onSelect={(q) => sendMessage(q)} />
           ) : (
             <>
-              {messages.map((msg, i) => (
-                <ChatMessage
-                  key={i}
-                  role={msg.role}
-                  text={msg.text}
-                  elapsed={msg.elapsed}
-                />
-              ))}
-              {loading && <ThinkingIndicator />}
+              {messages.map((msg, i) => {
+                // Skip rendering the empty bot placeholder — ThinkingIndicator handles that
+                if (msg.role === "bot" && msg.streaming && !msg.text) return null;
+                return (
+                  <div key={i}>
+                    <ChatMessage
+                      role={msg.role}
+                      text={msg.text}
+                      elapsed={msg.elapsed}
+                      streaming={msg.streaming}
+                    />
+                    {msg.role === "bot" && msg.meta && (
+                      <PipelineInspector meta={msg.meta} />
+                    )}
+                  </div>
+                );
+              })}
+              {/* Show ThinkingIndicator while waiting for first token */}
+              {loading && messages[messages.length - 1]?.text === "" && (
+                <ThinkingIndicator />
+              )}
             </>
           )}
           <div ref={chatEndRef} />
