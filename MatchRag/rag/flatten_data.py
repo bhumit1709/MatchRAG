@@ -114,8 +114,8 @@ def flatten_deliveries(data: dict) -> list[dict]:
         batting_team = innings.get("team", f"Team {innings_idx}")
 
         for over_data in innings.get("overs", []):
-            # Over is 0-indexed in CricSheet format → display as 1-based
-            over_num = over_data.get("over", 0) + 1
+            # Over is 0-indexed in CricSheet format
+            over_num = over_data.get("over", 0)
 
             for ball_idx, delivery in enumerate(over_data.get("deliveries", []), start=1):
                 runs = delivery.get("runs", {})

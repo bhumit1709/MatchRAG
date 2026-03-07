@@ -10,11 +10,14 @@ All LLM inference runs locally through Ollama (mistral or llama3).
 Supports session memory (chat history) and streaming token output.
 """
 
+import json
+import re
 from typing import TypedDict, Generator
 from langgraph.graph import StateGraph, END
 import ollama
-from rag.vector_store import query as vector_query
-from config import LLM_MODEL, TOP_K
+from rag.vector_store import query as vector_query, get_known_players, get_player_stats, get_match_metadata, get_event_leaderboard
+from config import LLM_MODEL, TOP_K, INITIAL_TOP_K
+from rag.reranker import rerank_documents
 
 # ---------------------------------------------------------------------------
 # Heuristic: detect follow-up questions that need rewriting
@@ -66,7 +69,13 @@ class RAGState(TypedDict):
     question:           str
     rewritten_question: str
     chat_history:       list[dict]   # [{role, content}, ...]
-    retrieved_docs:     list[dict]
+    retrieval_filters:  dict | None  # ChromaDB where-clause from entity extraction
+    player_stats:       dict | None  # Deterministic stats for the extracted player
+    aggregate_stats:    str | None   # Deterministic aggregate stats (leaderboard/count) for stat questions
+    group_by:           str          # Event grouping field (player, over, innings)
+    metric:             str          # Stat metric to calculate (count, runs_total)
+    initial_docs:       list[dict]   # Before reranking
+    retrieved_docs:     list[dict]   # After reranking
     context:            str
     answer:             str
 
@@ -136,20 +145,319 @@ def rewrite_question(state: RAGState) -> RAGState:
 
 
 # ---------------------------------------------------------------------------
-# Node 1 — Retrieve
+# Node 1 — Extract filters (LLM-based entity extraction)
+# ---------------------------------------------------------------------------
+
+_EXTRACT_PROMPT = """\
+You are an entity extractor for a cricket match Q&A system.
+
+Given the question and the list of known player names, extract:
+- "players": list of exact player names from the 'Known players' list below that match the players mentioned in the question. You MUST use the exact spelling from the known list (e.g. if question says 'Shimron Hetmyer' and known list has 'SO Hetmyer', output 'SO Hetmyer').
+- "event": one of ["wicket", "six", "four", "dot", "single", "run"] if the question targets a specific event. ONLY use "run" if they ask about running between wickets (1s, 2s, 3s). If they ask for "total runs", set this to null!
+- "over": integer if a specific over is mentioned (e.g. 11 for "12th over"), or the string "last" ONLY IF they explicitly say "last over" or "final over". Else null.
+- "innings": integer if a specific innings is mentioned (1 or 2), else null.
+- "is_stat_question": boolean True ONLY if the user asks for an aggregate calculation across the match like "most", "highest", "total count", "leaderboard", or "who scored the most". False if they ask about a specific event (e.g. "Who dismissed X?", "What happened in the 5th over?").
+- "group_by": one of ["player", "over", "innings", "wicket_kind"]. Default is "player". If the question asks "Which over...", use "over". If "Which team...", use "innings".
+- "metric": one of ["count", "runs_total"]. Use "count" to count events (e.g., most sixes, most wickets). Use "runs_total" to sum up runs (e.g., most runs, highest run scorer).
+
+RULES:
+1. Extract any player name mentioned in the question and map it to the closest name in the Known players list.
+2. If no player is mentioned, return empty list for players.
+3. Return ONLY valid JSON. No explanation.
+
+EXAMPLE 1:
+Known players: RG Sharma, SO Hetmyer, JJ Bumrah
+Question: "Who hit the most sixes?"
+Output: {"players": [], "event": "six", "over": null, "innings": null, "is_stat_question": true, "group_by": "player", "metric": "count"}
+
+EXAMPLE 2:
+Question: "Show all wickets taken by Bumrah."
+Output: {"players": ["JJ Bumrah"], "event": "wicket", "over": null, "innings": null, "is_stat_question": true, "group_by": "player", "metric": "count"}
+
+EXAMPLE 3:
+Question: "Which over had the most runs?"
+Output: {"players": [], "event": null, "over": null, "innings": null, "is_stat_question": true, "group_by": "over", "metric": "runs_total"}
+
+EXAMPLE 4:
+Known players: SO Hetmyer
+Question: "Who dismissed Shimron Hetmyer?"
+Output: {"players": ["SO Hetmyer"], "event": "wicket", "over": null, "innings": null, "is_stat_question": false, "group_by": "player", "metric": "count"}"""
+
+
+def _build_where_filter(players: list[str], event: str | None, over: int | None, innings: int | None) -> dict | None:
+    """Convert extracted entities into a ChromaDB where-clause."""
+    clauses = []
+
+    if players:
+        # Search across batter, bowler, and player_out for each player
+        player_clauses = []
+        for name in players:
+            player_clauses.extend([
+                {"batter":     {"$eq": name}},
+                {"bowler":     {"$eq": name}},
+                {"player_out": {"$eq": name}},
+            ])
+        if len(player_clauses) == 1:
+            clauses.append(player_clauses[0])
+        else:
+            clauses.append({"$or": player_clauses})
+
+    if event:
+        clauses.append({"event": {"$eq": event}})
+
+    if over is not None:
+        clauses.append({"over": {"$eq": over}})
+        
+    if innings is not None:
+        clauses.append({"innings": {"$eq": innings}})
+
+    if not clauses:
+        return None
+    if len(clauses) == 1:
+        return clauses[0]
+    return {"$and": clauses}
+
+
+def extract_filters(state: RAGState) -> RAGState:
+    """
+    Use the LLM to extract player names and event type from the question,
+    then build a ChromaDB metadata where-filter for precise retrieval.
+    Falls back to None (unfiltered) if extraction fails or finds nothing.
+    """
+    question = state["rewritten_question"] or state["question"]
+    known    = get_known_players()
+
+    if not known:
+        return {**state, "retrieval_filters": None}
+
+    prompt = (
+        f"Known players: {', '.join(known)}\n"
+        f"Question: {question}"
+    )
+
+    try:
+        response = ollama.chat(
+            model=LLM_MODEL,
+            messages=[
+                {"role": "system", "content": _EXTRACT_PROMPT},
+                {"role": "user",   "content": prompt},
+            ],
+        )
+        raw = response["message"]["content"].strip()
+        
+        # Robustly extract just the FIRST complete JSON object using brace counting
+        start = raw.find('{')
+        if start != -1:
+            depth = 0
+            for i in range(start, len(raw)):
+                if raw[i] == '{':
+                    depth += 1
+                elif raw[i] == '}':
+                    depth -= 1
+                if depth == 0:
+                    raw = raw[start:i+1]
+                    break
+            
+        extracted = json.loads(raw)
+        
+        # Fuzzy match players if the LLM didn't return exact KNOWN player name
+        llm_players = extracted.get("players", [])
+        players = []
+        for p in llm_players:
+            if p in known:
+                players.append(p)
+            else:
+                last_name = p.split()[-1] if ' ' in p else p
+                for kp in known:
+                    if last_name.lower() in kp.lower():
+                        if kp not in players:
+                            players.append(kp)
+                            
+        event   = extracted.get("event") or None
+        
+        over_val = extracted.get("over")
+        innings_val = extracted.get("innings")
+        
+        if over_val == "last" or over_val == "final":
+            match_meta = get_match_metadata()
+            if match_meta:
+                over_val = match_meta["max_over"]
+                if not innings_val:
+                    innings_val = match_meta["max_innings"]
+            else:
+                over_val = None
+        elif isinstance(over_val, str):
+            try:
+                over_val = int(over_val)
+            except ValueError:
+                over_val = None
+
+        if isinstance(innings_val, str):
+            try:
+                innings_val = int(innings_val)
+            except ValueError:
+                innings_val = None
+
+        where   = _build_where_filter(players, event, over_val, innings_val)
+        stats   = get_player_stats(players[0]) if players else None
+        
+        is_stat = bool(extracted.get("is_stat_question", False))
+        group_by = extracted.get("group_by", "player")
+        metric   = extracted.get("metric", "count")
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        print(f"Extraction failed. Raw output was: {raw if 'raw' in locals() else 'unbound'}")
+        where = None
+        stats = None
+        is_stat = False
+        group_by = "player"
+        metric = "count"
+
+    return {
+        **state,
+        "retrieval_filters": where,
+        "player_stats": stats,
+        "aggregate_stats": None,
+        "is_stat_question": is_stat,
+        "group_by": group_by,
+        "metric": metric
+    }
+
+
+# ---------------------------------------------------------------------------
+# Node 2 — Compute Aggregate Stats
+# ---------------------------------------------------------------------------
+
+def compute_aggregate_stats(state: RAGState) -> RAGState:
+    """
+    If the question is a stat question, bypass vector search and deterministically
+    compute the aggregate leaderboard from ChromaDB metadata.
+    """
+    if not state.get("is_stat_question"):
+        return state
+
+    where = state.get("retrieval_filters")
+    
+    # Extract event type from the filter manually
+    event_type = None
+    if where and isinstance(where, dict):
+        if "event" in where and isinstance(where["event"], dict):
+            event_type = where["event"].get("$eq")
+        elif "$and" in where:
+            for clause in where["$and"]:
+                if "event" in clause and isinstance(clause["event"], dict):
+                    event_type = clause["event"].get("$eq")
+                    
+    leaderboard = get_event_leaderboard(
+        where_filter=where, 
+        event_type=event_type,
+        group_by=state.get("group_by", "player"),
+        metric=state.get("metric", "count")
+    )
+    
+    if not leaderboard:
+        return state
+        
+    # Format the stats
+    lines = ["=== SYSTEM CALCULATED EXACT STATS ==="]
+    if event_type:
+        lines.append(f"Stat leaderboard for event '{event_type.upper()}':")
+    else:
+        lines.append("Stat leaderboard:")
+        
+    for i, row in enumerate(leaderboard[:10], start=1):  # top 10 is enough
+        label = "occurrences"
+        if state.get("metric") == "runs_total":
+            label = "runs"
+            
+        prefix = ""
+        if state.get("group_by") == "over":
+            parts = str(row['player']).split('_')
+            if len(parts) == 2:
+                lines.append(f"{i}. Innings {parts[0]} Over {parts[1]} — {row['count']} {label}")
+                continue
+            else:
+                prefix = "Over "
+        elif state.get("group_by") == "innings":
+            prefix = "Innings "
+            
+        lines.append(f"{i}. {prefix}{row['player']} — {row['count']} {label}")
+        
+    lines.append("=====================================\n")
+    # Inject the winner into the retrieval filters ONLY if no specific player was requested.
+    # If the user asked "How many wickets did Bumrah take?", we don't want to filter by the
+    # batter he bowled to the most!
+    if not state.get("player_stats"):
+        top_player = leaderboard[0]["player"]
+        
+        group_by = state.get("group_by", "player")
+        if group_by == "over":
+            parts = str(top_player).split('_')
+            if len(parts) == 2:
+                try:
+                    innings_val = int(parts[0])
+                    over_val = int(parts[1])
+                    player_filter = {"$and": [{"innings": {"$eq": innings_val}}, {"over": {"$eq": over_val}}]}
+                except ValueError:
+                    player_filter = {"over": {"$eq": top_player}}
+            else:
+                try:
+                    player_filter = {"over": {"$eq": int(float(top_player))}}
+                except ValueError:
+                    player_filter = {"over": {"$eq": top_player}}
+        elif group_by == "innings":
+            try:
+                player_filter = {"innings": {"$eq": int(float(top_player))}}
+            except ValueError:
+                player_filter = {"innings": {"$eq": top_player}}
+        elif group_by == "wicket_kind":
+            player_filter = {"wicket_kind": {"$eq": top_player}}
+        else:
+            filter_key = "batter"
+            if event_type in ("wicket", "dot"):
+                filter_key = "bowler"
+            player_filter = {filter_key: {"$eq": top_player}}
+        
+        if where is None:
+            where = player_filter
+        elif "$and" in where:
+            where["$and"].append(player_filter)
+        else:
+            where = {"$and": [where, player_filter]}
+    
+    return {**state, "aggregate_stats": "\n".join(lines), "retrieval_filters": where}
+
+
+# ---------------------------------------------------------------------------
+# Node 3 — Retrieve
 # ---------------------------------------------------------------------------
 
 def retrieve(state: RAGState) -> RAGState:
     """
-    Query the ChromaDB vector store using the (possibly rewritten) question.
+    Query the ChromaDB vector store using the (possibly rewritten) question,
+    with optional metadata filters from extract_filters.
     """
     query_text = state["rewritten_question"] or state["question"]
-    results = vector_query(query_text, n_results=TOP_K)
-    return {**state, "retrieved_docs": results}
+    where      = state.get("retrieval_filters")
+    results    = vector_query(query_text, n_results=INITIAL_TOP_K, where=where)
+    return {**state, "retrieved_docs": results, "initial_docs": results}
 
 
 # ---------------------------------------------------------------------------
-# Node 2 — Build context
+# Node 3 — Rerank Docs
+# ---------------------------------------------------------------------------
+
+def rerank_docs(state: RAGState) -> RAGState:
+    """Rerank retrieved documents using FlashRank."""
+    docs = state["retrieved_docs"]
+    query_text = state["rewritten_question"] or state["question"]
+    reranked = rerank_documents(query_text, docs, top_n=TOP_K)
+    return {**state, "retrieved_docs": reranked}
+
+
+# ---------------------------------------------------------------------------
+# Node 4 — Build context
 # ---------------------------------------------------------------------------
 
 def build_context(state: RAGState) -> RAGState:
@@ -160,7 +468,27 @@ def build_context(state: RAGState) -> RAGState:
     if not docs:
         return {**state, "context": "No relevant match data found."}
 
-    lines = ["=== Relevant Match Deliveries ===\n"]
+    lines = []
+    
+    # Inject exact deterministic stats if available
+    agg_stats = state.get("aggregate_stats")
+    p_stats = state.get("player_stats")
+    
+    if agg_stats:
+        lines.append(agg_stats)
+    elif p_stats:
+        lines.append("=== SYSTEM CALCULATED EXACT STATS ===")
+        lines.append(f"Player: {p_stats['name']}")
+        b = p_stats['batting']
+        lines.append(f"Batting: {b['runs']} runs off {b['balls']} balls ({b['fours']} fours, {b['sixes']} sixes)")
+        if b['dismissal']:
+            lines.append(f"Dismissal: {b['dismissal']}")
+        w = p_stats['bowling']
+        if w['overs'] != "0.0":
+            lines.append(f"Bowling: {w['wickets']} wickets for {w['runs']} runs in {w['overs']} overs")
+        lines.append("=====================================\n")
+
+    lines.append("=== Relevant Match Highlight Deliveries ===")
 
     # Inject Match-Level Metadata
     m = docs[0]["metadata"]
@@ -200,17 +528,16 @@ def build_context(state: RAGState) -> RAGState:
 # Node 3 — Generate answer (with streaming)
 # ---------------------------------------------------------------------------
 
-SYSTEM_PROMPT = """You are an expert cricket analyst answering questions about a specific cricket match. You have access ONLY to the ball-by-ball delivery data and commentary provided below.
+SYSTEM_PROMPT = """You are a cricket match reporter. You will be provided with a block of "exact match stats" calculated by the system, followed by specific highlight deliveries.
 
-RULES:
-1. NEVER invent, guess, or hallucinate player names, scores, or events that are NOT present in the provided context.
-2. Always cite the over and ball number when referring to a specific delivery (e.g., "Over 12.3").
-3. For wickets — mention: who bowled, who got out, the type of dismissal, and any fielder involved.
-4. For boundaries — mention: the batter, bowler, and the shot played if commentary describes it.
-5. Use the Commentary field to enrich your answer with narrative detail (e.g., shot description, crowd reaction, match context). Quote or paraphrase it naturally — do NOT just dump raw text.
-6. Write in a vivid, engaging cricket-commentary style. Be specific and descriptive, not just a data dump.
-7. If the context is insufficient, say what you DO know and note what is missing — but still use all commentary available.
-8. Do NOT use general cricket knowledge to fill gaps not present in the context."""
+Your task is to answer the user's question using ONLY this provided information.
+
+Guidelines:
+1. When asked about aggregate numbers (match totals, balls faced, boundaries hit), ALWAYS use the numbers provided in the "=== SYSTEM CALCULATED EXACT STATS ===" block. Do not recalculate them.
+2. When asked about specific events (how someone got out, how they hit a boundary), read the "=== Relevant Match Highlight Deliveries ===" section.
+3. You MUST use the "Commentary" text from the highlights to provide narrative descriptions. Even for simple questions like "Who dismissed X?", you MUST describe HOW the dismissal happened or HOW the shot was played using the commentary. Paraphrase the commentary to tell an engaging story, but DO NOT invent any adjectives or actions that aren't in the raw text.
+4. Always cite the exact over and ball number as it appears in the context (e.g., "In Over 12.3" or "In Over 19.1"). DO NOT alter or increment the over numbers, even if it is the last over of the match.
+5. If the provided information does not contain the answer, explicitly state that you don't have enough data."""
 
 
 def _build_messages(state: RAGState) -> list[dict]:
@@ -271,18 +598,24 @@ def build_graph():
     """
     Assemble and compile the LangGraph RAG workflow.
 
-    Pipeline:  rewrite_question → retrieve → build_context → generate_answer
+    Pipeline:  rewrite_question → retrieve → rerank_docs → build_context → generate_answer
     """
     graph = StateGraph(RAGState)
 
     graph.add_node("rewrite_question", rewrite_question)
-    graph.add_node("retrieve",         retrieve)
+    graph.add_node("extract_filters",         extract_filters)
+    graph.add_node("compute_aggregate_stats", compute_aggregate_stats)
+    graph.add_node("retrieve",                retrieve)
+    graph.add_node("rerank_docs",      rerank_docs)
     graph.add_node("build_context",    build_context)
     graph.add_node("generate_answer",  generate_answer)
 
     graph.set_entry_point("rewrite_question")
-    graph.add_edge("rewrite_question", "retrieve")
-    graph.add_edge("retrieve",         "build_context")
+    graph.add_edge("rewrite_question",        "extract_filters")
+    graph.add_edge("extract_filters",         "compute_aggregate_stats")
+    graph.add_edge("compute_aggregate_stats", "retrieve")
+    graph.add_edge("retrieve",                "rerank_docs")
+    graph.add_edge("rerank_docs",      "build_context")
     graph.add_edge("build_context",    "generate_answer")
     graph.add_edge("generate_answer",  END)
 
@@ -308,9 +641,15 @@ def _initial_state(question: str, chat_history: list[dict]) -> RAGState:
         "question":           question,
         "rewritten_question": "",
         "chat_history":       chat_history or [],
+        "retrieval_filters":  None,
+        "player_stats":       None,
+        "aggregate_stats":    None,
+        "initial_docs":       [],
         "retrieved_docs":     [],
         "context":            "",
         "answer":             "",
+        "group_by":           "player",
+        "metric":             "count",
     }
 
 
@@ -321,9 +660,12 @@ def ask(question: str, chat_history: list[dict] = None) -> str:
     """
     state = _initial_state(question, chat_history or [])
 
-    # Run rewrite + retrieve + build_context manually so we can stream generation
+    # Run pipeline manually so we can stream generation
     state = rewrite_question(state)
+    state = extract_filters(state)
+    state = compute_aggregate_stats(state)
     state = retrieve(state)
+    state = rerank_docs(state)
     state = build_context(state)
     state = generate_answer(state)
     return state["answer"]
@@ -345,29 +687,46 @@ def ask_stream(
     """
     state = _initial_state(question, chat_history or [])
     state = rewrite_question(state)
+    state = extract_filters(state)
+    state = compute_aggregate_stats(state)
     state = retrieve(state)
+    state = rerank_docs(state)
     state = build_context(state)
 
     # Build inspector metadata from the state AFTER retrieval
     docs = state["retrieved_docs"]
-    top_docs = []
-    for doc in docs:   # all retrieved docs for the inspector
-        m = doc["metadata"]
-        top_docs.append({
-            "innings": m.get("innings", "?"),
-            "over":    f"{m.get('over', '?')}.{m.get('ball', '?')}",
-            "batter":  m.get("batter", "?"),
-            "bowler":  m.get("bowler", "?"),
-            "event":   m.get("event", "?"),
-            "runs":    m.get("runs_total", "?"),
-            "distance": round(doc.get("distance", 0), 4),
-        })
+    initial_docs = state["initial_docs"]
+    
+    def _format_docs(doc_list):
+        formatted = []
+        for doc in doc_list:   # all retrieved docs for the inspector
+            m = doc["metadata"]
+            formatted.append({
+                "innings": m.get("innings", "?"),
+                "over":    f"{m.get('over', '?')}.{m.get('ball', '?')}",
+                "batter":  m.get("batter", "?"),
+                "bowler":  m.get("bowler", "?"),
+                "event":   m.get("event", "?"),
+                "runs":    m.get("runs_total", "?"),
+                "distance": float(round(doc.get("distance", 0), 4)),
+                "score": float(round(doc.get("score", 0), 4)) if "score" in doc else None,
+            })
+        return formatted
+
+    top_docs = _format_docs(docs)
+    initial_top_docs = _format_docs(initial_docs)
 
     meta = {
         "rewritten_question": state["rewritten_question"],
         "was_rewritten":      state["rewritten_question"] != question,
+        "retrieval_filters":  state.get("retrieval_filters"),
+        "aggregate_stats":    state.get("aggregate_stats"),
+        "group_by":           state.get("group_by", "player"),
+        "metric":             state.get("metric", "count"),
         "num_docs":           len(docs),
+        "initial_num_docs":   len(initial_docs),
         "top_docs":           top_docs,
+        "initial_top_docs":   initial_top_docs,
         "history_turns":      len(chat_history or []) // 2,
     }
 

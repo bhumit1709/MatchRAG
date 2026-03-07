@@ -50,46 +50,98 @@ export default function PipelineInspector({ meta }) {
                         </div>
                     </div>
 
-                    {/* Retrieved docs */}
+                    {/* Retrieval filters */}
                     <div className="inspector-section">
+                        <div className="inspector-label">Filters Applied</div>
+                        <div className="inspector-value">
+                            {meta.retrieval_filters ? (
+                                <span style={{ fontFamily: "'SF Mono', 'Fira Code', monospace", fontSize: "11px", color: "var(--accent-saffron)" }}>
+                                    {JSON.stringify(meta.retrieval_filters, null, 0)}
+                                </span>
+                            ) : (
+                                <span style={{ color: "var(--text-dim)", fontSize: "11px" }}>
+                                    None — pure semantic search
+                                </span>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Aggregate Stats */}
+                    {meta.aggregate_stats && (
+                        <>
+                            <div className="inspector-section mt-2">
+                                <div className="inspector-label">Stat Extraction Setup</div>
+                                <div className="inspector-value" style={{ fontFamily: "'SF Mono', 'Fira Code', monospace", fontSize: "11px", color: "var(--accent-saffron)" }}>
+                                    group_by: "{meta.group_by}" | metric: "{meta.metric}"
+                                </div>
+                            </div>
+                            <div className="inspector-section mt-2">
+                                <div className="inspector-label">System Calculated Stats</div>
+                                <div className="inspector-value" style={{ whiteSpace: "pre-wrap", fontFamily: "'SF Mono', 'Fira Code', monospace", fontSize: "11px", color: "var(--accent-emerald)" }}>
+                                    {meta.aggregate_stats}
+                                </div>
+                            </div>
+                        </>
+                    )}
+
+                    {/* Extracted Doc Table Component */}
+                    {meta.initial_top_docs && meta.initial_top_docs.length > 0 && (
+                        <div className="inspector-section mt-2">
+                            <div className="inspector-label">
+                                Initial Retrieval ({meta.initial_num_docs} deliveries)
+                            </div>
+                            <DocTable docs={meta.initial_top_docs} showScore={false} />
+                        </div>
+                    )}
+
+                    {/* Retrieved docs */}
+                    <div className="inspector-section mt-2">
                         <div className="inspector-label">
-                            Retrieved {meta.num_docs} deliveries
+                            After Reranking ({meta.num_docs} deliveries)
                         </div>
                         {meta.top_docs && meta.top_docs.length > 0 && (
-                            <table className="inspector-table">
-                                <thead>
-                                    <tr>
-                                        <th>Inn</th>
-                                        <th>Over</th>
-                                        <th>Batter</th>
-                                        <th>Bowler</th>
-                                        <th>Event</th>
-                                        <th>Runs</th>
-                                        <th>Dist</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {meta.top_docs.map((doc, i) => (
-                                        <tr key={i}>
-                                            <td>{doc.innings}</td>
-                                            <td>{doc.over}</td>
-                                            <td>{doc.batter}</td>
-                                            <td>{doc.bowler}</td>
-                                            <td>
-                                                <span className={`inspector-event ev-${doc.event}`}>
-                                                    {doc.event}
-                                                </span>
-                                            </td>
-                                            <td>{doc.runs}</td>
-                                            <td>{doc.distance}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                            <DocTable docs={meta.top_docs} showScore={true} />
                         )}
                     </div>
                 </div>
             )}
         </div>
+    );
+}
+
+function DocTable({ docs, showScore }) {
+    return (
+        <table className="inspector-table">
+            <thead>
+                <tr>
+                    <th>Inn</th>
+                    <th>Over</th>
+                    <th>Batter</th>
+                    <th>Bowler</th>
+                    <th>Event</th>
+                    <th>Runs</th>
+                    <th>Dist</th>
+                    {showScore && <th>Score</th>}
+                </tr>
+            </thead>
+            <tbody>
+                {docs.map((doc, i) => (
+                    <tr key={i}>
+                        <td>{doc.innings}</td>
+                        <td>{doc.over}</td>
+                        <td>{doc.batter}</td>
+                        <td>{doc.bowler}</td>
+                        <td>
+                            <span className={`inspector-event ev-${doc.event}`}>
+                                {doc.event}
+                            </span>
+                        </td>
+                        <td>{doc.runs}</td>
+                        <td>{doc.distance}</td>
+                        {showScore && <td>{typeof doc.score === 'number' ? doc.score.toFixed(3) : '-'}</td>}
+                    </tr>
+                ))}
+            </tbody>
+        </table>
     );
 }

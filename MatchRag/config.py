@@ -30,8 +30,14 @@ COLLECTION_NAME: str = os.getenv("COLLECTION_NAME", "cricket_commentary")
 
 # ── RAG pipeline ─────────────────────────────────────────────────────────────
 
-# Number of top-K deliveries to retrieve per question
-TOP_K: int = int(os.getenv("TOP_K", "15"))
+# Number of top-K deliveries to retrieve initially from ChromaDB
+INITIAL_TOP_K: int = int(os.getenv("INITIAL_TOP_K", "30"))
+
+# Number of top-K deliveries to retain after reranking
+TOP_K: int = int(os.getenv("TOP_K", "10"))
+
+# Local reranker model (FlashRank)
+RERANK_MODEL: str = os.getenv("RERANK_MODEL", "ms-marco-TinyBERT-L-2-v2")
 
 # ── Data ─────────────────────────────────────────────────────────────────────
 
