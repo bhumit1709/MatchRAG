@@ -75,12 +75,30 @@ export default function PipelineInspector({ meta }) {
                                     group_by: "{meta.group_by}" | metric: "{meta.metric}"
                                 </div>
                             </div>
-                            <div className="inspector-section mt-2">
-                                <div className="inspector-label">System Calculated Stats</div>
-                                <div className="inspector-value" style={{ whiteSpace: "pre-wrap", fontFamily: "'SF Mono', 'Fira Code', monospace", fontSize: "11px", color: "var(--accent-emerald)" }}>
-                                    {meta.aggregate_stats}
+
+                            {meta.aggregate_stats.includes("=== EXACT STATS FOR TOP CONTENDERS ===") ? (
+                                <>
+                                    <div className="inspector-section mt-2">
+                                        <div className="inspector-label">Stat Leaderboard</div>
+                                        <div className="inspector-value" style={{ whiteSpace: "pre-wrap", fontFamily: "'SF Mono', 'Fira Code', monospace", fontSize: "11px", color: "var(--accent-emerald)" }}>
+                                            {meta.aggregate_stats.split("=== EXACT STATS FOR TOP CONTENDERS ===")[0].trim()}
+                                        </div>
+                                    </div>
+                                    <div className="inspector-section mt-2">
+                                        <div className="inspector-label">Injected Exact Stats (Anti-Hallucination)</div>
+                                        <div className="inspector-value" style={{ whiteSpace: "pre-wrap", fontFamily: "'SF Mono', 'Fira Code', monospace", fontSize: "11px", color: "var(--accent-blue)" }}>
+                                            {"=== EXACT STATS FOR TOP CONTENDERS ===\n" + meta.aggregate_stats.split("=== EXACT STATS FOR TOP CONTENDERS ===")[1].trim()}
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="inspector-section mt-2">
+                                    <div className="inspector-label">System Calculated Stats</div>
+                                    <div className="inspector-value" style={{ whiteSpace: "pre-wrap", fontFamily: "'SF Mono', 'Fira Code', monospace", fontSize: "11px", color: "var(--accent-emerald)" }}>
+                                        {meta.aggregate_stats}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </>
                     )}
 

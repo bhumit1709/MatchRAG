@@ -280,9 +280,17 @@ def compute_aggregate_stats(state: RAGState) -> RAGState:
         lines.append("Stat leaderboard:")
         
     for i, row in enumerate(leaderboard[:10], start=1):  # top 10 is enough
-        label = "occurrences"
         if state.get("metric") == "runs_total":
             label = "runs"
+        elif event_type:
+            if event_type.lower() == "six":
+                label = "sixes"
+            elif event_type.endswith("s"):
+                label = event_type
+            else:
+                label = f"{event_type}s"
+        else:
+            label = "deliveries involved in"
             
         prefix = ""
         if state.get("group_by") == "over":
@@ -298,46 +306,55 @@ def compute_aggregate_stats(state: RAGState) -> RAGState:
         lines.append(f"{i}. {prefix}{row['player']} — {row['count']} {label}")
         
     lines.append("=====================================\n")
-    # Inject the winner into the retrieval filters ONLY if no specific player was requested.
-    # If the user asked "How many wickets did Bumrah take?", we don't want to filter by the
-    # batter he bowled to the most!
-    if not state.get("player_stats"):
-        top_player = leaderboard[0]["player"]
-        
+    # Inject the top contenders into the retrieval filters ONLY if no specific player was requested.
+    # We use the top 3 to avoid confirmation bias (so the LLM sees highlights from multiple top players).
+    if not state.get("player_stats") and leaderboard:
         group_by = state.get("group_by", "player")
-        if group_by == "over":
-            parts = str(top_player).split('_')
-            if len(parts) == 2:
-                try:
-                    innings_val = int(parts[0])
-                    over_val = int(parts[1])
-                    player_filter = {"$and": [{"innings": {"$eq": innings_val}}, {"over": {"$eq": over_val}}]}
-                except ValueError:
-                    player_filter = {"over": {"$eq": top_player}}
-            else:
-                try:
-                    player_filter = {"over": {"$eq": int(float(top_player))}}
-                except ValueError:
-                    player_filter = {"over": {"$eq": top_player}}
-        elif group_by == "innings":
-            try:
-                player_filter = {"innings": {"$eq": int(float(top_player))}}
-            except ValueError:
-                player_filter = {"innings": {"$eq": top_player}}
-        elif group_by == "wicket_kind":
-            player_filter = {"wicket_kind": {"$eq": top_player}}
-        else:
-            filter_key = "batter"
-            if event_type in ("wicket", "dot"):
-                filter_key = "bowler"
-            player_filter = {filter_key: {"$eq": top_player}}
+        player_clauses = []
         
-        if where is None:
-            where = player_filter
-        elif "$and" in where:
-            where["$and"].append(player_filter)
+        for top_player_dict in leaderboard[:3]:
+            top_player = top_player_dict["player"]
+            if group_by == "over":
+                parts = str(top_player).split('_')
+                if len(parts) == 2:
+                    try:
+                        innings_val = int(parts[0])
+                        over_val = int(parts[1])
+                        player_clauses.append({"$and": [{"innings": {"$eq": innings_val}}, {"over": {"$eq": over_val}}]})
+                    except ValueError:
+                        player_clauses.append({"over": {"$eq": top_player}})
+                else:
+                    try:
+                        player_clauses.append({"over": {"$eq": int(float(top_player))}})
+                    except ValueError:
+                        player_clauses.append({"over": {"$eq": top_player}})
+            elif group_by == "innings":
+                try:
+                    player_clauses.append({"innings": {"$eq": int(float(top_player))}})
+                except ValueError:
+                    player_clauses.append({"innings": {"$eq": top_player}})
+            elif group_by == "wicket_kind":
+                player_clauses.append({"wicket_kind": {"$eq": top_player}})
+            else:
+                filter_key = "batter"
+                if event_type in ("wicket", "dot"):
+                    filter_key = "bowler"
+                player_clauses.append({filter_key: {"$eq": top_player}})
+        
+        if len(player_clauses) == 1:
+            player_filter = player_clauses[0]
+        elif len(player_clauses) > 1:
+            player_filter = {"$or": player_clauses}
         else:
-            where = {"$and": [where, player_filter]}
+            player_filter = None
+            
+        if player_filter:
+            if where is None:
+                where = player_filter
+            elif "$and" in where:
+                where["$and"].append(player_filter)
+            else:
+                where = {"$and": [where, player_filter]}
     
     return {**state, "aggregate_stats": "\n".join(lines), "retrieval_filters": where}
 
@@ -387,28 +404,50 @@ def build_context(state: RAGState) -> RAGState:
     agg_stats = state.get("aggregate_stats")
     p_stats = state.get("player_stats")
     
-    if agg_stats:
-        lines.append(agg_stats)
-    elif p_stats:
-        lines.append("=== SYSTEM CALCULATED EXACT STATS ===")
-        lines.append(f"Player: {p_stats['name']}")
+    def _format_player_stats(p_stats):
+        lines = [f"Player: {p_stats['name']}"]
         b = p_stats['batting']
-        lines.append(f"Batting: {b['runs']} runs off {b['balls']} balls ({b['fours']} fours, {b['sixes']} sixes)")
+        lines.append(f" Batting: {b['runs']} runs off {b['balls']} balls ({b['fours']} fours, {b['sixes']} sixes)")
         if b['dismissal']:
-            lines.append(f"Dismissal: {b['dismissal']}")
+            lines.append(f" Dismissal: {b['dismissal']}")
         w = p_stats['bowling']
         if w['overs'] != "0.0":
-            lines.append(f"Bowling: {w['wickets']} wickets for {w['runs']} runs in {w['overs']} overs")
-        lines.append("=====================================\n")
+            lines.append(f" Bowling: {w['wickets']} wickets for {w['runs']} runs in {w['overs']} overs")
+        return lines
+
+    if p_stats: # Prioritize the specific player's exact stats
+        new_agg_stats_lines = []
+        new_agg_stats_lines.append("=== SYSTEM CALCULATED EXACT STATS ===")
+        new_agg_stats_lines.extend(_format_player_stats(p_stats))
+        new_agg_stats_lines.append("=====================================\n")
+        lines.extend(new_agg_stats_lines)
+        state["aggregate_stats"] = "\n".join(new_agg_stats_lines)
+    elif agg_stats: 
+        new_agg_stats_lines = [agg_stats]
+        # INJECT INDIVIDUAL STATS FOR TOP PLAYERS TO AVOID HALLUCINATION
+        leaderboard_match = re.search(r'Stat leaderboard.*:\n(.*?)======', agg_stats, re.DOTALL)
+        if leaderboard_match:
+            new_agg_stats_lines.append("=== EXACT STATS FOR TOP CONTENDERS ===")
+            top_players = []
+            for row in leaderboard_match.group(1).strip().split('\n')[:3]:
+                # Extract player name from something like "1. SV Samson — 51 runs"
+                parts = row.split(' — ')[0].split('. ')
+                if len(parts) > 1:
+                    top_players.append(parts[1].strip())
+            
+            for p_name in top_players:
+                stats = get_player_stats(p_name)
+                if stats:
+                    new_agg_stats_lines.extend(_format_player_stats(stats))
+                    new_agg_stats_lines.append("")
+            
+            if new_agg_stats_lines[-1] == "":
+                new_agg_stats_lines.pop()
+            new_agg_stats_lines.append("======================================\n")
+        lines.extend(new_agg_stats_lines)
+        state["aggregate_stats"] = "\n".join(new_agg_stats_lines)
 
     lines.append("=== Relevant Match Highlight Deliveries ===")
-
-    # Inject Match-Level Metadata
-    m = docs[0]["metadata"]
-    lines.append(f"Match: {m.get('match', 'Unknown')}")
-    lines.append(f"Venue: {m.get('venue', 'Unknown')}")
-    lines.append(f"Season: {m.get('season', 'Unknown')}")
-    lines.append("")
 
     for i, doc in enumerate(docs, start=1):
         m    = doc["metadata"]
@@ -421,9 +460,12 @@ def build_context(state: RAGState) -> RAGState:
         runs    = m.get("runs_total", "?")
 
         header = (
-            f"[{i}] Innings {inn} | Over {over}.{ball} | "
-            f"{batter} vs {bowler} | {event.upper()} | Runs: {runs}"
+            f"[{i}] Inn {inn} | {over}.{ball} | "
+            f"Batter: {batter} | Bowler: {bowler} | Event: {event.upper()}"
         )
+        if event != 'wicket':
+             header += f" | Runs: {runs}"
+             
         if m.get("player_out"):
             header += f" | OUT: {m['player_out']} ({m.get('wicket_kind', '')})"
 
@@ -452,6 +494,9 @@ def build_messages(state: RAGState) -> list[dict]:
     # Append the current context + question as the new user turn
     user_content = f"{state['context']}\n\nQuestion: {state['question']}"
     messages.append({"role": "user", "content": user_content})
+
+    # Optimization 5: Assistant Framing Prefill
+    messages.append({"role": "assistant", "content": "Based on the match data provided:"})
     return messages
 
 

@@ -131,30 +131,35 @@ def ask_stream(
     state = rerank_docs(state)
     state = build_context(state)
 
-    # Build inspector metadata from the state AFTER retrieval
-    docs = state["retrieved_docs"]
-    initial_docs = state["initial_docs"]
-    
+    # Top doc formatting removed from here, put below.
+    from rag.graph_nodes import build_messages
+
     def _format_docs(doc_list):
         formatted = []
+        if not doc_list:
+            return formatted
+            
         for doc in doc_list:   # all retrieved docs for the inspector
             m = doc["metadata"]
-            formatted.append({
+            d = {
                 "innings": m.get("innings", "?"),
                 "over":    f"{m.get('over', '?')}.{m.get('ball', '?')}",
                 "batter":  m.get("batter", "?"),
                 "bowler":  m.get("bowler", "?"),
                 "event":   m.get("event", "?"),
                 "runs":    m.get("runs_total", "?"),
-                "distance": float(round(doc.get("distance", 0), 4)),
-                "score": float(round(doc.get("score", 0), 4)) if "score" in doc else None,
-            })
+            }
+            if "distance" in doc:
+                d["distance"] = float(round(doc["distance"], 4))
+            if "score" in doc:
+                d["score"] = float(round(doc["score"], 4))
+                
+            formatted.append(d)
         return formatted
 
-    top_docs = _format_docs(docs)
-    initial_top_docs = _format_docs(initial_docs)
+    top_docs = _format_docs(state["retrieved_docs"])
+    initial_top_docs = _format_docs(state["initial_docs"])
     
-    from rag.graph_nodes import build_messages
     final_messages = build_messages(state)
     trace = {
         "node": "generate_answer",
@@ -170,8 +175,8 @@ def ask_stream(
         "aggregate_stats":    state.get("aggregate_stats"),
         "group_by":           state.get("group_by", "player"),
         "metric":             state.get("metric", "count"),
-        "num_docs":           len(docs),
-        "initial_num_docs":   len(initial_docs),
+        "num_docs":           len(state["retrieved_docs"]),
+        "initial_num_docs":   len(state["initial_docs"]),
         "top_docs":           top_docs,
         "initial_top_docs":   initial_top_docs,
         "history_turns":      len(chat_history or []) // 2,

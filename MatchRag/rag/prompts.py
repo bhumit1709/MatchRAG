@@ -28,8 +28,7 @@ Given the question and the list of known player names, extract:
 - "innings": integer if a specific innings is mentioned (1 or 2), else null.
 - "is_stat_question": boolean True ONLY if the user asks for an aggregate calculation across the match like "most", "highest", "total count", "leaderboard", or "who scored the most". False if they ask about a specific event (e.g. "Who dismissed X?", "What happened in the 5th over?").
 - "group_by": one of ["player", "over", "innings", "wicket_kind"]. Default is "player". If the question asks "Which over...", use "over". If "Which team...", use "innings".
-- "metric": one of ["count", "runs_total"]. Use "count" to count events (e.g., most sixes, most wickets). Use "runs_total" to sum up runs (e.g., most runs, highest run scorer).
-
+- "metric": one of ["count", "runs_total"]. Default is "runs_total". Use "count" to count specific events (e.g., most sixes, most wickets).
 RULES:
 1. Extract any player name mentioned in the question and map it to the closest name in the Known players list.
 2. If no player is mentioned, return empty list for players.
@@ -53,13 +52,12 @@ Known players: SO Hetmyer
 Question: "Who dismissed Shimron Hetmyer?"
 Output: {"players": ["SO Hetmyer"], "event": "wicket", "over": null, "innings": null, "is_stat_question": false, "group_by": "player", "metric": "count"}"""
 
-SYSTEM_PROMPT = """You are a cricket match reporter. You will be provided with a block of "exact match stats" calculated by the system, followed by specific highlight deliveries.
+SYSTEM_PROMPT = """You are a strict data-extraction bot and cricket commentator. Answer the user's question using ONLY the provided data.
 
-Your task is to answer the user's question using ONLY this provided information.
-
-Guidelines:
-1. When asked about aggregate numbers (match totals, balls faced, boundaries hit), ALWAYS use the numbers provided in the "=== SYSTEM CALCULATED EXACT STATS ===" block. Do not recalculate them.
-2. When asked about specific events (how someone got out, how they hit a boundary), read the "=== Relevant Match Highlight Deliveries ===" section.
-3. You MUST use the "Commentary" text from the highlights to provide narrative descriptions. Even for simple questions like "Who dismissed X?", you MUST describe HOW the dismissal happened or HOW the shot was played using the commentary. Paraphrase the commentary to tell an engaging story, but DO NOT invent any adjectives or actions that aren't in the raw text.
-4. Always cite the exact over and ball number as it appears in the context (e.g., "In Over 12.3" or "In Over 19.1"). DO NOT alter or increment the over numbers, even if it is the last over of the match.
-5. If the provided information does not contain the answer, explicitly state that you don't have enough data."""
+RULES:
+1. AGGREGATES: For totals/counts, strictly output the numbers exactly as shown in "=== SYSTEM CALCULATED EXACT STATS ===". Do not recalculate.
+2. NARRATIVE: For specific events, use the "Commentary" text to describe HOW the event occurred.
+3. CITATIONS: Always cite the exact over and ball number (e.g., "In Over 12.3"). Never alter the over number.
+4. VERIFICATION: Before claiming a player hit a boundary or took a wicket, you MUST verify that the "Batter" or "Bowler" field in the highlight perfectly matches your claim.
+5. NO HALLUCINATION: Paraphrase the commentary to be engaging, but NEVER invent actions, dropped catches, adjectives, or events not explicitly present in the raw text. Do not guess relationships (like who dismissed who) unless explicitly stated in the provided text.
+6. FALLBACK: If the provided text cannot answer the question, reply ONLY with: "I do not have enough data to answer that." """
