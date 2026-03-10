@@ -82,7 +82,14 @@ def rewrite_question(state: RAGState) -> RAGState:
     if not rewritten or '\n' in rewritten:
         rewritten = question
 
-    return {**state, "rewritten_question": rewritten}
+    trace = {
+        "node": "rewrite_question",
+        "prompt": prompt,
+        "response": rewritten,
+    }
+    llm_traces = state.get("llm_traces", []) + [trace]
+
+    return {**state, "rewritten_question": rewritten, "llm_traces": llm_traces}
 
 
 # ---------------------------------------------------------------------------
@@ -212,6 +219,13 @@ def extract_filters(state: RAGState) -> RAGState:
         group_by = "player"
         metric = "count"
 
+    trace = {
+        "node": "extract_filters",
+        "prompt": prompt,
+        "response": raw if 'raw' in locals() else "FAILED",
+    }
+    llm_traces = state.get("llm_traces", []) + [trace]
+
     return {
         **state,
         "retrieval_filters": where,
@@ -219,7 +233,8 @@ def extract_filters(state: RAGState) -> RAGState:
         "aggregate_stats": None,
         "is_stat_question": is_stat,
         "group_by": group_by,
-        "metric": metric
+        "metric": metric,
+        "llm_traces": llm_traces
     }
 
 
@@ -426,7 +441,7 @@ def build_context(state: RAGState) -> RAGState:
 # Node 6 — Generate answer (with streaming)
 # ---------------------------------------------------------------------------
 
-def _build_messages(state: RAGState) -> list[dict]:
+def build_messages(state: RAGState) -> list[dict]:
     """Build the full message list for the LLM, including history."""
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
 
@@ -445,7 +460,7 @@ def generate_answer(state: RAGState) -> RAGState:
     Non-streaming answer generation (used by the LangGraph .invoke() path
     and the CLI chat.py).
     """
-    answer = call_chat_llm(_build_messages(state)).strip()
+    answer = call_chat_llm(build_messages(state)).strip()
     return {**state, "answer": answer}
 
 
@@ -460,7 +475,7 @@ def generate_answer_stream(state: RAGState) -> Generator[str, None, str]:
             send_to_client(token)
     """
     full_answer = []
-    for token in call_chat_llm_stream(_build_messages(state)):
+    for token in call_chat_llm_stream(build_messages(state)):
         full_answer.append(token)
         yield token
 

@@ -15,3 +15,4 @@ class RAGState(TypedDict):
     retrieved_docs:     list[dict]   # After reranking
     context:            str
     answer:             str
+    llm_traces:         list[dict]   # [{"node": "name", "prompt": "...", "response": "..."}, ...]

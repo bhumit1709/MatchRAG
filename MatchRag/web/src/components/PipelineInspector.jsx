@@ -103,6 +103,34 @@ export default function PipelineInspector({ meta }) {
                             <DocTable docs={meta.top_docs} showScore={true} />
                         )}
                     </div>
+
+                    {/* LLM Call Traces */}
+                    {meta.llm_traces && meta.llm_traces.length > 0 && (
+                        <div className="inspector-section mt-2" style={{ borderTop: "1px solid var(--border)", paddingTop: "12px" }}>
+                            <div className="inspector-label" style={{ color: "var(--accent-purple)" }}>
+                                ⚡ LLM Call Traces ({meta.llm_traces.length})
+                            </div>
+                            <div className="llm-traces-container" style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "8px" }}>
+                                {meta.llm_traces.map((trace, i) => (
+                                    <details key={i} className="llm-trace-box" style={{ background: "rgba(0,0,0,0.2)", border: "1px solid var(--border)", borderRadius: "6px", overflow: "hidden" }}>
+                                        <summary style={{ padding: "8px 12px", cursor: "pointer", fontSize: "12px", fontWeight: "600", color: "var(--text)", background: "rgba(255,255,255,0.05)", userSelect: "none" }}>
+                                            Step {i + 1}: <span style={{ fontFamily: "monospace", color: "var(--accent-blue)" }}>{trace.node}</span>
+                                        </summary>
+                                        <div style={{ padding: "12px", borderTop: "1px solid var(--border)", fontSize: "11px", fontFamily: "'SF Mono', 'Fira Code', monospace", whiteSpace: "pre-wrap" }}>
+                                            <div style={{ color: "var(--text-dim)", marginBottom: "4px" }}>// PROMPT:</div>
+                                            <div style={{ color: "var(--text)", background: "rgba(0,0,0,0.3)", padding: "8px", borderRadius: "4px", marginBottom: "12px" }}>
+                                                {trace.prompt}
+                                            </div>
+                                            <div style={{ color: "var(--text-dim)", marginBottom: "4px" }}>// LLM RESPONSE:</div>
+                                            <div style={{ color: "var(--accent-emerald)", background: "rgba(0,0,0,0.3)", padding: "8px", borderRadius: "4px" }}>
+                                                {trace.response}
+                                            </div>
+                                        </div>
+                                    </details>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

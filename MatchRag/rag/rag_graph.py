@@ -87,6 +87,7 @@ def _initial_state(question: str, chat_history: list[dict]) -> RAGState:
         "group_by":           "player",
         "metric":             "count",
         "is_stat_question":   False,
+        "llm_traces":         [],
     }
 
 
@@ -152,6 +153,15 @@ def ask_stream(
 
     top_docs = _format_docs(docs)
     initial_top_docs = _format_docs(initial_docs)
+    
+    from rag.graph_nodes import build_messages
+    final_messages = build_messages(state)
+    trace = {
+        "node": "generate_answer",
+        "prompt": "\n\n".join([f"{m['role'].upper()}:\n{m['content']}" for m in final_messages]),
+        "response": "<streamed to chat UI>",
+    }
+    state["llm_traces"] = state.get("llm_traces", []) + [trace]
 
     meta = {
         "rewritten_question": state["rewritten_question"],
@@ -165,6 +175,7 @@ def ask_stream(
         "top_docs":           top_docs,
         "initial_top_docs":   initial_top_docs,
         "history_turns":      len(chat_history or []) // 2,
+        "llm_traces":         state.get("llm_traces", []),
     }
 
     yield meta   # <-- first yield is always the metadata dict
