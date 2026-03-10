@@ -204,11 +204,28 @@ def extract_filters(state: RAGState) -> RAGState:
                 innings_val = None
 
         where   = _build_where_filter(players, event, over_val, innings_val)
-        stats   = get_player_stats(players[0]) if players else None
+        
+        stats = []
+        if players:
+            for p in players:
+                p_stat = get_player_stats(p)
+                if p_stat:
+                    stats.append(p_stat)
+        if not stats:
+            stats = None
         
         is_stat = bool(extracted.get("is_stat_question", False))
         group_by = extracted.get("group_by", "player")
         metric   = extracted.get("metric", "count")
+        
+        is_seq = bool(extracted.get("is_sequential", False))
+        sort_dir = extracted.get("sort_direction", "asc")
+        limit_val = extracted.get("limit")
+        if isinstance(limit_val, str):
+            try:
+                limit_val = int(limit_val)
+            except ValueError:
+                limit_val = None
     except Exception as e:
         import traceback
         traceback.print_exc()
@@ -218,6 +235,9 @@ def extract_filters(state: RAGState) -> RAGState:
         is_stat = False
         group_by = "player"
         metric = "count"
+        is_seq = False
+        sort_dir = "asc"
+        limit_val = None
 
     trace = {
         "node": "extract_filters",
@@ -234,6 +254,9 @@ def extract_filters(state: RAGState) -> RAGState:
         "is_stat_question": is_stat,
         "group_by": group_by,
         "metric": metric,
+        "is_sequential": is_seq,
+        "sort_direction": sort_dir,
+        "limit": limit_val,
         "llm_traces": llm_traces
     }
 
@@ -282,6 +305,8 @@ def compute_aggregate_stats(state: RAGState) -> RAGState:
     for i, row in enumerate(leaderboard[:10], start=1):  # top 10 is enough
         if state.get("metric") == "runs_total":
             label = "runs"
+        elif state.get("metric") == "impact":
+            label = "impact score"
         elif event_type:
             if event_type.lower() == "six":
                 label = "sixes"
@@ -303,6 +328,15 @@ def compute_aggregate_stats(state: RAGState) -> RAGState:
         elif state.get("group_by") == "innings":
             prefix = "Innings "
             
+        # For impact metrics, pull their exact match stats directly so the LLM has them without hallucinating
+        if state.get("metric") == "impact":
+            p_stat = get_player_stats(row['player'])
+            if p_stat:
+                runs = p_stat['batting']['runs']
+                wkts = p_stat['bowling']['wickets']
+                lines.append(f"{i}. {prefix}{row['player']} — Runs: {runs} | Wickets: {wkts} | Impact Score: {row['count']}")
+                continue
+
         lines.append(f"{i}. {prefix}{row['player']} — {row['count']} {label}")
         
     lines.append("=====================================\n")
@@ -367,10 +401,18 @@ def retrieve(state: RAGState) -> RAGState:
     """
     Query the ChromaDB vector store using the (possibly rewritten) question,
     with optional metadata filters from extract_filters.
+    If the question is sequential, fetch exact matches sorted chronologically.
     """
     query_text = state["rewritten_question"] or state["question"]
     where      = state.get("retrieval_filters")
-    results    = vector_query(query_text, n_results=INITIAL_TOP_K, where=where)
+    
+    if state.get("is_sequential"):
+        from rag.vector_store import get_sequential_deliveries
+        limit = state.get("limit") or 20
+        results = get_sequential_deliveries(where=where, sort_direction=state.get("sort_direction", "asc"), limit=limit)
+    else:
+        results    = vector_query(query_text, n_results=INITIAL_TOP_K, where=where)
+        
     return {**state, "retrieved_docs": results, "initial_docs": results}
 
 
@@ -380,6 +422,9 @@ def retrieve(state: RAGState) -> RAGState:
 
 def rerank_docs(state: RAGState) -> RAGState:
     """Rerank retrieved documents using FlashRank."""
+    if state.get("is_sequential"):
+        return state
+        
     docs = state["retrieved_docs"]
     query_text = state["rewritten_question"] or state["question"]
     reranked = rerank_documents(query_text, docs, top_n=TOP_K)
@@ -415,11 +460,21 @@ def build_context(state: RAGState) -> RAGState:
             lines.append(f" Bowling: {w['wickets']} wickets for {w['runs']} runs in {w['overs']} overs")
         return lines
 
-    if p_stats: # Prioritize the specific player's exact stats
+    if p_stats: # Prioritize the specific requested players' exact stats
         new_agg_stats_lines = []
-        new_agg_stats_lines.append("=== SYSTEM CALCULATED EXACT STATS ===")
-        new_agg_stats_lines.extend(_format_player_stats(p_stats))
-        new_agg_stats_lines.append("=====================================\n")
+        
+        if agg_stats:
+            new_agg_stats_lines.append(agg_stats.strip())
+            new_agg_stats_lines.append("")
+            
+        new_agg_stats_lines.append("=== EXACT STATS FOR REQUESTED PLAYERS (ENTIRE MATCH) ===")
+        for p_stat in p_stats:
+            new_agg_stats_lines.extend(_format_player_stats(p_stat))
+            new_agg_stats_lines.append("")
+            
+        if new_agg_stats_lines[-1] == "":
+            new_agg_stats_lines.pop()
+        new_agg_stats_lines.append("========================================================\n")
         lines.extend(new_agg_stats_lines)
         state["aggregate_stats"] = "\n".join(new_agg_stats_lines)
     elif agg_stats: 

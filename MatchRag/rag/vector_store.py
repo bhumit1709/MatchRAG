@@ -153,6 +153,46 @@ def query(
     ]
 
 
+def get_sequential_deliveries(where: dict | None = None, sort_direction: str = "asc", limit: int | None = 20) -> list[dict]:
+    """
+    Query ChromaDB for exact metadata matches without semantic search,
+    and return chronologically sorted deliveries.
+    """
+    try:
+        col = get_collection()
+        kwargs = {"include": ["documents", "metadatas"]}
+        if where:
+            kwargs["where"] = where
+            
+        results = col.get(**kwargs)
+        
+        docs = results.get("documents") or []
+        metas = results.get("metadatas") or []
+        
+        deliveries = []
+        for doc, meta in zip(docs, metas):
+            deliveries.append({"text": doc, "metadata": meta, "distance": 0.0})
+            
+        # Sort chronologically: (innings, over, ball)
+        def sort_key(d):
+            m = d["metadata"]
+            return (m.get("innings", 0), m.get("over", 0), m.get("ball", 0.0))
+            
+        deliveries.sort(key=sort_key, reverse=(sort_direction == "desc"))
+        
+        if limit:
+            deliveries = deliveries[:limit]
+            
+        # Provide output in chronological order for easier reading in context
+        if sort_direction == "desc":
+            deliveries.reverse()
+            
+        return deliveries
+    except Exception as e:
+        print(f"Sequential retrieval error: {e}")
+        return []
+
+
 def collection_exists() -> bool:
     """Return True if the ChromaDB collection has been built and has records."""
     try:
@@ -264,6 +304,9 @@ def get_event_leaderboard(where_filter: dict | None, event_type: str | None, gro
             return None
             
         counts = {}
+        # We need comprehensive counting for the 'impact' metric
+        impact_stats = {}
+        
         for m in metas:
             if group_by == "over":
                 innings_val = m.get("innings", "?")
@@ -286,8 +329,48 @@ def get_event_leaderboard(where_filter: dict | None, event_type: str | None, gro
             
             if metric == "runs_total":
                 counts[key] += m.get("runs_total", 0)
+            elif metric == "impact":
+                # Track granular stats for advanced T20 impact calculation
+                batter = m.get("batter")
+                if batter:
+                    if batter not in impact_stats: impact_stats[batter] = {"bat_runs": 0, "bat_balls": 0, "bat_boundaries": 0, "bowl_wickets": 0, "bowl_runs": 0, "bowl_balls": 0}
+                    impact_stats[batter]["bat_balls"] += 1
+                    impact_stats[batter]["bat_runs"] += m.get("runs_total", 0)
+                    if m.get("event") in ("four", "six"):
+                        impact_stats[batter]["bat_boundaries"] += 1
+                        
+                bowler = m.get("bowler")
+                if bowler:
+                    if bowler not in impact_stats: impact_stats[bowler] = {"bat_runs": 0, "bat_balls": 0, "bat_boundaries": 0, "bowl_wickets": 0, "bowl_runs": 0, "bowl_balls": 0}
+                    impact_stats[bowler]["bowl_balls"] += 1
+                    impact_stats[bowler]["bowl_runs"] += m.get("runs_total", 0)
+                    
+                    if m.get("player_out") and m.get("wicket_kind") not in ("run out", "retired hurt", "obstructing the field"):
+                        impact_stats[bowler]["bowl_wickets"] += 1
             else:
                 counts[key] += 1
+                
+        if metric == "impact":
+            for player, stats in impact_stats.items():
+                score = 0
+                # Batting: 1 pt per run, +1 for boundary, bonuses for Strike Rate > 150 (if > 10 balls)
+                score += stats["bat_runs"]
+                score += stats["bat_boundaries"]
+                if stats["bat_balls"] > 10:
+                    sr = (stats["bat_runs"] / stats["bat_balls"]) * 100
+                    if sr > 150: score += 10
+                    elif sr < 120: score -= 5
+                
+                # Bowling: 25 pts per wicket, bonuses for Economy < 7 (if > 12 balls)
+                score += (stats["bowl_wickets"] * 25)
+                if stats["bowl_balls"] > 12:
+                    overs = stats["bowl_balls"] / 6
+                    econ = stats["bowl_runs"] / overs
+                    if econ <= 6.0: score += 15
+                    elif econ <= 8.0: score += 5
+                    elif econ > 10.0: score -= 10
+                    
+                counts[player] = round(score, 1)
             
         leaderboard = [{"player": p, "count": c} for p, c in counts.items()]
         leaderboard.sort(key=lambda x: x["count"], reverse=True)
