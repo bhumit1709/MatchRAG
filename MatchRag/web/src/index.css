@@ -124,6 +124,114 @@ body {
   }
 }
 
+/* ── Celebration UI ───────────────────────────────── */
+.celebration-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  /* Above orbs, below app components */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.celebration-bg-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+  mix-blend-mode: screen;
+  filter: contrast(1.2) sepia(0.3);
+  animation: slowZoom 25s ease-in-out infinite alternate;
+}
+
+.celebration-emoji {
+  position: absolute;
+  font-size: 24px;
+  animation: floatUp 15s linear infinite;
+  opacity: 0;
+  bottom: -50px;
+  filter: drop-shadow(0 0 10px rgba(255, 153, 51, 0.5));
+}
+
+.celebration-emoji.e1 {
+  left: 15%;
+  animation-duration: 12s;
+  animation-delay: 0s;
+}
+
+.celebration-emoji.e2 {
+  left: 85%;
+  font-size: 32px;
+  animation-duration: 18s;
+  animation-delay: 2s;
+}
+
+.celebration-emoji.e3 {
+  left: 40%;
+  font-size: 20px;
+  animation-duration: 14s;
+  animation-delay: 5s;
+}
+
+.celebration-emoji.e4 {
+  left: 65%;
+  font-size: 28px;
+  animation-duration: 16s;
+  animation-delay: 7s;
+}
+
+.celebration-emoji.e5 {
+  left: 25%;
+  font-size: 22px;
+  animation-duration: 13s;
+  animation-delay: 4s;
+}
+
+.celebration-emoji.e6 {
+  left: 75%;
+  font-size: 26px;
+  animation-duration: 17s;
+  animation-delay: 9s;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: translateY(-50vh) rotate(180deg);
+  }
+
+  90% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes slowZoom {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
+}
+
 /* ── Header ───────────────────────────────────────── */
 .header {
   position: relative;

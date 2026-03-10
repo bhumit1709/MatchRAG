@@ -3,6 +3,10 @@ import ChatMessage from "./components/ChatMessage";
 import ThinkingIndicator from "./components/ThinkingIndicator";
 import ExampleChips from "./components/ExampleChips";
 import PipelineInspector from "./components/PipelineInspector";
+
+// Import the downloaded celebration image
+import celebrationImg from "./assets/celebration.jpg";
+
 import "./index.css";
 
 const API_BASE = "http://localhost:5001";
@@ -183,6 +187,17 @@ export default function App() {
         <div className="orb orb-2" />
       </div>
 
+      {/* Celebration UI */}
+      <div className="celebration-container">
+        <img src={celebrationImg} alt="Victory Celebration" className="celebration-bg-image" />
+        <div className="celebration-emoji e1">🏆</div>
+        <div className="celebration-emoji e2">🇮🇳</div>
+        <div className="celebration-emoji e3">✨</div>
+        <div className="celebration-emoji e4">🎉</div>
+        <div className="celebration-emoji e5">🏏</div>
+        <div className="celebration-emoji e6">🎊</div>
+      </div>
+
       <div className="app">
         {/* ── Header ── */}
         <header className="header">
@@ -190,7 +205,7 @@ export default function App() {
             <span className="header-icon">🏏</span>
             <div>
               <div className="header-title">Cricket Match RAG</div>
-              <div className="header-subtitle">India vs West Indies · T20 World Cup</div>
+              <div className="header-subtitle">🏆 Champions 2026 · T20 World Cup</div>
             </div>
           </div>
           <div className="header-badges">

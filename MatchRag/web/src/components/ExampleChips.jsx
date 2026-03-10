@@ -3,7 +3,7 @@
  * Clickable starter question chips shown on the welcome screen.
  */
 const EXAMPLES = [
-    "Who dismissed Shimron Hetmyer?",
+    "Who dismissed Abhishek Sharma?",
     "What happened in the last over?",
     "Who hit the most sixes?",
     "Show all wickets taken by Bumrah.",
@@ -18,7 +18,7 @@ export default function ExampleChips({ onSelect }) {
             <div>
                 <h1 className="welcome-title">Cricket Match RAG</h1>
                 <p className="welcome-subtitle">
-                    Ask anything about the India vs West Indies T20 World Cup match.
+                    Ask anything about the India vs New Zealand T20 World Cup final match.
                     Powered by local AI with ball-by-ball commentary context.
                 </p>
             </div>

@@ -247,7 +247,12 @@ def parse_commentary(items, athlete_map):
                 
         event = determine_event(str(text), runs)
         
+        # Extract innings number
+        innings_info = item.get("innings", {})
+        innings_val = innings_info.get("number", 1)
+        
         parsed_deliveries.append({
+            "innings": innings_val,
             "over": over_val,
             "ball": ball_val,
             "bowler": bowler,
