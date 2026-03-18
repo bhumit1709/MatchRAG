@@ -22,7 +22,7 @@
 
 ## 2. 📂 Multi-Match Support & Dynamic Ingestion
 
-**Problem:** The system is hardwired to a single match file (`IndVsWI.json`). Loading a second match silently overwrites the index.
+**Problem:** The system is hardwired to a single match file (`IndVsNZ.json`). Loading a second match silently overwrites the index.
 
 **Action Items:**
 - [ ] Namespace ChromaDB collections per match (e.g., `cricket_ind_vs_wi_2024`)

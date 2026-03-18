@@ -5,7 +5,7 @@ Public API:
     ask(question)            → str   Run the full RAG pipeline for a question
     load_match(filepath)     → dict  Load a CricSheet-format JSON file
     flatten_deliveries(data) → list  Flatten match JSON to delivery records
-    build_index(docs, embs)          Build / refresh the ChromaDB index
+    build_index(docs)                Build / refresh the ChromaDB index
     collection_exists()      → bool  Check if the index has been built
 """
 

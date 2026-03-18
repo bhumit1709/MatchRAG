@@ -1,20 +1,10 @@
-"""
-session_store.py
-----------------
-In-memory session store for multi-turn conversation history.
-
-Each session stores a list of {role, content} message dicts.
-Smart pruning retains only turns topically relevant to the current question
-(cosine similarity above threshold) plus the most recent N turns as a safety net.
-
-Thread-safe for Flask's threaded request handling.
-"""
+"""In-memory session store with embedding-based history pruning."""
 
 import threading
 from collections import defaultdict
-import ollama
 
-from config import MAX_HISTORY_TURNS, HISTORY_RELEVANCE_THRESHOLD, EMBED_MODEL
+from config import HISTORY_RELEVANCE_THRESHOLD, MAX_HISTORY_TURNS
+from rag.providers import get_embeddings
 
 
 # ---------------------------------------------------------------------------
@@ -105,11 +95,9 @@ def _prune(history: list[dict], questions: list[str]) -> list[dict]:
         # All turns fall within the always-keep window
         return history
 
-    # Embed current question and all older questions in one batch
     try:
         all_texts = [current_q] + older_questions
-        resp = ollama.embed(model=EMBED_MODEL, input=all_texts)
-        embeddings = resp["embeddings"]
+        embeddings = get_embeddings().embed_documents(all_texts)
         current_emb  = embeddings[0]
         older_embs   = embeddings[1:]
     except Exception:

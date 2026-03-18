@@ -5,16 +5,22 @@ build-backend = "setuptools.backends.legacy:build"
 [project]
 name = "matchrag"
 version = "0.1.0"
-description = "Local RAG chatbot for cricket match commentary using LangGraph + Ollama + ChromaDB"
+description = "Local RAG chatbot for cricket match commentary using LangChain, LangGraph, llama.cpp, and ChromaDB"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "langchain>=0.3",
+    "langchain-core>=0.3",
+    "langchain-community>=0.3",
+    "langchain-chroma>=0.2",
+    "langchain-huggingface>=0.1",
     "langgraph",
-    "chromadb",
-    "ollama",
+    "chromadb>=0.5",
     "flask",
     "flask-cors",
     "flashrank",
+    "llama-cpp-python",
+    "sentence-transformers",
 ]
 
 [project.scripts]

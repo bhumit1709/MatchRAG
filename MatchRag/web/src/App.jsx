@@ -20,6 +20,10 @@ export default function App() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [serverOnline, setServerOnline] = useState(null);
+  const [runtimeMeta, setRuntimeMeta] = useState({
+    embed_model: "local embeddings",
+    llm_model: "local llama.cpp",
+  });
   const [sessionId, setSessionId] = useState(() => newSessionId());
 
   const chatEndRef = useRef(null);
@@ -44,7 +48,13 @@ export default function App() {
   useEffect(() => {
     fetch(`${API_BASE}/api/status`)
       .then((r) => r.json())
-      .then((d) => setServerOnline(d.indexed))
+      .then((d) => {
+        setServerOnline(d.indexed);
+        setRuntimeMeta({
+          embed_model: d.embed_model || "local embeddings",
+          llm_model: d.llm_model || "local llama.cpp",
+        });
+      })
       .catch(() => setServerOnline(false));
   }, []);
 
@@ -209,8 +219,8 @@ export default function App() {
             </div>
           </div>
           <div className="header-badges">
-            <span className="badge">nomic-embed-text</span>
-            <span className="badge">mistral</span>
+            <span className="badge">{runtimeMeta.embed_model}</span>
+            <span className="badge">{runtimeMeta.llm_model}</span>
             <span className={`badge ${serverOnline ? "badge-green" : ""}`}>
               {serverOnline === null
                 ? "● Connecting…"

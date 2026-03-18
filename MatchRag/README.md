@@ -1,152 +1,120 @@
-# 🏏 Cricket Match RAG Pipeline
+# MatchRAG
 
-A fully local Retrieval Augmented Generation (RAG) system for querying ball-by-ball cricket commentary in natural language.
+Local cricket-match RAG for learning modern `LangChain` + `LangGraph` patterns with small local models.
 
-**Stack:** Python · LangGraph · ChromaDB · Ollama
+The app stays fully local at runtime:
 
----
+- Generation: `llama.cpp` through LangChain `ChatLlamaCpp`
+- Embeddings: local Hugging Face model through LangChain `HuggingFaceEmbeddings`
+- Retrieval: `langchain_chroma.Chroma`
+- Orchestration: `LangGraph`
 
-## Prerequisites
+## Why This Repo Exists
 
-| Tool | Install |
-|------|---------|
-| Python 3.10+ | [python.org](https://python.org) |
-| Ollama | [ollama.com](https://ollama.com) |
+This project is meant to be a strong learning reference, not a shortcut demo:
 
----
+- use LangChain wherever it meaningfully improves clarity
+- keep deterministic cricket/stat logic in plain Python
+- keep models local and inspectable
+- preserve good architecture even in a learning project
 
-## Installation
+## Setup
+
+1. Install Python dependencies.
 
 ```bash
-# 1. Install Python dependencies
 pip install -r requirements.txt
+```
 
-# 2. Pull required Ollama models (only needed once)
-ollama pull nomic-embed-text
-ollama pull mistral
+2. Download a local GGUF chat model and point `LLM_MODEL_PATH` to it.
 
-# 3. Install React frontend dependencies
+```bash
+export LLM_MODEL_PATH=/absolute/path/to/your-model.gguf
+```
+
+3. Optionally pin the embedding model to a local folder.
+
+```bash
+export EMBED_MODEL_PATH=/absolute/path/to/local-bge-model
+```
+
+If `EMBED_MODEL_PATH` is unset, the default `BAAI/bge-small-en-v1.5` model is downloaded once and then used locally from cache.
+
+4. Install frontend dependencies.
+
+```bash
 cd web && npm install && cd ..
 ```
 
----
+## Run
 
-## Usage
+Backend:
 
-### 🌐 Web UI (React)
-
-Start the Flask API backend and the React dev server in two separate terminals:
-
-**Terminal 1 — Flask API:**
 ```bash
-python server.py
+python3 server.py
 ```
 
-**Terminal 2 — React frontend:**
+CLI:
+
+```bash
+python3 chat.py
+```
+
+Frontend:
+
 ```bash
 cd web && npm run dev
 ```
 
-Then open **http://localhost:5173** in your browser.
+## Pipeline
 
-- On first run, the API automatically builds the ChromaDB index.
-- The React UI shows live model/index status in the header.
-- Click example question chips or type your own question.
+```text
+load_match
+  -> flatten_deliveries
+  -> LangChain Documents
+  -> Chroma index
 
----
-
-### 💻 CLI Chatbot
-
-```bash
-python chat.py
+question
+  -> rewrite_question
+  -> retrieval_plan
+  -> metadata filters
+  -> semantic retrieval
+  -> multi-query expansion
+  -> compression / rerank
+  -> context builder
+  -> answer generation
 ```
 
+## Main Modules
 
-On first run, the pipeline **automatically**:
-1. Loads `IndVsWI.json`
-2. Flattens all 249 deliveries into flat records with event detection
-3. Generates embeddings via `nomic-embed-text`
-4. Stores vectors in a local ChromaDB database (`./chroma_db/`)
-
-Subsequent runs reuse the index (fast startup — under 2 seconds).
-
-### Force re-index
-
-```bash
-python chat.py --rebuild
-```
-
-### Use a different match file
-
-```bash
-python chat.py --file path/to/other_match.json
-```
-
----
+- `rag/providers.py`: shared local LLM and embedding providers
+- `rag/chains.py`: LangChain prompt chains
+- `rag/retrievers.py`: semantic retrieval, multi-query expansion, compression
+- `rag/graph_nodes.py`: LangGraph node logic
+- `rag/vector_store.py`: Chroma integration plus deterministic cricket helpers
+- `rag/ingest.py`: shared indexing bootstrap for CLI and server
 
 ## Example Questions
 
-```
-Who dismissed Shimron Hetmyer?
+```text
+Who dismissed Abhishek Sharma?
 What happened in the final over?
 Who hit the most sixes?
 Show all wickets taken by Bumrah.
-How many dot balls were bowled in the first innings?
-What was Samson's contribution to India's win?
 Which over had the most runs scored?
 ```
 
----
+## Tests
 
-## File Structure
+The test suite is split into:
 
-```
-MatchRag/
-├── IndVsWI.json            # Source match data (CricSheet format + commentary)
-├── load_match.py           # Step 1: JSON loader & metadata extractor
-├── flatten_data.py         # Steps 2-4: Flatten, event detection, embedding text
-├── embedding_pipeline.py   # Step 5: Ollama nomic-embed-text embeddings
-├── vector_store.py         # Step 6: ChromaDB persistence & retrieval
-├── rag_graph.py            # Steps 7-8: LangGraph retrieve→context→answer graph
-├── chat.py                 # Steps 9-10: CLI chatbot entry point
-├── requirements.txt
-└── chroma_db/              # Auto-created persistent vector store
-```
+- ingestion/data-shape tests
+- retrieval behavior tests
+- graph behavior tests
+- chain prompt-shape tests
 
----
-
-## Pipeline Architecture
-
-```
-User Question
-     │
-     ▼
-┌─────────────┐
-│  retrieve   │  ← ChromaDB cosine search (nomic-embed-text)
-└──────┬──────┘
-       │
-       ▼
-┌──────────────────┐
-│  build_context   │  ← Format top-6 deliveries into prompt context
-└──────┬───────────┘
-       │
-       ▼
-┌─────────────────────┐
-│  generate_answer    │  ← Ollama mistral LLM response
-└──────┬──────────────┘
-       │
-       ▼
-   Answer ✅
-```
-
----
-
-## Running Individual Modules
+Run with:
 
 ```bash
-python load_match.py          # Verify JSON loads correctly
-python flatten_data.py        # Preview flattened records + event breakdown
-python embedding_pipeline.py  # Test embedding generation
-python vector_store.py        # Build index + run sample queries
-python rag_graph.py           # Run a quick 3-question LLM test
+python3 -m pytest tests -q
 ```

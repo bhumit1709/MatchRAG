@@ -12,15 +12,12 @@ Usage:
   python chat.py --file other.json # Use a different match file
 """
 
-import sys
 import argparse
 import time
 
-from config import EMBED_MODEL, LLM_MODEL, DATA_FILE
-from rag.load_match import load_match
-from rag.flatten_data import flatten_deliveries
-from rag.embedding_pipeline import generate_embeddings, check_model_available
-from rag.vector_store import build_index, collection_exists
+from config import DATA_FILE
+from rag.ingest import run_ingest
+from rag.providers import runtime_summary
 from rag.rag_graph import ask
 
 
@@ -39,10 +36,11 @@ DIM    = "\033[2m"
 def _print_banner():
     print(f"""
 {BOLD}{CYAN}╔══════════════════════════════════════════════════════╗
-║   🏏  Cricket Match RAG — Local AI Commentary Bot   ║
+║   🏏  Cricket Match RAG — LangChain Learning Bot    ║
 ╚══════════════════════════════════════════════════════╝{RESET}
-{DIM}  Embeddings : {EMBED_MODEL}
-  LLM        : {LLM_MODEL}
+{DIM}  Runtime    : {runtime_summary()['llm_runtime']}
+  LLM        : {runtime_summary()['llm_model']}
+  Embedding  : {runtime_summary()['embed_model']}
   Vector DB  : ChromaDB (local){RESET}
 
 Type your question and press Enter. Type {YELLOW}quit{RESET} or {YELLOW}exit{RESET} to leave.
@@ -50,52 +48,11 @@ Type your question and press Enter. Type {YELLOW}quit{RESET} or {YELLOW}exit{RES
 
 
 # ---------------------------------------------------------------------------
-# Ingest pipeline helper
-# ---------------------------------------------------------------------------
-
-def run_ingest(filepath: str, force_rebuild: bool = False) -> None:
-    """
-    Load, flatten, embed, and index the match JSON into ChromaDB.
-
-    Args:
-        filepath: Path to the match JSON file.
-        force_rebuild: If True, delete existing index and rebuild from scratch.
-    """
-    if collection_exists() and not force_rebuild:
-        print(f"{GREEN}✓ Existing index found — skipping ingest.{RESET}")
-        return
-
-    print(f"\n{BOLD}Building index from '{filepath}'...{RESET}")
-    t0 = time.time()
-
-    # Pre-flight: verify Ollama models are available
-    if not check_model_available(EMBED_MODEL):
-        print(f"\n{YELLOW}⚠ Ollama model '{EMBED_MODEL}' not found.{RESET}")
-        print(f"  Run: ollama pull {EMBED_MODEL}")
-        sys.exit(1)
-
-    # Step 1-4: Load and flatten
-    print("  Loading match JSON...")
-    data = load_match(filepath)
-    docs = flatten_deliveries(data)
-    print(f"  Flattened {len(docs)} deliveries.")
-
-    # Step 5: Embed
-    embeddings = generate_embeddings(docs, verbose=True)
-
-    # Step 6: Store
-    build_index(docs, embeddings, reset=force_rebuild)
-
-    elapsed = time.time() - t0
-    print(f"{GREEN}✓ Index ready in {elapsed:.1f}s{RESET}\n")
-
-
-# ---------------------------------------------------------------------------
 # Example questions shown on startup
 # ---------------------------------------------------------------------------
 
 EXAMPLE_QUESTIONS = [
-    "Who dismissed Shimron Hetmyer?",
+    "Who dismissed Abhishek Sharma?",
     "What happened in the last over?",
     "Who hit the most sixes?",
     "Show all wickets taken by Bumrah.",
@@ -122,7 +79,14 @@ def main():
     args = parser.parse_args()
 
     # Auto-ingest on startup
-    run_ingest(args.file, force_rebuild=args.rebuild)
+    ingest_result = run_ingest(args.file, force_rebuild=args.rebuild, verbose=False)
+    if ingest_result["skipped"]:
+        print(f"{GREEN}✓ Existing index found — skipping ingest.{RESET}")
+    else:
+        print(
+            f"{GREEN}✓ Index ready with {ingest_result['records']} deliveries "
+            f"in {ingest_result['elapsed']:.1f}s{RESET}\n"
+        )
 
     _print_banner()
 

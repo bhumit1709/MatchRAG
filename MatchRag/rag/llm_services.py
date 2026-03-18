@@ -1,43 +1,35 @@
-import ollama
+"""Compatibility wrappers for LangChain-backed local model access."""
+
 from typing import Generator
-from config import LLM_MODEL
-from rag.prompts import REWRITE_PROMPT, EXTRACT_PROMPT
 
-def call_rewrite_llm(prompt: str) -> str:
-    """Call the LLM for rewriting a question."""
-    response = ollama.chat(
-        model=LLM_MODEL,
-        messages=[
-            {"role": "system", "content": REWRITE_PROMPT},
-            {"role": "user",   "content": prompt},
-        ],
-    )
-    return response["message"]["content"]
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 
-def call_extract_llm(prompt: str) -> str:
-    """Call the LLM for entity extraction."""
-    response = ollama.chat(
-        model=LLM_MODEL,
-        messages=[
-            {"role": "system", "content": EXTRACT_PROMPT},
-            {"role": "user",   "content": prompt},
-        ],
-    )
-    return response["message"]["content"]
+from rag.providers import get_chat_model
+
+
+def _to_messages(messages: list[dict]):
+    converted = []
+    for message in messages:
+        role = message.get("role")
+        content = message.get("content", "")
+        if role == "assistant":
+            converted.append(AIMessage(content=content))
+        elif role == "system":
+            converted.append(SystemMessage(content=content))
+        else:
+            converted.append(HumanMessage(content=content))
+    return converted
+
 
 def call_chat_llm(messages: list[dict]) -> str:
-    """Call the LLM for main answer generation without streaming."""
-    response = ollama.chat(
-        model=LLM_MODEL,
-        messages=messages,
-    )
-    return response["message"]["content"]
+    """Call the local chat model without streaming."""
+    response = get_chat_model().invoke(_to_messages(messages))
+    return response.content if isinstance(response.content, str) else str(response.content)
+
 
 def call_chat_llm_stream(messages: list[dict]) -> Generator[str, None, None]:
-    """Call the LLM for main answer generation with streaming."""
-    for chunk in ollama.chat(
-        model=LLM_MODEL,
-        messages=messages,
-        stream=True,
-    ):
-        yield chunk["message"]["content"]
+    """Call the local chat model with streaming."""
+    for chunk in get_chat_model().stream(_to_messages(messages)):
+        content = getattr(chunk, "content", "")
+        if isinstance(content, str) and content:
+            yield content

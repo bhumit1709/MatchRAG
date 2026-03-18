@@ -1,57 +1,70 @@
-"""
-config.py
----------
-Central configuration for the MatchRAG project.
+"""Central configuration for the MatchRAG project."""
 
-All tuneable constants are defined here so they can be changed
-in one place and are easily overridden via environment variables.
-
-Usage:
-    from config import EMBED_MODEL, LLM_MODEL, CHROMA_PATH, DATA_FILE
-"""
-
+from pathlib import Path
 import os
 
-# ── Ollama models ────────────────────────────────────────────────────────────
 
-# Embedding model — must be available locally via Ollama
-EMBED_MODEL: str = os.getenv("EMBED_MODEL", "nomic-embed-text")
+def _get_bool(name: str, default: bool) -> bool:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() in {"1", "true", "yes", "on"}
 
-# LLM model used for answer generation
-LLM_MODEL: str = os.getenv("LLM_MODEL", "mistral")
+
+def _get_path_env(name: str) -> str | None:
+    raw = os.getenv(name, "").strip()
+    return raw or None
+
+
+def _default_embed_model_path() -> str | None:
+    candidate = Path("models/bge-small-en-v1.5")
+    return str(candidate) if candidate.exists() else None
+
+
+# ── Local generation runtime (llama.cpp) ─────────────────────────────────────
+
+LLM_MODEL_PATH: str = os.getenv("LLM_MODEL_PATH", "models/llama-chat.gguf")
+LLM_MODEL: str = Path(LLM_MODEL_PATH).name
+LLM_TEMPERATURE: float = float(os.getenv("LLM_TEMPERATURE", "0"))
+LLM_MAX_TOKENS: int = int(os.getenv("LLM_MAX_TOKENS", "512"))
+LLM_N_CTX: int = int(os.getenv("LLM_N_CTX", "4096"))
+LLM_N_BATCH: int = int(os.getenv("LLM_N_BATCH", "256"))
+LLM_N_THREADS: int = int(os.getenv("LLM_N_THREADS", str(os.cpu_count() or 4)))
+LLM_N_GPU_LAYERS: int = int(os.getenv("LLM_N_GPU_LAYERS", "0"))
+
+# ── Local embeddings ──────────────────────────────────────────────────────────
+
+EMBED_MODEL_NAME: str = os.getenv("EMBED_MODEL_NAME", "BAAI/bge-small-en-v1.5")
+EMBED_MODEL_PATH: str | None = _get_path_env("EMBED_MODEL_PATH") or _default_embed_model_path()
+EMBED_MODEL: str = EMBED_MODEL_PATH or EMBED_MODEL_NAME
+EMBED_DEVICE: str = os.getenv("EMBED_DEVICE", "cpu")
+EMBED_CACHE_DIR: str | None = _get_path_env("EMBED_CACHE_DIR")
 
 # ── ChromaDB ─────────────────────────────────────────────────────────────────
 
-# Directory where ChromaDB persists the vector index (relative to project root)
 CHROMA_PATH: str = os.getenv("CHROMA_PATH", "chroma_db")
-
-# ChromaDB collection name
 COLLECTION_NAME: str = os.getenv("COLLECTION_NAME", "cricket_commentary")
 
-# ── RAG pipeline ─────────────────────────────────────────────────────────────
+# ── Retrieval / RAG pipeline ─────────────────────────────────────────────────
 
-# Number of top-K deliveries to retrieve initially from ChromaDB
-INITIAL_TOP_K: int = int(os.getenv("INITIAL_TOP_K", "30"))
-
-# Number of top-K deliveries to retain after reranking
-TOP_K: int = int(os.getenv("TOP_K", "10"))
-
-# Local reranker model (FlashRank)
+RETRIEVER_TOP_K: int = int(os.getenv("RETRIEVER_TOP_K", "20"))
+INITIAL_TOP_K: int = int(os.getenv("INITIAL_TOP_K", str(RETRIEVER_TOP_K)))
+TOP_K: int = int(os.getenv("TOP_K", "8"))
+MULTI_QUERY_COUNT: int = int(os.getenv("MULTI_QUERY_COUNT", "3"))
+ENABLE_MULTI_QUERY: bool = _get_bool("ENABLE_MULTI_QUERY", True)
+ENABLE_CONTEXT_COMPRESSION: bool = _get_bool("ENABLE_CONTEXT_COMPRESSION", True)
 RERANK_MODEL: str = os.getenv("RERANK_MODEL", "ms-marco-TinyBERT-L-2-v2")
 
 # ── Data ─────────────────────────────────────────────────────────────────────
 
-# Default match JSON file path (relative to project root)
-DATA_FILE: str = os.getenv("DATA_FILE", "data/IndVsWI.json")
+DATA_FILE: str = os.getenv("DATA_FILE", "data/IndVsNZ.json")
 
-# ── Session memory ────────────────────────────────────────────────────────────
+# ── Session memory ───────────────────────────────────────────────────────────
 
-# Max number of Q&A turns to retain per session (safety-net FIFO cap)
 MAX_HISTORY_TURNS: int = int(os.getenv("MAX_HISTORY_TURNS", "5"))
-
-# Cosine similarity threshold for smart pruning (0.0–1.0)
-# Older turns below this similarity to the current question are dropped
-HISTORY_RELEVANCE_THRESHOLD: float = float(os.getenv("HISTORY_RELEVANCE_THRESHOLD", "0.6"))
+HISTORY_RELEVANCE_THRESHOLD: float = float(
+    os.getenv("HISTORY_RELEVANCE_THRESHOLD", "0.6")
+)
 
 # ── API server ───────────────────────────────────────────────────────────────
 

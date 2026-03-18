@@ -1,5 +1,12 @@
+langchain>=0.3
+langchain-core>=0.3
+langchain-community>=0.3
+langchain-chroma>=0.2
+langchain-huggingface>=0.1
 langgraph
-chromadb
-ollama
+chromadb>=0.5
 flask
 flask-cors
+flashrank
+llama-cpp-python
+sentence-transformers

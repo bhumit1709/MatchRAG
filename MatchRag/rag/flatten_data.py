@@ -64,8 +64,8 @@ def build_text(record: dict) -> str:
     Build a descriptive natural-language string suitable for embedding.
 
     Example:
-      "Match: India vs West Indies at Eden Gardens, Kolkata. Innings 1.
-       Over 3.2. SD Hope facing AR Patel. Event: four. Runs: 4.
+      "Match: India vs New Zealand at Eden Gardens, Kolkata. Innings 1.
+       Over 3.2. Abhishek Sharma facing MJ Santner. Event: four. Runs: 4.
        Commentary: drives through cover."
     """
     wicket_line = ""
@@ -179,7 +179,7 @@ def flatten_deliveries(data: dict) -> list[dict]:
 if __name__ == "__main__":
     import json
 
-    filepath = sys.argv[1] if len(sys.argv) > 1 else "data/IndVsWI.json"
+    filepath = sys.argv[1] if len(sys.argv) > 1 else "data/IndVsNZ.json"
     data = load_match(filepath)
     docs = flatten_deliveries(data)
 

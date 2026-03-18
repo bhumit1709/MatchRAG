@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 
-def load_match(filepath: str = "IndVsWI.json") -> dict:
+def load_match(filepath: str = "data/IndVsNZ.json") -> dict:
     """
     Load and validate a match JSON file.
 
@@ -71,7 +71,7 @@ def extract_metadata(data: dict) -> dict:
 
 
 if __name__ == "__main__":
-    filepath = sys.argv[1] if len(sys.argv) > 1 else "IndVsWI.json"
+    filepath = sys.argv[1] if len(sys.argv) > 1 else "data/IndVsNZ.json"
     data = load_match(filepath)
     meta = extract_metadata(data)
     print("Match loaded successfully.")

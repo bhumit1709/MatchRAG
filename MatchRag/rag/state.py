@@ -1,10 +1,14 @@
 from typing import TypedDict
 
+from rag.schemas import RetrievalPlan
+
 class RAGState(TypedDict):
     """Shared state that flows through all nodes of the graph."""
     question:           str
     rewritten_question: str
+    query_variants:     list[str]
     chat_history:       list[dict]   # [{role, content}, ...]
+    retrieval_plan:     RetrievalPlan | None
     retrieval_filters:  dict | None  # ChromaDB where-clause from entity extraction
     player_stats:       list[dict] | None  # Deterministic stats for the extracted player(s)
     aggregate_stats:    str | None   # Deterministic aggregate stats (leaderboard/count) for stat questions

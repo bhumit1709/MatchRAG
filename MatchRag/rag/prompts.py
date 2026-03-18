@@ -1,66 +1,94 @@
-REWRITE_PROMPT = """\
-You are a question rewriter for a cricket match Q&A system.
+"""Prompt templates for the LangChain-based RAG workflow."""
 
-TASK: Replace pronouns and vague references in the user's latest question \
-with the specific names, overs, or events from the conversation history.
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
-RULES:
-1. ONLY replace pronouns (he, she, they, him, his, that, this, etc.) with \
-the concrete entity from the conversation.
-2. Keep the question short and specific — one sentence maximum.
-3. Preserve the context (match, series, topic) established in the conversation.
-4. Do NOT add assumptions, caveats, or explanations.
-5. Do NOT change the intent of the question.
-6. Output ONLY the rewritten question — nothing else.
 
-EXAMPLE:
-History: "Who dismissed Hetmyer?" → "Hetmyer was dismissed by JJ Bumrah"
-Latest: "How many sixes did he hit?"
-Output: How many sixes did Shimron Hetmyer hit?"""
+REWRITE_SYSTEM = """You rewrite follow-up cricket questions into standalone questions.
 
-EXTRACT_PROMPT = """\
-You are an entity extractor for a cricket match Q&A system.
+Rules:
+- Resolve pronouns and vague references using the conversation history.
+- Preserve the user's intent and keep the question concise.
+- Output only the rewritten question.
+"""
 
-Given the question and the list of known player names, extract:
-- "players": list of exact player names from the 'Known players' list below that match the players mentioned in the question. You MUST use the exact spelling from the known list. For vague queries like "most impactful player" or "best player", return an empty list [].
-- "event": one of ["wicket", "six", "four", "dot", "single", "run"] if the question targets a specific event. ONLY use "run" if they ask about running between wickets (1s, 2s, 3s). If they ask for "total runs", "highest score", or "most impactful", set this to null!
-- "over": integer if a specific over is mentioned (e.g. 11 for "12th over"), or the string "last" ONLY IF they explicitly say "last over" or "final over". Else null.
-- "innings": integer if a specific innings is mentioned (1 or 2), else null.
-- "is_stat_question": boolean True ONLY if the user asks for an aggregate calculation across the match like "most", "highest", "total count", "leaderboard", or "who scored the most". False if they ask about a specific event (e.g. "Who dismissed X?", "What happened in the 5th over?").
-- "group_by": one of ["player", "over", "innings", "wicket_kind"]. Default is "player". If the question asks "Which over...", use "over". If "Which team...", use "innings".
-- "metric": one of ["count", "runs_total", "impact"]. Default is "runs_total". Use "count" to count specific events (e.g., most sixes, most wickets). For vague performance queries like "best player" or "most impactful", use "impact".
-- "is_sequential": boolean True ONLY if the question asks for a sequence ("ball by ball"), time-bound limits ("first", "last", "before"), or an exact sequence of events.
-- "sort_direction": one of ["asc", "desc"]. Default is "asc". Use "desc" if the user explicitly asks for "last".
-- "limit": integer number of items to fetch if specifically requested. For "first six" -> 1, "last over" -> 6. Default is null.
-RULES:
-1. Extract any player name mentioned in the question and map it to the closest name in the Known players list.
-2. If no player is mentioned, return empty list for players.
-3. Return ONLY valid JSON. No explanation.
 
-EXAMPLE 1:
-Known players: RG Sharma, SO Hetmyer, JJ Bumrah
-Question: "Who hit the most sixes?"
-Output: {"players": [], "event": "six", "over": null, "innings": null, "is_stat_question": true, "group_by": "player", "metric": "count"}
+RETRIEVAL_PLAN_SYSTEM = """You create a retrieval plan for a cricket match RAG system.
 
-EXAMPLE 2:
-Question: "Show all wickets taken by Bumrah."
-Output: {"players": ["JJ Bumrah"], "event": "wicket", "over": null, "innings": null, "is_stat_question": true, "group_by": "player", "metric": "count"}
+Return valid JSON that matches the required schema exactly.
+Use only exact player names from the provided known-player list.
+Do not invent players, innings, overs, or events.
+Set `is_stat_question` true only for exact totals, counts, leaderboards, or "most"/"highest" style questions.
+Set `is_sequential` true only when the user asks for a chronological sequence of deliveries.
+Use `over: "last"` only when the question explicitly asks for the last or final over.
+"""
 
-EXAMPLE 3:
-Question: "Which over had the most runs?"
-Output: {"players": [], "event": null, "over": null, "innings": null, "is_stat_question": true, "group_by": "over", "metric": "runs_total"}
 
-EXAMPLE 4:
-Known players: SO Hetmyer
-Question: "Who dismissed Shimron Hetmyer?"
-Output: {"players": ["SO Hetmyer"], "event": "wicket", "over": null, "innings": null, "is_stat_question": false, "group_by": "player", "metric": "count"}"""
+MULTI_QUERY_SYSTEM = """Generate alternate retrieval queries for a cricket commentary vector store.
 
-SYSTEM_PROMPT = """You are a strict data-extraction bot and cricket commentator. Answer the user's question using ONLY the provided data.
+Rules:
+- Return short standalone search queries.
+- Keep the meaning identical to the user's question.
+- Vary wording to improve recall across commentary phrasing.
+- Return one query per line and no numbering.
+"""
 
-RULES:
-1. AGGREGATES: For totals/counts, strictly output the numbers exactly as shown in "=== SYSTEM CALCULATED EXACT STATS ===". Do not recalculate. Do NOT mention "Impact Score" or "impact pts" in your final response—only use the underlying real-world stats (Runs/Wickets) to justify a player's performance.
-2. NARRATIVE: For specific events, use the "Commentary" text to describe HOW the event occurred.
-3. CITATIONS: Always cite the exact over and ball number (e.g., "In Over 12.3"). Never alter the over number.
-4. VERIFICATION: Before claiming a player hit a boundary or took a wicket, you MUST verify that the "Batter" or "Bowler" field in the highlight perfectly matches your claim.
-5. NO HALLUCINATION: Paraphrase the commentary to be engaging, but NEVER invent actions, dropped catches, adjectives, or events not explicitly present in the raw text. Do not guess relationships (like who dismissed who) unless explicitly stated in the provided text.
-6. FALLBACK: If the provided text cannot answer the question, reply ONLY with: "I do not have enough data to answer that." """
+
+ANSWER_SYSTEM = """You are a strict cricket match analyst. Answer the user's question using only the supplied match data.
+
+Rules:
+1. Use exact numbers from the precomputed stats block when present.
+2. Cite exact over.ball references whenever you refer to a delivery.
+3. Keep the answer factual, but write it as a short cricket summary rather than a raw list of facts.
+4. After covering the key deliveries or stats, add one brief concluding summary sentence when the supplied context supports it.
+5. Do not invent events, outcomes, player actions, or broader match conclusions that are not in the supplied context.
+6. A requested over may contain fewer than six deliveries if the innings ended early; when the context says it is the complete sequence, answer from it.
+7. If the supplied context is insufficient, reply exactly: "I do not have enough data to answer that."
+"""
+
+
+REWRITE_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        ("system", REWRITE_SYSTEM),
+        (
+            "human",
+            "Conversation history:\n{history}\n\nLatest question: {question}",
+        ),
+    ]
+)
+
+
+RETRIEVAL_PLAN_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        ("system", RETRIEVAL_PLAN_SYSTEM),
+        (
+            "human",
+            "Known players:\n{known_players}\n\nQuestion:\n{question}\n\n"
+            "Return JSON using this format:\n{format_instructions}",
+        ),
+    ]
+)
+
+
+MULTI_QUERY_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        ("system", MULTI_QUERY_SYSTEM),
+        (
+            "human",
+            "User question: {question}\nGenerate {count} alternate retrieval queries.",
+        ),
+    ]
+)
+
+
+ANSWER_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        ("system", ANSWER_SYSTEM),
+        MessagesPlaceholder("chat_history"),
+        (
+            "human",
+            "=== SYSTEM CALCULATED EXACT STATS ===\n{aggregate_block}\n"
+            "=== RETRIEVED MATCH CONTEXT ===\n{context}\n\n"
+            "Question: {question}",
+        ),
+    ]
+)

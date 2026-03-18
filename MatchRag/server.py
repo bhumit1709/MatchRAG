@@ -18,57 +18,28 @@ Run:
 import argparse
 import json
 import time
-import sys
 from flask import Flask, request, jsonify, Response, stream_with_context
 from flask_cors import CORS
 
-from config import EMBED_MODEL, LLM_MODEL, DATA_FILE, API_PORT, API_HOST
-from rag.load_match import load_match
-from rag.flatten_data import flatten_deliveries
-from rag.embedding_pipeline import generate_embeddings, check_model_available
-from rag.vector_store import build_index, collection_exists
+from config import DATA_FILE, API_HOST, API_PORT
+from rag.ingest import run_ingest
+from rag.providers import runtime_summary
 from rag.rag_graph import ask_stream
 from rag.session_store import get_history, add_turn, clear_session
+from rag.vector_store import collection_exists
 
 app = Flask(__name__)
 CORS(app)
 
 
-# ---------------------------------------------------------------------------
-# Ingest helper
-# ---------------------------------------------------------------------------
-
-def run_ingest(filepath: str, force_rebuild: bool = False) -> None:
-    """Build the ChromaDB index if it doesn't exist, or force-rebuild it."""
-    if collection_exists() and not force_rebuild:
-        print("✓ Existing ChromaDB index found — skipping ingest.")
-        return
-
-    print(f"\nBuilding index from '{filepath}'...")
-    t0 = time.time()
-
-    if not check_model_available(EMBED_MODEL):
-        print(f"⚠  Ollama model '{EMBED_MODEL}' not found. Run: ollama pull {EMBED_MODEL}")
-        sys.exit(1)
-
-    data = load_match(filepath)
-    docs = flatten_deliveries(data)
-    print(f"  Flattened {len(docs)} deliveries.")
-    embeddings = generate_embeddings(docs, verbose=True)
-    build_index(docs, embeddings, reset=force_rebuild)
-    print(f"✓ Index ready in {time.time() - t0:.1f}s\n")
-
-
-# ---------------------------------------------------------------------------
-# Routes
-# ---------------------------------------------------------------------------
-
 @app.route("/")
 def index():
+    runtime = runtime_summary()
     return jsonify({
         "service":    "Cricket Match RAG API",
-        "embed_model": EMBED_MODEL,
-        "llm_model":   LLM_MODEL,
+        "embed_model": runtime["embed_model"],
+        "llm_model":   runtime["llm_model"],
+        "llm_runtime": runtime["llm_runtime"],
         "indexed":     collection_exists(),
         "endpoints": {
             "POST /api/ask":           "Ask a question (SSE streaming)",
@@ -80,10 +51,12 @@ def index():
 
 @app.route("/api/status")
 def status():
+    runtime = runtime_summary()
     return jsonify({
         "indexed":     collection_exists(),
-        "embed_model": EMBED_MODEL,
-        "llm_model":   LLM_MODEL,
+        "embed_model": runtime["embed_model"],
+        "llm_model":   runtime["llm_model"],
+        "llm_runtime": runtime["llm_runtime"],
     })
 
 
@@ -182,10 +155,18 @@ def main():
     parser.add_argument("--host",    default=API_HOST, help="Host to bind to")
     args = parser.parse_args()
 
-    run_ingest(args.file, force_rebuild=args.rebuild)
+    ingest_result = run_ingest(args.file, force_rebuild=args.rebuild, verbose=False)
+    if ingest_result["skipped"]:
+        print("✓ Existing ChromaDB index found — skipping ingest.")
+    else:
+        print(
+            f"✓ Index ready with {ingest_result['records']} deliveries "
+            f"in {ingest_result['elapsed']:.1f}s"
+        )
 
+    runtime = runtime_summary()
     print(f"\n🏏 Cricket RAG API running on http://{args.host}:{args.port}")
-    print(f"   Embed: {EMBED_MODEL}  |  LLM: {LLM_MODEL}\n")
+    print(f"   Runtime: {runtime['llm_runtime']} | Embed: {runtime['embed_model']} | LLM: {runtime['llm_model']}\n")
     app.run(host=args.host, port=args.port, debug=False)
 
 

@@ -1,14 +1,4 @@
-"""
-rag_graph.py
-------------
-Steps 7 & 8 of the RAG pipeline.
-
-Implements a LangGraph StateGraph with nodes:
-  rewrite_question → extract_filters → compute_aggregate_stats → retrieve → rerank_docs → build_context → generate_answer
-
-All LLM inference runs locally through Ollama (mistral or llama3).
-Supports session memory (chat history) and streaming token output.
-"""
+"""LangGraph workflow assembly for the MatchRAG pipeline."""
 
 from typing import Generator
 from langgraph.graph import StateGraph, END
@@ -16,13 +6,12 @@ from langgraph.graph import StateGraph, END
 from rag.state import RAGState
 from rag.graph_nodes import (
     rewrite_question,
-    extract_filters,
+    plan_retrieval,
     compute_aggregate_stats,
     retrieve,
-    rerank_docs,
     build_context,
     generate_answer,
-    generate_answer_stream
+    generate_answer_stream,
 )
 
 
@@ -34,25 +23,23 @@ def build_graph():
     """
     Assemble and compile the LangGraph RAG workflow.
 
-    Pipeline:  rewrite_question → extract_filters → compute_aggregate_stats → retrieve → rerank_docs → build_context → generate_answer
+    Pipeline: rewrite_question → plan_retrieval → compute_aggregate_stats → retrieve → build_context → generate_answer
     """
     graph = StateGraph(RAGState)
 
-    graph.add_node("rewrite_question",        rewrite_question)
-    graph.add_node("extract_filters",         extract_filters)
+    graph.add_node("rewrite_question", rewrite_question)
+    graph.add_node("plan_retrieval", plan_retrieval)
     graph.add_node("compute_aggregate_stats", compute_aggregate_stats)
-    graph.add_node("retrieve",                retrieve)
-    graph.add_node("rerank_docs",             rerank_docs)
-    graph.add_node("build_context",           build_context)
-    graph.add_node("generate_answer",         generate_answer)
+    graph.add_node("retrieve", retrieve)
+    graph.add_node("build_context", build_context)
+    graph.add_node("generate_answer", generate_answer)
 
     graph.set_entry_point("rewrite_question")
-    graph.add_edge("rewrite_question",        "extract_filters")
-    graph.add_edge("extract_filters",         "compute_aggregate_stats")
+    graph.add_edge("rewrite_question", "plan_retrieval")
+    graph.add_edge("plan_retrieval", "compute_aggregate_stats")
     graph.add_edge("compute_aggregate_stats", "retrieve")
-    graph.add_edge("retrieve",                "rerank_docs")
-    graph.add_edge("rerank_docs",             "build_context")
-    graph.add_edge("build_context",           "generate_answer")
+    graph.add_edge("retrieve", "build_context")
+    graph.add_edge("build_context", "generate_answer")
     graph.add_edge("generate_answer",         END)
 
     return graph.compile()
@@ -76,7 +63,9 @@ def _initial_state(question: str, chat_history: list[dict]) -> RAGState:
     return {
         "question":           question,
         "rewritten_question": "",
+        "query_variants":     [],
         "chat_history":       chat_history or [],
+        "retrieval_plan":     None,
         "retrieval_filters":  None,
         "player_stats":       None,
         "aggregate_stats":    None,
@@ -87,6 +76,9 @@ def _initial_state(question: str, chat_history: list[dict]) -> RAGState:
         "group_by":           "player",
         "metric":             "count",
         "is_stat_question":   False,
+        "is_sequential":      False,
+        "sort_direction":     "asc",
+        "limit":              None,
         "llm_traces":         [],
     }
 
@@ -100,10 +92,9 @@ def ask(question: str, chat_history: list[dict] = None) -> str:
 
     # Run pipeline manually so we can stream generation
     state = rewrite_question(state)
-    state = extract_filters(state)
+    state = plan_retrieval(state)
     state = compute_aggregate_stats(state)
     state = retrieve(state)
-    state = rerank_docs(state)
     state = build_context(state)
     state = generate_answer(state)
     return state["answer"]
@@ -125,14 +116,10 @@ def ask_stream(
     """
     state = _initial_state(question, chat_history or [])
     state = rewrite_question(state)
-    state = extract_filters(state)
+    state = plan_retrieval(state)
     state = compute_aggregate_stats(state)
     state = retrieve(state)
-    state = rerank_docs(state)
     state = build_context(state)
-
-    # Top doc formatting removed from here, put below.
-    from rag.graph_nodes import build_messages
 
     def _format_docs(doc_list):
         formatted = []
@@ -159,18 +146,14 @@ def ask_stream(
 
     top_docs = _format_docs(state["retrieved_docs"])
     initial_top_docs = _format_docs(state["initial_docs"])
-    
-    final_messages = build_messages(state)
-    trace = {
-        "node": "generate_answer",
-        "prompt": "\n\n".join([f"{m['role'].upper()}:\n{m['content']}" for m in final_messages]),
-        "response": "<streamed to chat UI>",
-    }
+
+    token_stream, trace = generate_answer_stream(state)
     state["llm_traces"] = state.get("llm_traces", []) + [trace]
 
     meta = {
         "rewritten_question": state["rewritten_question"],
         "was_rewritten":      state["rewritten_question"] != question,
+        "query_variants":     state.get("query_variants", []),
         "retrieval_filters":  state.get("retrieval_filters"),
         "aggregate_stats":    state.get("aggregate_stats"),
         "group_by":           state.get("group_by", "player"),
@@ -184,7 +167,7 @@ def ask_stream(
     }
 
     yield meta   # <-- first yield is always the metadata dict
-    yield from generate_answer_stream(state)  # then token strings
+    yield from token_stream  # then token strings
 
 
 # ---------------------------------------------------------------------------
@@ -199,10 +182,10 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
     test_questions = [
-        ("Who dismissed Shimron Hetmyer?", []),
+        ("Who dismissed Abhishek Sharma?", []),
         ("What over was that?",            [
-            {"role": "user",      "content": "Who dismissed Shimron Hetmyer?"},
-            {"role": "assistant", "content": "Hetmyer was dismissed by JJ Bumrah in Over 12.3 (caught)."},
+            {"role": "user",      "content": "Who dismissed Abhishek Sharma?"},
+            {"role": "assistant", "content": "Abhishek Sharma was dismissed by R Ravindra in Over 7.1 (caught by TL Seifert)."},
         ]),
     ]
     for q, history in test_questions:
