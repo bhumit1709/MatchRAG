@@ -40,6 +40,7 @@ def _print_banner():
 ╚══════════════════════════════════════════════════════╝{RESET}
 {DIM}  Runtime    : {runtime_summary()['llm_runtime']}
   LLM        : {runtime_summary()['llm_model']}
+  GPU layers : {runtime_summary()['llm_gpu_layers']}
   Embedding  : {runtime_summary()['embed_model']}
   Vector DB  : ChromaDB (local){RESET}
 

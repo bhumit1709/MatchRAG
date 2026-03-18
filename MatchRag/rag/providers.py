@@ -80,4 +80,5 @@ def runtime_summary() -> dict[str, str]:
         "llm_runtime": "llama.cpp",
         "llm_model": Path(LLM_MODEL_PATH).name,
         "embed_model": _resolve_embed_model_source(),
+        "llm_gpu_layers": str(LLM_N_GPU_LAYERS),
     }

@@ -276,6 +276,104 @@ def test_plan_retrieval_for_player_summary_bypasses_llm(monkeypatch):
     assert updated["llm_traces"] == []
 
 
+def test_plan_retrieval_overrides_bad_planner_route_for_player_summary(monkeypatch):
+    from rag.graph_nodes import plan_retrieval
+
+    monkeypatch.setattr("rag.graph_nodes.get_known_players", lambda: ["SV Samson", "JJ Bumrah"])
+    monkeypatch.setattr(
+        "rag.graph_nodes.build_retrieval_plan",
+        lambda question, known: (
+            RetrievalPlan(
+                normalized_question=question,
+                players=["SV Samson"],
+                answer_strategy="aggregate",
+                group_by="player",
+                metric="count",
+            ),
+            {"node": "plan_retrieval"},
+        ),
+    )
+    monkeypatch.setattr(
+        "rag.graph_nodes.get_player_stats",
+        lambda player: {"name": player, "batting": {"runs": 89, "balls": 42, "fours": 5, "sixes": 8, "dismissal": None}, "bowling": {"overs": "0.0", "runs": 0, "wickets": 0}},
+    )
+
+    state = {
+        "question": "How was SV Samson's overall performance?",
+        "rewritten_question": "How was SV Samson's overall performance?",
+        "query_variants": [],
+        "chat_history": [],
+        "retrieval_plan": None,
+        "retrieval_filters": None,
+        "player_stats": None,
+        "aggregate_stats": None,
+        "aggregate_rows": None,
+        "answer_strategy": "semantic",
+        "group_by": "player",
+        "metric": "count",
+        "is_stat_question": False,
+        "is_sequential": False,
+        "sort_direction": "asc",
+        "limit": None,
+        "initial_docs": [],
+        "retrieved_docs": [],
+        "context": "",
+        "answer": "",
+        "stage_timings_ms": {},
+        "llm_traces": [],
+    }
+
+    updated = plan_retrieval(state)
+
+    assert updated["answer_strategy"] == "semantic"
+    assert updated["retrieval_plan"].answer_strategy == "semantic"
+    assert updated["retrieval_plan"].players == ["SV Samson"]
+    assert updated["player_stats"][0]["batting"]["runs"] == 89
+
+
+def test_generate_answer_does_not_short_circuit_for_aggregate_route_with_players():
+    from rag.graph_nodes import generate_answer
+    from rag import graph_nodes
+
+    graph_nodes.invoke_answer_chain = lambda **kwargs: ("SV Samson played a superb innings of 89.", {"node": "generate_answer"})
+
+    state = {
+        "question": "How was SV Samson's overall performance?",
+        "rewritten_question": "How was SV Samson's overall performance?",
+        "query_variants": ["How was SV Samson's overall performance?"],
+        "chat_history": [],
+        "retrieval_plan": RetrievalPlan(
+            normalized_question="How was SV Samson's overall performance?",
+            players=["SV Samson"],
+            answer_strategy="aggregate",
+            group_by="player",
+            metric="count",
+        ),
+        "retrieval_filters": {"$or": [{"batter": {"$eq": "SV Samson"}}]},
+        "player_stats": None,
+        "aggregate_stats": "=== SYSTEM CALCULATED EXACT STATS ===",
+        "aggregate_rows": [{"player": "SV Samson", "count": 50}],
+        "answer_strategy": "aggregate",
+        "group_by": "player",
+        "metric": "count",
+        "is_stat_question": True,
+        "is_sequential": False,
+        "sort_direction": "asc",
+        "limit": None,
+        "initial_docs": [],
+        "retrieved_docs": [],
+        "context": "context",
+        "answer": "",
+        "stage_timings_ms": {},
+        "llm_traces": [],
+    }
+
+    updated = generate_answer(state)
+
+    assert updated["answer"] == "SV Samson played a superb innings of 89."
+    assert updated["llm_traces"][0]["node"] == "generate_answer"
+
+
 def test_retrieve_stat_question_skips_semantic_retrieval(monkeypatch):
     from rag.graph_nodes import retrieve
 

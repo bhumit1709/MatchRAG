@@ -39,6 +39,7 @@ def index():
         "service":    "Cricket Match RAG API",
         "embed_model": runtime["embed_model"],
         "llm_model":   runtime["llm_model"],
+        "llm_gpu_layers": runtime["llm_gpu_layers"],
         "llm_runtime": runtime["llm_runtime"],
         "indexed":     collection_exists(),
         "endpoints": {
@@ -56,6 +57,7 @@ def status():
         "indexed":     collection_exists(),
         "embed_model": runtime["embed_model"],
         "llm_model":   runtime["llm_model"],
+        "llm_gpu_layers": runtime["llm_gpu_layers"],
         "llm_runtime": runtime["llm_runtime"],
     })
 
@@ -173,7 +175,12 @@ def main():
 
     runtime = runtime_summary()
     print(f"\n🏏 Cricket RAG API running on http://{args.host}:{args.port}")
-    print(f"   Runtime: {runtime['llm_runtime']} | Embed: {runtime['embed_model']} | LLM: {runtime['llm_model']}\n")
+    print(
+        f"   Runtime: {runtime['llm_runtime']} | "
+        f"Embed: {runtime['embed_model']} | "
+        f"LLM: {runtime['llm_model']} | "
+        f"GPU layers: {runtime['llm_gpu_layers']}\n"
+    )
     app.run(host=args.host, port=args.port, debug=False)
 
 

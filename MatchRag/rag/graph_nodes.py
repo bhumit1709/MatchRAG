@@ -375,6 +375,14 @@ def _question_mentions_players(question: str, known_players: list[str]) -> list[
     return deduped
 
 
+def _build_player_summary_plan(question: str, explicit_players: list[str]) -> RetrievalPlan:
+    return RetrievalPlan(
+        normalized_question=question,
+        players=explicit_players,
+        answer_strategy="semantic",
+    )
+
+
 def _leader_support_filter(plan: RetrievalPlan, row: dict, base_where: dict | None) -> dict | None:
     if plan.group_by == "player":
         leader = row["player"]
@@ -445,11 +453,7 @@ def plan_retrieval(state: RAGState) -> RAGState:
 
         if explicit_players and _is_summary_question(question_lower):
             plan = _normalize_plan(
-                RetrievalPlan(
-                    normalized_question=question,
-                    players=explicit_players,
-                    answer_strategy="semantic",
-                ),
+                _build_player_summary_plan(question, explicit_players),
                 question,
                 known_players,
             )
@@ -457,6 +461,14 @@ def plan_retrieval(state: RAGState) -> RAGState:
         elif known_players:
             plan, trace = build_retrieval_plan(question, known_players)
             plan = _normalize_plan(plan, question, known_players)
+            if explicit_players and _is_summary_question(question_lower):
+                # Player-summary follow-ups should stay player-scoped even if the planner
+                # returns a generic aggregate route.
+                plan = _normalize_plan(
+                    _build_player_summary_plan(question, explicit_players),
+                    question,
+                    known_players,
+                )
             llm_traces = state.get("llm_traces", []) + [trace]
         else:
             plan = RetrievalPlan(normalized_question=question)
@@ -564,7 +576,7 @@ def _metric_label(plan: RetrievalPlan) -> str:
 def _direct_stat_answer(state: RAGState) -> str | None:
     plan = state.get("retrieval_plan")
     rows = state.get("aggregate_rows")
-    if not plan or plan.answer_strategy != "aggregate" or not rows:
+    if not plan or plan.answer_strategy != "aggregate" or not rows or plan.players:
         return None
 
     leader = rows[0]
