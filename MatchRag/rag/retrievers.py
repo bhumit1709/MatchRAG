@@ -22,9 +22,19 @@ def _merge_scored_results(scored_results: list[tuple]) -> list[dict]:
     return list(merged.values())
 
 
-def retrieve_documents(question: str, where: dict | None = None) -> tuple[list[str], list[dict], list[dict], dict | None]:
+def retrieve_documents(
+    question: str,
+    where: dict | None = None,
+    enable_multi_query: bool | None = None,
+    enable_context_compression: bool | None = None,
+) -> tuple[list[str], list[dict], list[dict], dict | None]:
     """Retrieve candidate documents using semantic search, multi-query expansion, and compression."""
     vector_store = get_vector_store()
+    if enable_multi_query is None:
+        enable_multi_query = ENABLE_MULTI_QUERY
+    if enable_context_compression is None:
+        enable_context_compression = ENABLE_CONTEXT_COMPRESSION
+
     query_variants = [question]
     trace = None
 
@@ -36,7 +46,7 @@ def retrieve_documents(question: str, where: dict | None = None) -> tuple[list[s
     initial_docs = _merge_scored_results(scored_results)
     merged_docs = list(initial_docs)
 
-    if ENABLE_MULTI_QUERY:
+    if enable_multi_query:
         query_variants, trace = generate_query_variants(question)
         all_results = list(scored_results)
         for variant in query_variants[1:]:
@@ -49,7 +59,7 @@ def retrieve_documents(question: str, where: dict | None = None) -> tuple[list[s
             )
         merged_docs = _merge_scored_results(all_results)
 
-    if ENABLE_CONTEXT_COMPRESSION:
+    if enable_context_compression:
         final_docs = rerank_documents(question, merged_docs, top_n=TOP_K)
     else:
         final_docs = merged_docs[:TOP_K]

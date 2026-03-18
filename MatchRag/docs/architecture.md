@@ -32,6 +32,7 @@ Only follow-up questions are rewritten. Standalone questions bypass this step.
 A LangChain prompt chain produces a typed `RetrievalPlan` with:
 
 - normalized question
+- answer strategy
 - players
 - event
 - innings
@@ -40,6 +41,7 @@ A LangChain prompt chain produces a typed `RetrievalPlan` with:
 - grouping and metric hints
 
 Deterministic Python then converts that plan into Chroma metadata filters.
+Routing prefers the strategy field first: `aggregate` for exact stats, `sequential` for chronological delivery fetches, `semantic` for commentary retrieval, and `hybrid` when both exact stats and supporting commentary are needed.
 
 ### 3. Retrieval
 

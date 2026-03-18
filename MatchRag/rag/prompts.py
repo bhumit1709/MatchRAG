@@ -17,8 +17,10 @@ RETRIEVAL_PLAN_SYSTEM = """You create a retrieval plan for a cricket match RAG s
 Return valid JSON that matches the required schema exactly.
 Use only exact player names from the provided known-player list.
 Do not invent players, innings, overs, or events.
+Set `answer_strategy` to one of `semantic`, `aggregate`, `sequential`, or `hybrid`.
 Set `is_stat_question` true only for exact totals, counts, leaderboards, or "most"/"highest" style questions.
 Set `is_sequential` true only when the user asks for a chronological sequence of deliveries.
+Use `hybrid` only when the answer needs exact stats plus supporting commentary evidence.
 Use `over: "last"` only when the question explicitly asks for the last or final over.
 """
 

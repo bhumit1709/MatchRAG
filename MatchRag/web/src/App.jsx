@@ -153,7 +153,10 @@ export default function App() {
             setMessages((prev) => {
               const updated = [...prev];
               const cur = updated[botIdx] ?? { role: "bot", text: "" };
-              updated[botIdx] = { ...cur, streaming: false, elapsed: event.elapsed };
+              const nextMeta = cur.meta
+                ? { ...cur.meta, stage_timings_ms: event.stage_timings_ms || cur.meta.stage_timings_ms }
+                : cur.meta;
+              updated[botIdx] = { ...cur, streaming: false, elapsed: event.elapsed, meta: nextMeta };
               messagesRef.current = updated;
               return updated;
             });

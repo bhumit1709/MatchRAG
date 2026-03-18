@@ -66,13 +66,24 @@ export default function PipelineInspector({ meta }) {
                         </div>
                     </div>
 
+                    {meta.stage_timings_ms && Object.keys(meta.stage_timings_ms).length > 0 && (
+                        <div className="inspector-section mt-2">
+                            <div className="inspector-label">Timing Breakdown</div>
+                            <div className="inspector-value" style={{ whiteSpace: "pre-wrap", fontFamily: "'SF Mono', 'Fira Code', monospace", fontSize: "11px", color: "var(--accent-blue)" }}>
+                                {Object.entries(meta.stage_timings_ms)
+                                    .map(([name, ms]) => `${name}: ${Number(ms).toFixed(1)}ms`)
+                                    .join("\n")}
+                            </div>
+                        </div>
+                    )}
+
                     {/* Aggregate Stats */}
                     {meta.aggregate_stats && (
                         <>
                             <div className="inspector-section mt-2">
                                 <div className="inspector-label">Stat Extraction Setup</div>
                                 <div className="inspector-value" style={{ fontFamily: "'SF Mono', 'Fira Code', monospace", fontSize: "11px", color: "var(--accent-saffron)" }}>
-                                    group_by: "{meta.group_by}" | metric: "{meta.metric}"
+                                    strategy: "{meta.answer_strategy}" | group_by: "{meta.group_by}" | metric: "{meta.metric}"
                                 </div>
                             </div>
 

@@ -2,7 +2,10 @@
 
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
+
+
+AnswerStrategy = Literal["semantic", "aggregate", "sequential", "hybrid"]
 
 
 class RetrievalPlan(BaseModel):
@@ -25,6 +28,13 @@ class RetrievalPlan(BaseModel):
         description="Specific over number or 'last' if the user asks about the final over.",
     )
     innings: int | None = Field(default=None, description="Specific innings number when given.")
+    answer_strategy: AnswerStrategy = Field(
+        default="semantic",
+        description=(
+            "Primary execution path: semantic retrieval, deterministic aggregate stats, "
+            "exact sequential fetch, or hybrid aggregate-plus-retrieval."
+        ),
+    )
     is_stat_question: bool = Field(
         default=False,
         description="True when the answer requires exact aggregate stats rather than only narrative retrieval.",
@@ -52,6 +62,28 @@ class RetrievalPlan(BaseModel):
     @classmethod
     def _default_sort_direction(cls, value: Any) -> Any:
         return "asc" if value in (None, "") else value
+
+    @field_validator("answer_strategy", mode="before")
+    @classmethod
+    def _default_answer_strategy(cls, value: Any) -> Any:
+        return "semantic" if value in (None, "") else value
+
+    @model_validator(mode="after")
+    def _synchronize_routing_flags(self) -> "RetrievalPlan":
+        if self.answer_strategy == "aggregate":
+            self.is_stat_question = True
+            self.is_sequential = False
+        elif self.answer_strategy == "sequential":
+            self.is_stat_question = False
+            self.is_sequential = True
+        elif self.answer_strategy == "hybrid":
+            self.is_stat_question = True
+            self.is_sequential = False
+        else:
+            self.is_stat_question = False
+            self.is_sequential = False
+
+        return self
 
 
 class LLMTrace(BaseModel):

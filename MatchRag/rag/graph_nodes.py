@@ -8,7 +8,7 @@ from typing import Generator
 
 from rag.chains import invoke_answer_chain, rewrite_followup_question, stream_answer_chain
 from rag.chains import build_retrieval_plan
-from rag.schemas import RetrievalPlan
+from rag.schemas import AnswerStrategy, RetrievalPlan
 from rag.retrievers import retrieve_documents
 from rag.state import RAGState
 from rag.vector_store import (
@@ -67,6 +67,14 @@ _FOLLOWUP_WORD_SIGNALS = {
     "their",
 }
 
+_STRONG_PRONOUN_SIGNALS = {
+    "him",
+    "his",
+    "her",
+    "them",
+    "their",
+}
+
 _STAT_SIGNAL_WORDS = {
     "how many",
     "most",
@@ -76,6 +84,51 @@ _STAT_SIGNAL_WORDS = {
     "count",
     "runs",
 }
+
+_STAT_EVENT_KEYWORDS = {
+    "sixes": "six",
+    "six": "six",
+    "fours": "four",
+    "four": "four",
+    "wickets": "wicket",
+    "wicket": "wicket",
+    "dots": "dot",
+    "dot balls": "dot",
+    "dot ball": "dot",
+}
+
+_ORDERED_EVENT_TERMS = {
+    "wicket": "wicket",
+    "wickets": "wicket",
+    "six": "six",
+    "sixes": "six",
+    "four": "four",
+    "fours": "four",
+    "dot": "dot",
+    "dot ball": "dot",
+    "dot balls": "dot",
+}
+
+_SUMMARY_SIGNALS = {
+    "performance",
+    "perform",
+    "how did",
+    "how was",
+    "summary",
+    "won",
+}
+
+
+def _strategy_uses_aggregate(strategy: AnswerStrategy) -> bool:
+    return strategy in {"aggregate", "hybrid"}
+
+
+def _strategy_uses_sequential(strategy: AnswerStrategy) -> bool:
+    return strategy == "sequential"
+
+
+def _strategy_uses_semantic(strategy: AnswerStrategy) -> bool:
+    return strategy in {"semantic", "hybrid"}
 
 
 def _needs_rewrite(question: str, has_history: bool) -> bool:
@@ -87,6 +140,8 @@ def _needs_rewrite(question: str, has_history: bool) -> bool:
         return True
 
     words = [word.strip("?!.,;:") for word in q_lower.split()]
+    if any(signal in words for signal in _STRONG_PRONOUN_SIGNALS):
+        return True
     return len(words) <= 7 and any(signal in words for signal in _FOLLOWUP_WORD_SIGNALS)
 
 
@@ -147,8 +202,8 @@ def _normalize_plan(plan: RetrievalPlan, question: str, known_players: list[str]
 
     # Over-scoped narrative questions are best answered from chronological
     # deliveries rather than compressed semantic highlights.
-    if plan.over is not None and not plan.is_stat_question:
-        plan.is_sequential = True
+    if plan.over is not None and not _strategy_uses_aggregate(plan.answer_strategy):
+        plan.answer_strategy = "sequential"
         if not plan.sort_direction:
             plan.sort_direction = "asc"
 
@@ -186,8 +241,95 @@ def _build_where_filter(plan: RetrievalPlan) -> dict | None:
     return {"$and": clauses}
 
 
+def _combine_filters(*filters: dict | None) -> dict | None:
+    clauses: list[dict] = []
+    for current in filters:
+        if not current:
+            continue
+        if set(current.keys()) == {"$and"} and isinstance(current.get("$and"), list):
+            clauses.extend(current["$and"])
+        else:
+            clauses.append(current)
+
+    if not clauses:
+        return None
+    if len(clauses) == 1:
+        return clauses[0]
+    return {"$and": clauses}
+
+
+def _extract_ordered_event(question_lower: str) -> tuple[str, str] | None:
+    if "first" in question_lower:
+        direction = "asc"
+    elif "last" in question_lower:
+        direction = "desc"
+    else:
+        return None
+
+    for term, event in _ORDERED_EVENT_TERMS.items():
+        if term in question_lower:
+            return event, direction
+
+    return None
+
+
+def _is_summary_question(question_lower: str) -> bool:
+    if "over" in question_lower or "first " in question_lower or "last " in question_lower:
+        return False
+    if any(signal in question_lower for signal in _STAT_SIGNAL_WORDS):
+        return False
+    return any(signal in question_lower for signal in _SUMMARY_SIGNALS)
+
+
 def _build_fast_path_plan(question: str) -> RetrievalPlan | None:
     question_lower = question.lower().strip()
+
+    ordered_event = _extract_ordered_event(question_lower)
+    if ordered_event is not None:
+        event, direction = ordered_event
+        return RetrievalPlan(
+            normalized_question=question,
+            event=event,
+            answer_strategy="sequential",
+            sort_direction=direction,
+            limit=1,
+        )
+
+    for keyword, event in _STAT_EVENT_KEYWORDS.items():
+        if keyword not in question_lower:
+            continue
+
+        if any(phrase in question_lower for phrase in {"most", "highest", "fewest"}):
+            return RetrievalPlan(
+                normalized_question=question,
+                event=event,
+                answer_strategy="hybrid",
+                group_by="player",
+                metric="count",
+            )
+
+        if question_lower.startswith("who hit the most ") or question_lower.startswith("who took the most "):
+            return RetrievalPlan(
+                normalized_question=question,
+                event=event,
+                answer_strategy="hybrid",
+                group_by="player",
+                metric="count",
+            )
+
+    if "which over" in question_lower and any(phrase in question_lower for phrase in {"most runs", "highest runs"}):
+        return RetrievalPlan(
+            normalized_question=question,
+            answer_strategy="hybrid",
+            group_by="over",
+            metric="runs_total",
+        )
+
+    if _is_summary_question(question_lower):
+        return RetrievalPlan(
+            normalized_question=question,
+            answer_strategy="semantic",
+        )
 
     if any(signal in question_lower for signal in _STAT_SIGNAL_WORDS):
         return None
@@ -195,6 +337,7 @@ def _build_fast_path_plan(question: str) -> RetrievalPlan | None:
     if "last over" in question_lower or "final over" in question_lower:
         return RetrievalPlan(
             normalized_question=question,
+            answer_strategy="sequential",
             over="last",
             is_sequential=True,
         )
@@ -203,6 +346,7 @@ def _build_fast_path_plan(question: str) -> RetrievalPlan | None:
     if over_match:
         return RetrievalPlan(
             normalized_question=question,
+            answer_strategy="sequential",
             over=int(over_match.group(1)),
             is_sequential=True,
         )
@@ -210,22 +354,113 @@ def _build_fast_path_plan(question: str) -> RetrievalPlan | None:
     return None
 
 
+def _question_mentions_players(question: str, known_players: list[str]) -> list[str]:
+    question_lower = question.lower()
+    matches: list[str] = []
+
+    for player in known_players:
+        player_lower = player.lower()
+        if player_lower in question_lower:
+            matches.append(player)
+            continue
+
+        last_name = player_lower.split()[-1]
+        if len(last_name) >= 4 and re.search(rf"\b{re.escape(last_name)}\b", question_lower):
+            matches.append(player)
+
+    deduped: list[str] = []
+    for player in matches:
+        if player not in deduped:
+            deduped.append(player)
+    return deduped
+
+
+def _leader_support_filter(plan: RetrievalPlan, row: dict, base_where: dict | None) -> dict | None:
+    if plan.group_by == "player":
+        leader = row["player"]
+        if plan.metric == "impact":
+            actor_filter = {
+                "$or": [
+                    {"batter": {"$eq": leader}},
+                    {"bowler": {"$eq": leader}},
+                ]
+            }
+        elif plan.event in {"wicket", "dot"}:
+            actor_filter = {"bowler": {"$eq": leader}}
+        elif plan.event in {"six", "four", "single", "run"} or plan.event is None:
+            actor_filter = {"batter": {"$eq": leader}}
+        else:
+            actor_filter = {"$or": [{"batter": {"$eq": leader}}, {"bowler": {"$eq": leader}}]}
+        return _combine_filters(base_where, actor_filter)
+
+    if plan.group_by == "over":
+        innings, _, over = str(row["player"]).partition("_")
+        if innings and over:
+            return _combine_filters(
+                base_where,
+                {"innings": {"$eq": int(innings)}},
+                {"over": {"$eq": int(over)}},
+            )
+        return base_where
+
+    if plan.group_by == "innings":
+        try:
+            return _combine_filters(base_where, {"innings": {"$eq": int(row["player"])}})
+        except (TypeError, ValueError):
+            return base_where
+
+    if plan.group_by == "wicket_kind":
+        return _combine_filters(base_where, {"wicket_kind": {"$eq": row["player"]}})
+
+    return base_where
+
+
+def _leader_support_query(plan: RetrievalPlan, row: dict, question: str) -> str:
+    if plan.group_by == "player":
+        label = _metric_label(plan)
+        return f"{row['player']} {label}"
+    if plan.group_by == "over":
+        innings, _, over = str(row["player"]).partition("_")
+        if innings and over:
+            return f"Innings {innings} over {over} {question}"
+    if plan.group_by == "innings":
+        return f"Innings {row['player']} {question}"
+    if plan.group_by == "wicket_kind":
+        return f"{row['player']} {question}"
+    return question
+
+
 def plan_retrieval(state: RAGState) -> RAGState:
     """Produce a structured retrieval plan and metadata filter."""
     question = state["rewritten_question"] or state["question"]
-    known_players = get_known_players()
     fast_path_plan = _build_fast_path_plan(question)
 
     if fast_path_plan is not None:
-        plan = _normalize_plan(fast_path_plan, question, known_players)
+        plan = _normalize_plan(fast_path_plan, question, [])
         llm_traces = state.get("llm_traces", [])
-    elif known_players:
-        plan, trace = build_retrieval_plan(question, known_players)
-        plan = _normalize_plan(plan, question, known_players)
-        llm_traces = state.get("llm_traces", []) + [trace]
     else:
-        plan = RetrievalPlan(normalized_question=question)
-        llm_traces = state.get("llm_traces", [])
+        known_players = get_known_players()
+        explicit_players = _question_mentions_players(question, known_players)
+        question_lower = question.lower().strip()
+
+        if explicit_players and _is_summary_question(question_lower):
+            plan = _normalize_plan(
+                RetrievalPlan(
+                    normalized_question=question,
+                    players=explicit_players,
+                    answer_strategy="semantic",
+                ),
+                question,
+                known_players,
+            )
+            llm_traces = state.get("llm_traces", [])
+        elif known_players:
+            plan, trace = build_retrieval_plan(question, known_players)
+            plan = _normalize_plan(plan, question, known_players)
+            llm_traces = state.get("llm_traces", []) + [trace]
+        else:
+            plan = RetrievalPlan(normalized_question=question)
+            llm_traces = state.get("llm_traces", [])
 
     player_stats = [stats for player in plan.players if (stats := get_player_stats(player))]
 
@@ -237,6 +472,7 @@ def plan_retrieval(state: RAGState) -> RAGState:
         "aggregate_stats": None,
         "group_by": plan.group_by,
         "metric": plan.metric,
+        "answer_strategy": plan.answer_strategy,
         "is_stat_question": plan.is_stat_question,
         "is_sequential": plan.is_sequential,
         "sort_direction": plan.sort_direction,
@@ -248,7 +484,7 @@ def plan_retrieval(state: RAGState) -> RAGState:
 def compute_aggregate_stats(state: RAGState) -> RAGState:
     """Calculate exact stats for aggregate-style questions."""
     plan = state.get("retrieval_plan")
-    if not plan or not plan.is_stat_question:
+    if not plan or not _strategy_uses_aggregate(plan.answer_strategy):
         return state
 
     where = state.get("retrieval_filters")
@@ -306,7 +542,47 @@ def compute_aggregate_stats(state: RAGState) -> RAGState:
         lines.append(f"{index}. {prefix}{row['player']} — {row['count']} {label}")
 
     lines.append("=====================================\n")
-    return {**state, "aggregate_stats": "\n".join(lines)}
+    return {**state, "aggregate_stats": "\n".join(lines), "aggregate_rows": leaderboard}
+
+
+def _metric_label(plan: RetrievalPlan) -> str:
+    if plan.metric == "runs_total":
+        return "runs"
+    if plan.metric == "impact":
+        return "impact score"
+    if plan.event == "six":
+        return "sixes"
+    if plan.event == "four":
+        return "fours"
+    if plan.event == "wicket":
+        return "wickets"
+    if plan.event:
+        return f"{plan.event}s"
+    return "items"
+
+
+def _direct_stat_answer(state: RAGState) -> str | None:
+    plan = state.get("retrieval_plan")
+    rows = state.get("aggregate_rows")
+    if not plan or plan.answer_strategy != "aggregate" or not rows:
+        return None
+
+    leader = rows[0]
+    label = _metric_label(plan)
+    value = leader["count"]
+
+    if plan.group_by == "player":
+        return f"{leader['player']} had the most {label}, with {value}."
+    if plan.group_by == "over":
+        innings, _, over = str(leader["player"]).partition("_")
+        if innings and over:
+            return f"Innings {innings}, over {over} had the most {label}, with {value}."
+    if plan.group_by == "innings":
+        return f"Innings {leader['player']} had the most {label}, with {value}."
+    if plan.group_by == "wicket_kind":
+        return f"{leader['player']} was the most common wicket type, with {value} dismissals."
+
+    return None
 
 
 def retrieve(state: RAGState) -> RAGState:
@@ -314,8 +590,17 @@ def retrieve(state: RAGState) -> RAGState:
     plan = state.get("retrieval_plan") or RetrievalPlan(normalized_question=state["question"])
     query_text = plan.normalized_question or state["rewritten_question"] or state["question"]
     where = state.get("retrieval_filters")
+    aggregate_rows = state.get("aggregate_rows") or []
 
-    if plan.is_sequential:
+    if not _strategy_uses_semantic(plan.answer_strategy) and _strategy_uses_aggregate(plan.answer_strategy):
+        return {
+            **state,
+            "query_variants": [query_text],
+            "initial_docs": [],
+            "retrieved_docs": [],
+        }
+
+    if _strategy_uses_sequential(plan.answer_strategy):
         limit = plan.limit or 20
         results = get_sequential_deliveries(
             where=where,
@@ -329,7 +614,48 @@ def retrieve(state: RAGState) -> RAGState:
             "retrieved_docs": results,
         }
 
-    query_variants, initial_docs, retrieved_docs, trace = retrieve_documents(query_text, where=where)
+    if plan.answer_strategy == "hybrid" and aggregate_rows:
+        leader = aggregate_rows[0]
+        support_where = _leader_support_filter(plan, leader, where)
+        support_query = _leader_support_query(plan, leader, query_text)
+
+        if plan.group_by == "over":
+            results = get_sequential_deliveries(
+                where=support_where,
+                sort_direction="asc",
+                limit=20,
+            )
+            return {
+                **state,
+                "query_variants": [support_query],
+                "initial_docs": results,
+                "retrieved_docs": results,
+            }
+
+        query_variants, initial_docs, retrieved_docs, trace = retrieve_documents(
+            support_query,
+            where=support_where,
+            enable_multi_query=False,
+            enable_context_compression=False,
+        )
+        llm_traces = state.get("llm_traces", [])
+        if trace is not None:
+            llm_traces = llm_traces + [trace]
+
+        return {
+            **state,
+            "query_variants": query_variants,
+            "initial_docs": initial_docs,
+            "retrieved_docs": retrieved_docs,
+            "llm_traces": llm_traces,
+        }
+
+    query_variants, initial_docs, retrieved_docs, trace = retrieve_documents(
+        query_text,
+        where=where,
+        enable_multi_query=_strategy_uses_semantic(plan.answer_strategy),
+        enable_context_compression=_strategy_uses_semantic(plan.answer_strategy),
+    )
     llm_traces = state.get("llm_traces", [])
     if trace is not None:
         llm_traces = llm_traces + [trace]
@@ -346,9 +672,6 @@ def retrieve(state: RAGState) -> RAGState:
 def build_context(state: RAGState) -> RAGState:
     """Format the retrieved deliveries and exact stats into the answer context."""
     docs = state["retrieved_docs"]
-    if not docs:
-        return {**state, "context": "No relevant match data found."}
-
     lines = []
     aggregate_stats = state.get("aggregate_stats")
     player_stats = state.get("player_stats")
@@ -381,7 +704,13 @@ def build_context(state: RAGState) -> RAGState:
     elif aggregate_stats:
         lines.append(aggregate_stats)
 
-    if state.get("is_sequential") and plan and plan.over is not None:
+    if not docs:
+        context = "\n".join(line for line in lines if line is not None).strip()
+        if context:
+            return {**state, "context": context}
+        return {**state, "context": "No relevant match data found."}
+
+    if plan and plan.answer_strategy == "sequential" and plan.over is not None:
         lines.append("=== Complete Chronological Delivery Sequence ===")
         if plan.innings is not None:
             lines.append(
@@ -424,6 +753,10 @@ def build_context(state: RAGState) -> RAGState:
 
 def generate_answer(state: RAGState) -> RAGState:
     """Run the final answer-generation chain."""
+    direct_answer = _direct_stat_answer(state)
+    if direct_answer is not None:
+        return {**state, "answer": direct_answer}
+
     answer, trace = invoke_answer_chain(
         question=state["question"],
         chat_history=state["chat_history"],
@@ -436,6 +769,14 @@ def generate_answer(state: RAGState) -> RAGState:
 
 def generate_answer_stream(state: RAGState) -> tuple[Generator[str, None, None], dict]:
     """Stream the final answer-generation chain and return the prompt trace."""
+    direct_answer = _direct_stat_answer(state)
+    if direct_answer is not None:
+        return iter([direct_answer]), {
+            "node": "generate_answer",
+            "prompt": "<direct deterministic stat answer>",
+            "response": direct_answer,
+        }
+
     stream, trace = stream_answer_chain(
         question=state["question"],
         chat_history=state["chat_history"],

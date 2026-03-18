@@ -1,6 +1,7 @@
 """LangGraph workflow assembly for the MatchRAG pipeline."""
 
 from typing import Generator
+from time import perf_counter
 from langgraph.graph import StateGraph, END
 
 from rag.state import RAGState
@@ -69,6 +70,8 @@ def _initial_state(question: str, chat_history: list[dict]) -> RAGState:
         "retrieval_filters":  None,
         "player_stats":       None,
         "aggregate_stats":    None,
+        "aggregate_rows":     None,
+        "answer_strategy":    "semantic",
         "initial_docs":       [],
         "retrieved_docs":     [],
         "context":            "",
@@ -79,8 +82,18 @@ def _initial_state(question: str, chat_history: list[dict]) -> RAGState:
         "is_sequential":      False,
         "sort_direction":     "asc",
         "limit":              None,
+        "stage_timings_ms":   {},
         "llm_traces":         [],
     }
+
+
+def _run_timed_node(state: RAGState, name: str, fn):
+    start = perf_counter()
+    next_state = fn(state)
+    elapsed_ms = round((perf_counter() - start) * 1000, 1)
+    timings = dict(state.get("stage_timings_ms", {}))
+    timings[name] = elapsed_ms
+    return {**next_state, "stage_timings_ms": timings}
 
 
 def ask(question: str, chat_history: list[dict] = None) -> str:
@@ -91,12 +104,12 @@ def ask(question: str, chat_history: list[dict] = None) -> str:
     state = _initial_state(question, chat_history or [])
 
     # Run pipeline manually so we can stream generation
-    state = rewrite_question(state)
-    state = plan_retrieval(state)
-    state = compute_aggregate_stats(state)
-    state = retrieve(state)
-    state = build_context(state)
-    state = generate_answer(state)
+    state = _run_timed_node(state, "rewrite_question", rewrite_question)
+    state = _run_timed_node(state, "plan_retrieval", plan_retrieval)
+    state = _run_timed_node(state, "compute_aggregate_stats", compute_aggregate_stats)
+    state = _run_timed_node(state, "retrieve", retrieve)
+    state = _run_timed_node(state, "build_context", build_context)
+    state = _run_timed_node(state, "generate_answer", generate_answer)
     return state["answer"]
 
 
@@ -115,11 +128,11 @@ def ask_stream(
     Callers should check `isinstance(item, dict)` for the metadata event.
     """
     state = _initial_state(question, chat_history or [])
-    state = rewrite_question(state)
-    state = plan_retrieval(state)
-    state = compute_aggregate_stats(state)
-    state = retrieve(state)
-    state = build_context(state)
+    state = _run_timed_node(state, "rewrite_question", rewrite_question)
+    state = _run_timed_node(state, "plan_retrieval", plan_retrieval)
+    state = _run_timed_node(state, "compute_aggregate_stats", compute_aggregate_stats)
+    state = _run_timed_node(state, "retrieve", retrieve)
+    state = _run_timed_node(state, "build_context", build_context)
 
     def _format_docs(doc_list):
         formatted = []
@@ -147,7 +160,13 @@ def ask_stream(
     top_docs = _format_docs(state["retrieved_docs"])
     initial_top_docs = _format_docs(state["initial_docs"])
 
+    answer_start = perf_counter()
     token_stream, trace = generate_answer_stream(state)
+    answer_setup_ms = round((perf_counter() - answer_start) * 1000, 1)
+    state["stage_timings_ms"] = {
+        **state.get("stage_timings_ms", {}),
+        "generate_answer_setup": answer_setup_ms,
+    }
     state["llm_traces"] = state.get("llm_traces", []) + [trace]
 
     meta = {
@@ -156,8 +175,10 @@ def ask_stream(
         "query_variants":     state.get("query_variants", []),
         "retrieval_filters":  state.get("retrieval_filters"),
         "aggregate_stats":    state.get("aggregate_stats"),
+        "answer_strategy":    state.get("answer_strategy", "semantic"),
         "group_by":           state.get("group_by", "player"),
         "metric":             state.get("metric", "count"),
+        "stage_timings_ms":   state.get("stage_timings_ms", {}),
         "num_docs":           len(state["retrieved_docs"]),
         "initial_num_docs":   len(state["initial_docs"]),
         "top_docs":           top_docs,

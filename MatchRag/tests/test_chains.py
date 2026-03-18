@@ -34,6 +34,7 @@ def test_retrieval_plan_defaults_null_optional_fields():
     plan = RetrievalPlan.model_validate(
         {
             "normalized_question": "Who dismissed Abhishek Sharma?",
+            "answer_strategy": None,
             "players": ["Abhishek Sharma"],
             "event": None,
             "over": None,
@@ -47,5 +48,20 @@ def test_retrieval_plan_defaults_null_optional_fields():
         }
     )
 
+    assert plan.answer_strategy == "semantic"
     assert plan.metric == "count"
     assert plan.sort_direction == "asc"
+
+
+def test_retrieval_plan_answer_strategy_syncs_legacy_flags():
+    plan = RetrievalPlan.model_validate(
+        {
+            "normalized_question": "What happened in the last over?",
+            "answer_strategy": "sequential",
+            "is_stat_question": False,
+            "is_sequential": False,
+        }
+    )
+
+    assert plan.is_stat_question is False
+    assert plan.is_sequential is True

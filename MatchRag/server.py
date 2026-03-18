@@ -92,11 +92,13 @@ def ask_question():
     def generate():
         t0          = time.time()
         full_answer = []
+        meta_payload = None
 
         try:
             for item in ask_stream(question, chat_history=chat_history):
                 # First yield is always a metadata dict (pipeline inspector)
                 if isinstance(item, dict):
+                    meta_payload = item
                     payload = json.dumps({"type": "meta", **item})
                     yield f"data: {payload}\n\n"
                     continue
@@ -108,12 +110,17 @@ def ask_question():
 
             answer  = "".join(full_answer)
             elapsed = round(time.time() - t0, 2)
+            stage_timings = dict((meta_payload or {}).get("stage_timings_ms", {}))
+            if stage_timings:
+                pre_answer_ms = round(sum(stage_timings.values()), 1)
+                stream_ms = round(max(0.0, (elapsed * 1000) - pre_answer_ms), 1)
+                stage_timings["answer_stream"] = stream_ms
 
             # Persist the turn into session history
             if session_id:
                 add_turn(session_id, question, answer)
 
-            payload = json.dumps({"type": "done", "elapsed": elapsed})
+            payload = json.dumps({"type": "done", "elapsed": elapsed, "stage_timings_ms": stage_timings})
             yield f"data: {payload}\n\n"
 
         except Exception as exc:
