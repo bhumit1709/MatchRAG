@@ -6,10 +6,17 @@
 
 ## 1. LangChain / LangGraph (Score: 8/10)
 
-### 1.1 Use the compiled LangGraph for execution
-**Files:** `rag/rag_graph.py`
-- [ ] Replace manual node-by-node calls in `ask()` and `ask_stream()` with `_get_graph().invoke(state)` / `.stream(state)`
-- [ ] This enables automatic state passing, future checkpointing, and potential parallelism
+### 1.1 Use the compiled LangGraph for execution ✅
+**Files:** `rag/rag_graph.py`, `rag/graph_nodes.py`
+- [x] Two compiled graphs: `_full_graph` (6 nodes, for `ask()`) and `_pre_answer_graph` (5 nodes, for `ask_stream()`)
+- [x] `_timed(node_name)` wrapper uses dynamic `getattr` lookup at call time — monkeypatching works in tests
+- [x] `ask()` calls `_get_full_graph().invoke(state)` — LangGraph drives all state passing
+- [x] `ask_stream()` calls `_get_pre_answer_graph().invoke(state)` for nodes 1–5, then streams tokens outside the graph
+- [x] `build_graph()` kept as backward-compatible alias
+- [x] Also fixed 2 pre-existing bugs discovered during verification (see below):
+  - `_is_summary_question`: `"over" in q` falsely matched `"overall"` — fixed with `re.search(r"\bover\b")`
+  - Fast-path semantic plans now enriched with player detection so `retrieval_plan.players` is populated
+- [x] **All 34 tests pass** (`test_graph.py` + `test_pipeline.py`)
 
 ### 1.2 Add conditional edges for strategy routing
 **Files:** `rag/rag_graph.py`, `rag/graph_nodes.py`

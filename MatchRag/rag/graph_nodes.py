@@ -274,7 +274,8 @@ def _extract_ordered_event(question_lower: str) -> tuple[str, str] | None:
 
 
 def _is_summary_question(question_lower: str) -> bool:
-    if "over" in question_lower or "first " in question_lower or "last " in question_lower:
+    # Use a word-boundary check for "over" so "overall" is not falsely excluded.
+    if re.search(r"\bover\b", question_lower) or "first " in question_lower or "last " in question_lower:
         return False
     if any(signal in question_lower for signal in _STAT_SIGNAL_WORDS):
         return False
@@ -444,7 +445,17 @@ def plan_retrieval(state: RAGState) -> RAGState:
     fast_path_plan = _build_fast_path_plan(question)
 
     if fast_path_plan is not None:
-        plan = _normalize_plan(fast_path_plan, question, [])
+        # For semantic fast-path plans, enrich with explicit players if present.
+        # This covers "How was SV Samson's performance?" hitting the summary fast-path
+        # ─ the returned plan has no players without this step.
+        if fast_path_plan.answer_strategy == "semantic":
+            known_players = get_known_players()
+            explicit_players = _question_mentions_players(question, known_players)
+            if explicit_players:
+                fast_path_plan = _build_player_summary_plan(question, explicit_players)
+            plan = _normalize_plan(fast_path_plan, question, known_players if explicit_players else [])
+        else:
+            plan = _normalize_plan(fast_path_plan, question, [])
         llm_traces = state.get("llm_traces", [])
     else:
         known_players = get_known_players()
@@ -461,9 +472,9 @@ def plan_retrieval(state: RAGState) -> RAGState:
         elif known_players:
             plan, trace = build_retrieval_plan(question, known_players)
             plan = _normalize_plan(plan, question, known_players)
-            if explicit_players and _is_summary_question(question_lower):
-                # Player-summary follow-ups should stay player-scoped even if the planner
-                # returns a generic aggregate route.
+            # If the LLM planner routed a player-summary question to aggregate/hybrid,
+            # override it back to semantic so the answer is player-scoped narrative.
+            if explicit_players and _is_summary_question(question_lower) and plan.answer_strategy in {"aggregate", "hybrid"}:
                 plan = _normalize_plan(
                     _build_player_summary_plan(question, explicit_players),
                     question,
