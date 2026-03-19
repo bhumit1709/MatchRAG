@@ -573,30 +573,6 @@ def _metric_label(plan: RetrievalPlan) -> str:
     return "items"
 
 
-def _direct_stat_answer(state: RAGState) -> str | None:
-    plan = state.get("retrieval_plan")
-    rows = state.get("aggregate_rows")
-    if not plan or plan.answer_strategy != "aggregate" or not rows or plan.players:
-        return None
-
-    leader = rows[0]
-    label = _metric_label(plan)
-    value = leader["count"]
-
-    if plan.group_by == "player":
-        return f"{leader['player']} had the most {label}, with {value}."
-    if plan.group_by == "over":
-        innings, _, over = str(leader["player"]).partition("_")
-        if innings and over:
-            return f"Innings {innings}, over {over} had the most {label}, with {value}."
-    if plan.group_by == "innings":
-        return f"Innings {leader['player']} had the most {label}, with {value}."
-    if plan.group_by == "wicket_kind":
-        return f"{leader['player']} was the most common wicket type, with {value} dismissals."
-
-    return None
-
-
 def retrieve(state: RAGState) -> RAGState:
     """Retrieve documents after retrieval planning and filter translation."""
     plan = state.get("retrieval_plan") or RetrievalPlan(normalized_question=state["question"])
@@ -765,10 +741,6 @@ def build_context(state: RAGState) -> RAGState:
 
 def generate_answer(state: RAGState) -> RAGState:
     """Run the final answer-generation chain."""
-    direct_answer = _direct_stat_answer(state)
-    if direct_answer is not None:
-        return {**state, "answer": direct_answer}
-
     answer, trace = invoke_answer_chain(
         question=state["question"],
         chat_history=state["chat_history"],
@@ -781,14 +753,6 @@ def generate_answer(state: RAGState) -> RAGState:
 
 def generate_answer_stream(state: RAGState) -> tuple[Generator[str, None, None], dict]:
     """Stream the final answer-generation chain and return the prompt trace."""
-    direct_answer = _direct_stat_answer(state)
-    if direct_answer is not None:
-        return iter([direct_answer]), {
-            "node": "generate_answer",
-            "prompt": "<direct deterministic stat answer>",
-            "response": direct_answer,
-        }
-
     stream, trace = stream_answer_chain(
         question=state["question"],
         chat_history=state["chat_history"],

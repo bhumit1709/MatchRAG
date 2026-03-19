@@ -28,6 +28,8 @@ def test_build_answer_prompt_value_includes_stats_and_context():
     assert "Who hit the most sixes?" in prompt_text
     assert "SV Samson — 3 sixes" in prompt_text
     assert "Over 2.3 Samson hit a six." in prompt_text
+    assert "must never be a one-line reply" in prompt_text
+    assert "evidence-based analysis or interpretation" in prompt_text
 
 
 def test_retrieval_plan_defaults_null_optional_fields():

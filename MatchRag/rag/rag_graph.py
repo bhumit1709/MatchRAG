@@ -17,48 +17,126 @@ from rag.graph_nodes import (
 
 
 # ---------------------------------------------------------------------------
-# Graph assembly
+# Node timing wrapper
 # ---------------------------------------------------------------------------
 
-def build_graph():
+def _timed(node_name: str):
     """
-    Assemble and compile the LangGraph RAG workflow.
+    Wrap a graph node function so its wall-clock time is recorded in RAGState.
 
-    Pipeline: rewrite_question → plan_retrieval → compute_aggregate_stats → retrieve → build_context → generate_answer
+    The wrapped function is **looked up by name on this module at call time**
+    (via `getattr`), not captured at graph-build time. This means
+    `monkeypatch.setattr("rag.rag_graph.<node_name>", mock)` in tests
+    is respected even after the compiled graph has been created.
+    """
+    import rag.rag_graph as _this_module  # late import avoids circular ref
+
+    def wrapper(state: RAGState) -> RAGState:
+        fn = getattr(_this_module, node_name)  # dynamic — picks up monkeypatches
+        start = perf_counter()
+        result = fn(state)
+        elapsed_ms = round((perf_counter() - start) * 1000, 1)
+        # Accumulate timings: prior timings live in result (nodes return full state)
+        timings = dict(result.get("stage_timings_ms", state.get("stage_timings_ms", {})))
+        timings[node_name] = elapsed_ms
+        return {**result, "stage_timings_ms": timings}
+
+    return wrapper
+
+
+# ---------------------------------------------------------------------------
+# Graph construction
+# ---------------------------------------------------------------------------
+
+def _build_full_graph():
+    """
+    6-node graph used by ask().
+
+    Pipeline: rewrite_question → plan_retrieval → compute_aggregate_stats
+              → retrieve → build_context → generate_answer
     """
     graph = StateGraph(RAGState)
 
-    graph.add_node("rewrite_question", rewrite_question)
-    graph.add_node("plan_retrieval", plan_retrieval)
-    graph.add_node("compute_aggregate_stats", compute_aggregate_stats)
-    graph.add_node("retrieve", retrieve)
-    graph.add_node("build_context", build_context)
-    graph.add_node("generate_answer", generate_answer)
+    graph.add_node("rewrite_question",       _timed("rewrite_question"))
+    graph.add_node("plan_retrieval",         _timed("plan_retrieval"))
+    graph.add_node("compute_aggregate_stats", _timed("compute_aggregate_stats"))
+    graph.add_node("retrieve",               _timed("retrieve"))
+    graph.add_node("build_context",          _timed("build_context"))
+    graph.add_node("generate_answer",        _timed("generate_answer"))
 
     graph.set_entry_point("rewrite_question")
-    graph.add_edge("rewrite_question", "plan_retrieval")
-    graph.add_edge("plan_retrieval", "compute_aggregate_stats")
+    graph.add_edge("rewrite_question",        "plan_retrieval")
+    graph.add_edge("plan_retrieval",          "compute_aggregate_stats")
     graph.add_edge("compute_aggregate_stats", "retrieve")
-    graph.add_edge("retrieve", "build_context")
-    graph.add_edge("build_context", "generate_answer")
+    graph.add_edge("retrieve",                "build_context")
+    graph.add_edge("build_context",           "generate_answer")
     graph.add_edge("generate_answer",         END)
 
     return graph.compile()
 
 
+def _build_pre_answer_graph():
+    """
+    5-node graph used by ask_stream().
+
+    Runs everything up to and including build_context, then returns control
+    so token streaming can happen outside the graph.
+
+    Why not use the full graph for streaming?
+    LangGraph's .stream() emits completed-node state snapshots, not token-level
+    chunks from within a node. The token stream from generate_answer_stream()
+    must therefore be driven separately via SSE.
+    """
+    graph = StateGraph(RAGState)
+
+    graph.add_node("rewrite_question",       _timed("rewrite_question"))
+    graph.add_node("plan_retrieval",         _timed("plan_retrieval"))
+    graph.add_node("compute_aggregate_stats", _timed("compute_aggregate_stats"))
+    graph.add_node("retrieve",               _timed("retrieve"))
+    graph.add_node("build_context",          _timed("build_context"))
+
+    graph.set_entry_point("rewrite_question")
+    graph.add_edge("rewrite_question",        "plan_retrieval")
+    graph.add_edge("plan_retrieval",          "compute_aggregate_stats")
+    graph.add_edge("compute_aggregate_stats", "retrieve")
+    graph.add_edge("retrieve",                "build_context")
+    graph.add_edge("build_context",           END)
+
+    return graph.compile()
+
+
 # ---------------------------------------------------------------------------
-# Public convenience functions
+# Compiled graph singletons (lazy initialisation)
 # ---------------------------------------------------------------------------
 
-_compiled_graph = None
+_full_graph = None
+_pre_answer_graph = None
 
 
-def _get_graph():
-    global _compiled_graph
-    if _compiled_graph is None:
-        _compiled_graph = build_graph()
-    return _compiled_graph
+def _get_full_graph():
+    global _full_graph
+    if _full_graph is None:
+        _full_graph = _build_full_graph()
+    return _full_graph
 
+
+def _get_pre_answer_graph():
+    global _pre_answer_graph
+    if _pre_answer_graph is None:
+        _pre_answer_graph = _build_pre_answer_graph()
+    return _pre_answer_graph
+
+
+# Backward-compatible alias — kept so any code that calls build_graph()
+# directly (e.g. scripts or notebooks) continues to work.
+def build_graph():
+    """Return a compiled 6-node full-pipeline graph. Kept for compatibility."""
+    return _build_full_graph()
+
+
+# ---------------------------------------------------------------------------
+# Initial state factory
+# ---------------------------------------------------------------------------
 
 def _initial_state(question: str, chat_history: list[dict]) -> RAGState:
     return {
@@ -87,30 +165,20 @@ def _initial_state(question: str, chat_history: list[dict]) -> RAGState:
     }
 
 
-def _run_timed_node(state: RAGState, name: str, fn):
-    start = perf_counter()
-    next_state = fn(state)
-    elapsed_ms = round((perf_counter() - start) * 1000, 1)
-    timings = dict(state.get("stage_timings_ms", {}))
-    timings[name] = elapsed_ms
-    return {**next_state, "stage_timings_ms": timings}
-
+# ---------------------------------------------------------------------------
+# Public entry points
+# ---------------------------------------------------------------------------
 
 def ask(question: str, chat_history: list[dict] = None) -> str:
     """
     Run the full RAG pipeline for a single question and return the answer.
-    Optionally accepts prior chat_history for follow-up support.
+
+    Uses the compiled 6-node LangGraph so the framework drives state passing,
+    edge traversal, and future features (checkpointing, parallelism, tracing).
     """
     state = _initial_state(question, chat_history or [])
-
-    # Run pipeline manually so we can stream generation
-    state = _run_timed_node(state, "rewrite_question", rewrite_question)
-    state = _run_timed_node(state, "plan_retrieval", plan_retrieval)
-    state = _run_timed_node(state, "compute_aggregate_stats", compute_aggregate_stats)
-    state = _run_timed_node(state, "retrieve", retrieve)
-    state = _run_timed_node(state, "build_context", build_context)
-    state = _run_timed_node(state, "generate_answer", generate_answer)
-    return state["answer"]
+    result = _get_full_graph().invoke(state)
+    return result["answer"]
 
 
 def ask_stream(
@@ -120,26 +188,24 @@ def ask_stream(
     """
     Streaming variant of ask().
 
+    Uses the compiled 5-node pre-answer graph to drive nodes 1–5, then streams
+    LLM tokens outside the graph via generate_answer_stream().
+
     Yields:
-      1. FIRST: a dict with pipeline metadata (for the inspector)
-         {"rewritten_question": ..., "num_docs": ..., "top_docs": [...]}
-      2. THEN: token strings from the LLM generation
+      1. FIRST: a dict with pipeline metadata (for the Pipeline Inspector)
+         {\"rewritten_question\": ..., \"num_docs\": ..., \"top_docs\": [...], ...}
+      2. THEN: raw token strings from the LLM answer step
 
     Callers should check `isinstance(item, dict)` for the metadata event.
     """
     state = _initial_state(question, chat_history or [])
-    state = _run_timed_node(state, "rewrite_question", rewrite_question)
-    state = _run_timed_node(state, "plan_retrieval", plan_retrieval)
-    state = _run_timed_node(state, "compute_aggregate_stats", compute_aggregate_stats)
-    state = _run_timed_node(state, "retrieve", retrieve)
-    state = _run_timed_node(state, "build_context", build_context)
+    state = _get_pre_answer_graph().invoke(state)
 
-    def _format_docs(doc_list):
+    def _format_docs(doc_list: list[dict]) -> list[dict]:
         formatted = []
         if not doc_list:
             return formatted
-            
-        for doc in doc_list:   # all retrieved docs for the inspector
+        for doc in doc_list:
             m = doc["metadata"]
             d = {
                 "innings": m.get("innings", "?"),
@@ -153,21 +219,22 @@ def ask_stream(
                 d["distance"] = float(round(doc["distance"], 4))
             if "score" in doc:
                 d["score"] = float(round(doc["score"], 4))
-                
             formatted.append(d)
         return formatted
 
     top_docs = _format_docs(state["retrieved_docs"])
     initial_top_docs = _format_docs(state["initial_docs"])
 
+    # Time the stream setup (prompt formatting + first-token latency init)
     answer_start = perf_counter()
     token_stream, trace = generate_answer_stream(state)
     answer_setup_ms = round((perf_counter() - answer_start) * 1000, 1)
-    state["stage_timings_ms"] = {
+
+    stage_timings = {
         **state.get("stage_timings_ms", {}),
         "generate_answer_setup": answer_setup_ms,
     }
-    state["llm_traces"] = state.get("llm_traces", []) + [trace]
+    llm_traces = state.get("llm_traces", []) + [trace]
 
     meta = {
         "rewritten_question": state["rewritten_question"],
@@ -178,16 +245,16 @@ def ask_stream(
         "answer_strategy":    state.get("answer_strategy", "semantic"),
         "group_by":           state.get("group_by", "player"),
         "metric":             state.get("metric", "count"),
-        "stage_timings_ms":   state.get("stage_timings_ms", {}),
+        "stage_timings_ms":   stage_timings,
         "num_docs":           len(state["retrieved_docs"]),
         "initial_num_docs":   len(state["initial_docs"]),
         "top_docs":           top_docs,
         "initial_top_docs":   initial_top_docs,
         "history_turns":      len(chat_history or []) // 2,
-        "llm_traces":         state.get("llm_traces", []),
+        "llm_traces":         llm_traces,
     }
 
-    yield meta   # <-- first yield is always the metadata dict
+    yield meta           # <-- first yield is always the metadata dict
     yield from token_stream  # then token strings
 
 

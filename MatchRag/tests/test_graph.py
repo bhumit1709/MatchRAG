@@ -653,8 +653,14 @@ def test_build_context_marks_complete_short_final_over():
     assert "Only 2 deliveries are present because the innings ended at 19.2." in updated["context"]
 
 
-def test_generate_answer_uses_direct_stat_answer():
+def test_generate_answer_uses_llm_for_aggregate_route(monkeypatch):
     from rag.graph_nodes import generate_answer
+    from rag import graph_nodes
+
+    graph_nodes.invoke_answer_chain = lambda **kwargs: (
+        "SV Samson had the most sixes with 8. The commentary-backed context shows he kept putting pressure on the bowlers whenever he got width.",
+        {"node": "generate_answer"},
+    )
 
     state = {
         "question": "Who hit the most sixes?",
@@ -689,5 +695,5 @@ def test_generate_answer_uses_direct_stat_answer():
 
     updated = generate_answer(state)
 
-    assert updated["answer"] == "SV Samson had the most sixes, with 8."
-    assert updated["llm_traces"] == []
+    assert "SV Samson had the most sixes with 8." in updated["answer"]
+    assert updated["llm_traces"][0]["node"] == "generate_answer"
