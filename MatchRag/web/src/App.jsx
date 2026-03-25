@@ -217,8 +217,8 @@ export default function App() {
           <div className="header-left">
             <span className="header-icon">🏏</span>
             <div>
-              <div className="header-title">Cricket Match RAG</div>
-              <div className="header-subtitle">🏆 Champions 2026 · T20 World Cup</div>
+              <div className="header-title">India vs New Zealand</div>
+              <div className="header-subtitle">Powered by RAG</div>
             </div>
           </div>
           <div className="header-badges">

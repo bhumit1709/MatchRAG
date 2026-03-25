@@ -14,9 +14,35 @@ from rag.load_match import load_match, extract_metadata
 
 
 # ---------------------------------------------------------------------------
-# HTML tag stripping
+# Phase classification
 # ---------------------------------------------------------------------------
 
+_PHASE_BOUNDARIES = {
+    "powerplay": range(0, 6),   # Overs 0-5  (1st-6th over in broadcast notation)
+    "middle":    range(6, 15),  # Overs 6-14 (7th-15th over)
+    "death":     range(15, 20), # Overs 15-19 (16th-20th over)
+}
+
+
+def classify_phase(over: int) -> str:
+    """
+    Classify a CricSheet over number (0-indexed) into a T20 match phase.
+
+    Returns:
+        'powerplay' for overs 0-5 (broadcast: 1-6)
+        'middle'    for overs 6-14 (broadcast: 7-15)
+        'death'     for overs 15-19 (broadcast: 16-20)
+    """
+    if over <= 5:
+        return "powerplay"
+    if over <= 14:
+        return "middle"
+    return "death"
+
+
+# ---------------------------------------------------------------------------
+# HTML tag stripping
+# ---------------------------------------------------------------------------
 def strip_html(text: str) -> str:
     """Remove HTML tags from commentary strings."""
     if not text:
@@ -83,6 +109,7 @@ def build_text(record: dict) -> str:
     return (
         f"Match: {record['match']} at {record['venue']}. "
         f"Innings {record['innings']} ({record['batting_team']}). "
+        f"Phase: {record['phase']}. "
         f"Over {record['over']}.{record['ball']}. "
         f"{record['batter']} facing {record['bowler']}. "
         f"Event: {record['event']}. Runs scored: {record['runs_total']}. "
@@ -143,6 +170,8 @@ def flatten_deliveries(data: dict) -> list[dict]:
                     # Delivery position
                     "over": over_num,
                     "ball": ball_idx,
+                    # Match phase (derived from over number)
+                    "phase": classify_phase(over_num),
                     # Players
                     "batter": delivery.get("batter", ""),
                     "bowler": delivery.get("bowler", ""),

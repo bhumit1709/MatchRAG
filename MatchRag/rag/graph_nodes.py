@@ -12,9 +12,11 @@ from rag.schemas import AnswerStrategy, RetrievalPlan
 from rag.retrievers import retrieve_documents
 from rag.state import RAGState
 from rag.vector_store import (
+    format_phase_stats_block,
     get_event_leaderboard,
     get_known_players,
     get_match_metadata,
+    get_phase_stats,
     get_player_stats,
     get_sequential_deliveries,
 )
@@ -117,6 +119,30 @@ _SUMMARY_SIGNALS = {
     "summary",
     "won",
 }
+
+# Maps phase surface forms (lowercase) → canonical phase value stored in ChromaDB.
+_PHASE_KEYWORDS: dict[str, str] = {
+    "powerplay":    "powerplay",
+    "power play":   "powerplay",
+    "power-play":   "powerplay",
+    "pp":           "powerplay",
+    "first 6":      "powerplay",
+    "first six":    "powerplay",
+    "middle overs": "middle",
+    "middle phase": "middle",
+    "middle over":  "middle",
+    "death overs":  "death",
+    "death over":   "death",
+    "death phase":  "death",
+    "last 5":       "death",
+    "last five":    "death",
+    "final overs":  "death",
+}
+
+# For phase questions: which strategy to use based on question intent.
+# Totals → aggregate | Performance/best → hybrid | Narrative → sequential
+_PHASE_AGGREGATE_SIGNALS = {"how many", "total", "runs scored", "runs did", "wickets fell", "wickets taken"}
+_PHASE_HYBRID_SIGNALS    = {"best", "worst", "who", "impact", "effective", "good", "bad", "performance"}
 
 
 def _strategy_uses_aggregate(strategy: AnswerStrategy) -> bool:
@@ -225,6 +251,9 @@ def _build_where_filter(plan: RetrievalPlan) -> dict | None:
             )
         clauses.append({"$or": player_clauses})
 
+    if plan.phase:
+        clauses.append({"phase": {"$eq": plan.phase}})
+
     if plan.event:
         clauses.append({"event": {"$eq": plan.event}})
 
@@ -284,6 +313,33 @@ def _is_summary_question(question_lower: str) -> bool:
 
 def _build_fast_path_plan(question: str) -> RetrievalPlan | None:
     question_lower = question.lower().strip()
+
+    # ── Phase detection ───────────────────────────────────────────────────────
+    # Check for match-phase keywords before any other routing.
+    # Multi-word phrases must be checked before single-word ones (e.g. "death
+    # overs" before "death") so longer matches take precedence.
+    detected_phase: str | None = None
+    for keyword in sorted(_PHASE_KEYWORDS, key=len, reverse=True):
+        if keyword in question_lower:
+            detected_phase = _PHASE_KEYWORDS[keyword]
+            break
+
+    if detected_phase is not None:
+        # Determine strategy from intent signals in the question
+        if any(signal in question_lower for signal in _PHASE_AGGREGATE_SIGNALS):
+            strategy: AnswerStrategy = "aggregate"
+        elif any(signal in question_lower for signal in _PHASE_HYBRID_SIGNALS):
+            strategy = "hybrid"
+        elif "what happened" in question_lower or "over by over" in question_lower:
+            strategy = "sequential"
+        else:
+            strategy = "aggregate"  # default: caller usually wants a number
+
+        return RetrievalPlan(
+            normalized_question=question,
+            phase=detected_phase,
+            answer_strategy=strategy,
+        )
 
     ordered_event = _extract_ordered_event(question_lower)
     if ordered_event is not None:
@@ -510,6 +566,24 @@ def compute_aggregate_stats(state: RAGState) -> RAGState:
     if not plan or not _strategy_uses_aggregate(plan.answer_strategy):
         return state
 
+    # ── Phase stats path ─────────────────────────────────────────────────────
+    # When the question targets a match phase, use get_phase_stats() which
+    # produces richer phase-scoped aggregates (run rate, top batters/bowlers).
+    if plan.phase:
+        stats = get_phase_stats(
+            phase=plan.phase,
+            innings=plan.innings,
+            event_type=plan.event,
+        )
+        if stats:
+            return {
+                **state,
+                "aggregate_stats": format_phase_stats_block(stats),
+                "aggregate_rows": stats.get("top_batters", []),
+            }
+        return state
+
+    # ── Event leaderboard path (existing) ────────────────────────────────────
     where = state.get("retrieval_filters")
     leaderboard = get_event_leaderboard(
         where_filter=where,

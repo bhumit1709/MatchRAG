@@ -12,6 +12,7 @@
   --accent-saffron: #FF9933;
   --accent-green: #138808;
   --accent-cyan: #0038A8;
+  --accent-silver: #C0C0C0;
   /* BCCI Blue */
   --accent-hover: #E68A2E;
 
@@ -100,7 +101,7 @@ body {
 .orb-1 {
   width: 550px;
   height: 550px;
-  background: radial-gradient(circle, rgba(255, 153, 51, 0.6), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 153, 51, 0.6), rgba(0, 56, 168, 0.3) 40%, transparent 70%);
   top: -150px;
   left: -150px;
 }
@@ -108,7 +109,7 @@ body {
 .orb-2 {
   width: 450px;
   height: 450px;
-  background: radial-gradient(circle, rgba(19, 136, 8, 0.6), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5), rgba(192, 192, 192, 0.3) 40%, transparent 70%);
   bottom: -150px;
   right: -100px;
   animation-delay: -6s;
@@ -260,7 +261,7 @@ body {
 .header-title {
   font-size: 18px;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--accent-saffron), #ffffff);
+  background: linear-gradient(135deg, var(--accent-saffron), var(--accent-silver));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -546,7 +547,7 @@ body {
   font-size: 28px;
   font-weight: 800;
   letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #ffffff 10%, var(--accent-saffron) 50%, var(--accent-cyan) 100%);
+  background: linear-gradient(135deg, var(--accent-saffron) 10%, #ffffff 50%, var(--accent-silver) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

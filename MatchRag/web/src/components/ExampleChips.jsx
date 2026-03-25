@@ -7,7 +7,7 @@ const EXAMPLES = [
     "What happened in the last over?",
     "Who hit the most sixes?",
     "Show all wickets taken by Bumrah.",
-    "How did India win the match?",
+    "How did India win the final?",
     "Which over had the most runs?",
 ];
 
@@ -16,10 +16,9 @@ export default function ExampleChips({ onSelect }) {
         <div className="welcome">
             <div className="welcome-icon">🏏</div>
             <div>
-                <h1 className="welcome-title">Cricket Match RAG</h1>
+                <h1 className="welcome-title">India vs New Zealand</h1>
                 <p className="welcome-subtitle">
-                    Ask anything about the India vs New Zealand T20 World Cup final match.
-                    Powered by local AI with ball-by-ball commentary context.
+                    Powered by RAG
                 </p>
             </div>
             <p className="chips-label">Try asking</p>

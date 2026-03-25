@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 AnswerStrategy = Literal["semantic", "aggregate", "sequential", "hybrid"]
-
+Phase = Literal["powerplay", "middle", "death"]
 
 class RetrievalPlan(BaseModel):
     """Structured routing plan produced before retrieval."""
@@ -22,6 +22,13 @@ class RetrievalPlan(BaseModel):
     event: str | None = Field(
         default=None,
         description="One of wicket, six, four, dot, single, or run when the question targets an event.",
+    )
+    phase: Phase | None = Field(
+        default=None,
+        description=(
+            "T20 match phase when the question targets a specific phase: "
+            "'powerplay' (overs 1-6), 'middle' (overs 7-15), or 'death' (overs 16-20)."
+        ),
     )
     over: int | Literal["last"] | None = Field(
         default=None,

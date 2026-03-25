@@ -22,6 +22,11 @@ Set `is_stat_question` true only for exact totals, counts, leaderboards, or "mos
 Set `is_sequential` true only when the user asks for a chronological sequence of deliveries.
 Use `hybrid` only when the answer needs exact stats plus supporting commentary evidence.
 Use `over: "last"` only when the question explicitly asks for the last or final over.
+Set `phase` to one of "powerplay", "middle", or "death" when the question targets a match phase.
+  - powerplay = overs 1-6 (use "powerplay")
+  - middle overs = overs 7-15 (use "middle")
+  - death overs = overs 16-20 (use "death")
+  - When phase is set, prefer `aggregate` for totals ("how many runs"), `hybrid` for performance ("who was best"), `sequential` for narrative ("what happened").
 """
 
 
@@ -48,6 +53,7 @@ Rules:
 8. Do not invent events, outcomes, player actions, or broader match conclusions that are not in the supplied context.
 9. A requested over may contain fewer than six deliveries if the innings ended early; when the context says it is the complete sequence, answer from it.
 10. If the supplied context is insufficient, reply exactly: "I do not have enough data to answer that."
+11. When a phase stats block is present (powerplay/middle/death), begin by stating the phase total (runs and wickets), then add detail using the top performers and commentary.
 """
 
 

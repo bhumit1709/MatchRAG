@@ -351,6 +351,140 @@ def get_event_leaderboard(
         return None
 
 
+def get_phase_stats(
+    phase: str,
+    innings: int | None = None,
+    event_type: str | None = None,
+) -> dict | None:
+    """
+    Deterministic aggregate stats for a T20 match phase.
+
+    Args:
+        phase:      'powerplay', 'middle', or 'death'
+        innings:    Optional innings filter (1 or 2). None = both innings.
+        event_type: Optional event filter (e.g. 'wicket', 'six'). None = all events.
+
+    Returns a dict with:
+        phase, innings (or 'both'), runs, wickets, sixes, fours, dots, balls,
+        run_rate, top_batters (list), top_bowlers (list)
+    """
+    try:
+        where_parts: list[dict] = [{"phase": {"$eq": phase}}]
+        if innings is not None:
+            where_parts.append({"innings": {"$eq": innings}})
+        if event_type is not None:
+            where_parts.append({"event": {"$eq": event_type}})
+
+        where = {"$and": where_parts} if len(where_parts) > 1 else where_parts[0]
+
+        results = get_vector_store().get(where=where, include=["metadatas"])
+        metas = results.get("metadatas") or []
+        if not metas:
+            return None
+
+        runs = 0
+        wickets = 0
+        sixes = 0
+        fours = 0
+        dots = 0
+        balls = 0
+        batter_runs: dict[str, int] = {}
+        bowler_wickets: dict[str, int] = {}
+        bowler_runs: dict[str, int] = {}
+        bowler_balls: dict[str, int] = {}
+        non_wicket_kinds = {"run out", "retired hurt", "obstructing the field"}
+
+        for meta in metas:
+            runs += meta.get("runs_total", 0)
+            balls += 1
+            event = meta.get("event", "")
+
+            if event == "wicket":
+                wickets += 1
+            elif event == "six":
+                sixes += 1
+            elif event == "four":
+                fours += 1
+            elif event == "dot":
+                dots += 1
+
+            batter = meta.get("batter", "")
+            if batter:
+                batter_runs[batter] = batter_runs.get(batter, 0) + meta.get("runs_total", 0)
+
+            bowler = meta.get("bowler", "")
+            if bowler:
+                bowler_balls[bowler] = bowler_balls.get(bowler, 0) + 1
+                bowler_runs[bowler] = bowler_runs.get(bowler, 0) + meta.get("runs_total", 0)
+                if meta.get("player_out") and meta.get("wicket_kind") not in non_wicket_kinds:
+                    bowler_wickets[bowler] = bowler_wickets.get(bowler, 0) + 1
+
+        run_rate = round((runs / balls) * 6, 2) if balls else 0.0
+
+        top_batters = sorted(
+            [{"player": p, "runs": r} for p, r in batter_runs.items()],
+            key=lambda x: x["runs"],
+            reverse=True,
+        )[:5]
+
+        top_bowlers = sorted(
+            [
+                {
+                    "player": p,
+                    "wickets": bowler_wickets.get(p, 0),
+                    "runs": bowler_runs.get(p, 0),
+                    "balls": bowler_balls.get(p, 0),
+                }
+                for p in bowler_balls
+            ],
+            key=lambda x: (-x["wickets"], x["runs"]),
+        )[:5]
+
+        return {
+            "phase": phase,
+            "innings": innings if innings is not None else "both",
+            "runs": runs,
+            "wickets": wickets,
+            "sixes": sixes,
+            "fours": fours,
+            "dots": dots,
+            "balls": balls,
+            "run_rate": run_rate,
+            "top_batters": top_batters,
+            "top_bowlers": top_bowlers,
+        }
+    except Exception:
+        return None
+
+
+def format_phase_stats_block(stats: dict) -> str:
+    """
+    Format a get_phase_stats() result into the === SYSTEM CALCULATED === block
+    injected into the LLM prompt context.
+    """
+    phase_label = stats["phase"].replace("_", " ").title()
+    innings_label = f"Innings {stats['innings']}" if stats["innings"] != "both" else "both innings"
+
+    batters_str = ", ".join(
+        f"{b['player']} ({b['runs']} runs)" for b in stats["top_batters"]
+    ) or "—"
+    bowlers_str = ", ".join(
+        f"{b['player']} ({b['wickets']}w/{b['runs']}r in {b['balls']//6}.{b['balls']%6} ov)"
+        for b in stats["top_bowlers"]
+    ) or "—"
+
+    return (
+        f"=== SYSTEM CALCULATED EXACT STATS ===\n"
+        f"Phase: {phase_label} | {innings_label}\n"
+        f"Runs: {stats['runs']} | Wickets: {stats['wickets']} | "
+        f"Run Rate: {stats['run_rate']} | Balls: {stats['balls']}\n"
+        f"Sixes: {stats['sixes']} | Fours: {stats['fours']} | Dots: {stats['dots']}\n"
+        f"Top batters: {batters_str}\n"
+        f"Top bowlers: {bowlers_str}\n"
+        f"=====================================\n"
+    )
+
+
 def get_match_metadata() -> dict | None:
     """Return cached match metadata derived from the indexed deliveries."""
     global _match_metadata_cache

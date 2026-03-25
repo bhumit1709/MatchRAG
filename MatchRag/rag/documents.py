@@ -13,6 +13,7 @@ METADATA_FIELDS = (
     "batting_team",
     "over",
     "ball",
+    "phase",          # T20 match phase: powerplay | middle | death
     "batter",
     "bowler",
     "non_striker",
