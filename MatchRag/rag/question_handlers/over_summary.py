@@ -7,8 +7,8 @@ from __future__ import annotations
 
 import re
 
-from rag.graph_nodes import _PHASE_KEYWORDS
 from rag.state import RAGState
+from rag.question_handlers.utils import PHASE_KEYWORDS, format_delivery_header
 from rag.vector_store import (
     format_phase_stats_block,
     get_match_metadata,
@@ -19,9 +19,9 @@ from rag.vector_store import (
 
 def _detect_phase(question_lower: str) -> str | None:
     """Detect a T20 match phase from the question text."""
-    for keyword in sorted(_PHASE_KEYWORDS, key=len, reverse=True):
+    for keyword in sorted(PHASE_KEYWORDS, key=len, reverse=True):
         if keyword in question_lower:
-            return _PHASE_KEYWORDS[keyword]
+            return PHASE_KEYWORDS[keyword]
     return None
 
 
@@ -111,19 +111,7 @@ def handle_over_summary(state: RAGState) -> RAGState:
             context_lines.append("=== Phase Deliveries ===")
             for index, doc in enumerate(deliveries, start=1):
                 meta = doc["metadata"]
-                header = (
-                    f"[{index}] Inn {meta.get('innings', '?')} | "
-                    f"{meta.get('over', '?')}.{meta.get('ball', '?')} | "
-                    f"Batter: {meta.get('batter', '?')} | "
-                    f"Bowler: {meta.get('bowler', '?')} | "
-                    f"Event: {str(meta.get('event', '?')).upper()}"
-                )
-                if meta.get("event") != "wicket":
-                    header += f" | Runs: {meta.get('runs_total', '?')}"
-                if meta.get("player_out"):
-                    header += (
-                        f" | OUT: {meta['player_out']} ({meta.get('wicket_kind', '')})"
-                    )
+                header = format_delivery_header(meta, index)
                 context_lines.append(header)
 
         context = "\n".join(line for line in context_lines if line is not None).strip()
@@ -194,19 +182,7 @@ def handle_over_summary(state: RAGState) -> RAGState:
 
         for index, doc in enumerate(deliveries, start=1):
             meta = doc["metadata"]
-            header = (
-                f"[{index}] Inn {meta.get('innings', '?')} | "
-                f"{meta.get('over', '?')}.{meta.get('ball', '?')} | "
-                f"Batter: {meta.get('batter', '?')} | "
-                f"Bowler: {meta.get('bowler', '?')} | "
-                f"Event: {str(meta.get('event', '?')).upper()}"
-            )
-            if meta.get("event") != "wicket":
-                header += f" | Runs: {meta.get('runs_total', '?')}"
-            if meta.get("player_out"):
-                header += (
-                    f" | OUT: {meta['player_out']} ({meta.get('wicket_kind', '')})"
-                )
+            header = format_delivery_header(meta, index)
             commentary = (
                 meta.get("commentary")
                 or doc["text"].split("Commentary:")[-1].strip()
