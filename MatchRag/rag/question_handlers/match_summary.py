@@ -10,6 +10,7 @@ from rag.vector_store import (
     get_event_leaderboard,
     get_sequential_deliveries,
 )
+from rag.question_handlers.utils import format_delivery_header
 
 
 def _compute_innings_stats(innings: int) -> dict | None:
@@ -158,20 +159,7 @@ def handle_match_summary(state: RAGState) -> RAGState:
         lines.append("=== Key Match Moments ===")
         for index, doc in enumerate(key_moments, start=1):
             meta = doc["metadata"]
-            header = (
-                f"[{index}] Inn {meta.get('innings', '?')} | "
-                f"{meta.get('over', '?')}.{meta.get('ball', '?')} | "
-                f"Batter: {meta.get('batter', '?')} | "
-                f"Bowler: {meta.get('bowler', '?')} | "
-                f"Event: {str(meta.get('event', '?')).upper()}"
-            )
-            if meta.get("event") != "wicket":
-                header += f" | Runs: {meta.get('runs_total', '?')}"
-            if meta.get("player_out"):
-                header += (
-                    f" | OUT: {meta['player_out']} "
-                    f"({meta.get('wicket_kind', '')})"
-                )
+            header = format_delivery_header(meta, index)
             commentary = (
                 meta.get("commentary")
                 or doc["text"].split("Commentary:")[-1].strip()
@@ -192,5 +180,5 @@ def handle_match_summary(state: RAGState) -> RAGState:
         "initial_docs": key_moments,
         "query_variants": [question],
         "context": context,
-        "answer_strategy": "semantic",
+        "answer_strategy": "hybrid",
     }

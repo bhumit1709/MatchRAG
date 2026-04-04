@@ -5,10 +5,10 @@ Produces side-by-side player stats and dual retrieval for comparative analysis.
 
 from __future__ import annotations
 
-from rag.graph_nodes import _question_mentions_players
 from rag.retrievers import retrieve_documents
 from rag.state import RAGState
 from rag.vector_store import get_known_players, get_player_stats
+from rag.question_handlers.utils import question_mentions_players, build_player_filter, format_delivery_header
 
 
 def _format_comparison_block(stats_a: dict, stats_b: dict) -> str:
@@ -60,15 +60,7 @@ def _format_comparison_block(stats_a: dict, stats_b: dict) -> str:
     return "\n".join(lines)
 
 
-def _build_player_filter(player_name: str) -> dict:
-    """Build a ChromaDB where-filter for a specific player."""
-    return {
-        "$or": [
-            {"batter": {"$eq": player_name}},
-            {"bowler": {"$eq": player_name}},
-            {"player_out": {"$eq": player_name}},
-        ]
-    }
+# _build_player_filter removed in favor of utils function
 
 
 def _format_player_docs(docs: list[dict], player_name: str) -> list[str]:
@@ -76,17 +68,7 @@ def _format_player_docs(docs: list[dict], player_name: str) -> list[str]:
     lines = [f"=== KEY DELIVERIES: {player_name} ==="]
     for index, doc in enumerate(docs[:8], start=1):
         meta = doc["metadata"]
-        header = (
-            f"[{index}] Inn {meta.get('innings', '?')} | "
-            f"{meta.get('over', '?')}.{meta.get('ball', '?')} | "
-            f"Batter: {meta.get('batter', '?')} | "
-            f"Bowler: {meta.get('bowler', '?')} | "
-            f"Event: {str(meta.get('event', '?')).upper()}"
-        )
-        if meta.get("event") != "wicket":
-            header += f" | Runs: {meta.get('runs_total', '?')}"
-        if meta.get("player_out"):
-            header += f" | OUT: {meta['player_out']} ({meta.get('wicket_kind', '')})"
+        header = format_delivery_header(meta, index)
 
         commentary = (
             meta.get("commentary")
@@ -103,12 +85,7 @@ def handle_comparison(state: RAGState) -> RAGState:
     """Handle comparison questions with dual stats and dual retrieval."""
     question = state["rewritten_question"] or state["question"]
     known_players = get_known_players()
-    mentioned_players = _question_mentions_players(question, known_players)
-
-    if len(mentioned_players) < 2:
-        # Fallback: not enough players for comparison — treat like general
-        from rag.question_handlers.general import handle_general
-        return handle_general(state)
+    mentioned_players = question_mentions_players(question, known_players)
 
     player_a = mentioned_players[0]
     player_b = mentioned_players[1]
@@ -128,8 +105,8 @@ def handle_comparison(state: RAGState) -> RAGState:
         player_stats_list = [stats_b]
 
     # ── Retrieval: separate retrieval for each player ─────────────────────
-    filter_a = _build_player_filter(player_a)
-    filter_b = _build_player_filter(player_b)
+    filter_a = build_player_filter(player_a)
+    filter_b = build_player_filter(player_b)
 
     _, initial_a, docs_a, trace_a = retrieve_documents(
         f"{player_a} key deliveries",

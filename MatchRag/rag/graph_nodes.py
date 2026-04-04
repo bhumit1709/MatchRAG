@@ -8,9 +8,10 @@ from typing import Generator
 
 from rag.chains import invoke_answer_chain, rewrite_followup_question, stream_answer_chain
 from rag.chains import build_retrieval_plan
-from rag.schemas import AnswerStrategy, RetrievalPlan
+from rag.schemas import AnswerStrategy, RetrievalPlan, QuestionType
 from rag.retrievers import retrieve_documents
 from rag.state import RAGState
+from rag.question_handlers.utils import question_mentions_players, PHASE_KEYWORDS
 from rag.vector_store import (
     format_phase_stats_block,
     get_event_leaderboard,
@@ -120,24 +121,7 @@ _SUMMARY_SIGNALS = {
     "won",
 }
 
-# Maps phase surface forms (lowercase) → canonical phase value stored in ChromaDB.
-_PHASE_KEYWORDS: dict[str, str] = {
-    "powerplay":    "powerplay",
-    "power play":   "powerplay",
-    "power-play":   "powerplay",
-    "pp":           "powerplay",
-    "first 6":      "powerplay",
-    "first six":    "powerplay",
-    "middle overs": "middle",
-    "middle phase": "middle",
-    "middle over":  "middle",
-    "death overs":  "death",
-    "death over":   "death",
-    "death phase":  "death",
-    "last 5":       "death",
-    "last five":    "death",
-    "final overs":  "death",
-}
+# Imports of _PHASE_KEYWORDS removed in favor of utils
 
 # For phase questions: which strategy to use based on question intent.
 # Totals → aggregate | Performance/best → hybrid | Narrative → sequential
@@ -206,7 +190,7 @@ _COMPARISON_SIGNALS = {
     "compare",
     "comparison",
     "versus",
-    " vs ",
+    r"\bvs\.?\b",
     "better than",
     "who was better",
     "who performed better",
@@ -241,13 +225,13 @@ def classify_question(state: RAGState) -> RAGState:
 
     # ── 1. Match summary ──────────────────────────────────────────────────
     # Only match if NO specific player is mentioned — otherwise it's player_performance.
-    mentioned_players = _question_mentions_players(question, known_players)
+    mentioned_players = question_mentions_players(question, known_players)
     if not mentioned_players and any(signal in q_lower for signal in _MATCH_SUMMARY_SIGNALS):
         return {**state, "question_type": "match_summary"}
 
     # ── 2. Comparison ─────────────────────────────────────────────────────
     # Needs 2+ players AND a comparison signal.
-    if len(mentioned_players) >= 2 and any(signal in q_lower for signal in _COMPARISON_SIGNALS):
+    if len(mentioned_players) >= 2 and any(re.search(signal, q_lower) if r"\b" in signal else signal in q_lower for signal in _COMPARISON_SIGNALS):
         return {**state, "question_type": "comparison"}
 
     # ── 3. Over / phase summary ───────────────────────────────────────────
@@ -256,7 +240,7 @@ def classify_question(state: RAGState) -> RAGState:
 
     if not is_stat_like:
         # Phase keywords (powerplay, death overs, middle overs)
-        for keyword in sorted(_PHASE_KEYWORDS, key=len, reverse=True):
+        for keyword in sorted(PHASE_KEYWORDS, key=len, reverse=True):
             if keyword in q_lower:
                 return {**state, "question_type": "over_summary"}
         # Specific over patterns
@@ -407,9 +391,9 @@ def _build_fast_path_plan(question: str) -> RetrievalPlan | None:
     # Multi-word phrases must be checked before single-word ones (e.g. "death
     # overs" before "death") so longer matches take precedence.
     detected_phase: str | None = None
-    for keyword in sorted(_PHASE_KEYWORDS, key=len, reverse=True):
+    for keyword in sorted(PHASE_KEYWORDS, key=len, reverse=True):
         if keyword in question_lower:
-            detected_phase = _PHASE_KEYWORDS[keyword]
+            detected_phase = PHASE_KEYWORDS[keyword]
             break
 
     if detected_phase is not None:
@@ -499,25 +483,7 @@ def _build_fast_path_plan(question: str) -> RetrievalPlan | None:
     return None
 
 
-def _question_mentions_players(question: str, known_players: list[str]) -> list[str]:
-    question_lower = question.lower()
-    matches: list[str] = []
-
-    for player in known_players:
-        player_lower = player.lower()
-        if player_lower in question_lower:
-            matches.append(player)
-            continue
-
-        last_name = player_lower.split()[-1]
-        if len(last_name) >= 4 and re.search(rf"\b{re.escape(last_name)}\b", question_lower):
-            matches.append(player)
-
-    deduped: list[str] = []
-    for player in matches:
-        if player not in deduped:
-            deduped.append(player)
-    return deduped
+# _question_mentions_players removed in favor of utils function
 
 
 def _build_player_summary_plan(question: str, explicit_players: list[str]) -> RetrievalPlan:
@@ -594,7 +560,7 @@ def plan_retrieval(state: RAGState) -> RAGState:
         # ─ the returned plan has no players without this step.
         if fast_path_plan.answer_strategy == "semantic":
             known_players = get_known_players()
-            explicit_players = _question_mentions_players(question, known_players)
+            explicit_players = question_mentions_players(question, known_players)
             if explicit_players:
                 fast_path_plan = _build_player_summary_plan(question, explicit_players)
             plan = _normalize_plan(fast_path_plan, question, known_players if explicit_players else [])
@@ -603,7 +569,7 @@ def plan_retrieval(state: RAGState) -> RAGState:
         llm_traces = state.get("llm_traces", [])
     else:
         known_players = get_known_players()
-        explicit_players = _question_mentions_players(question, known_players)
+        explicit_players = question_mentions_players(question, known_players)
         question_lower = question.lower().strip()
 
         if explicit_players and _is_summary_question(question_lower):

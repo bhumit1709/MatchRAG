@@ -5,10 +5,9 @@ Produces player stats and semantic retrieval filtered to a specific player.
 
 from __future__ import annotations
 
-import re
-
-from rag.graph_nodes import _question_mentions_players
 from rag.retrievers import retrieve_documents
+from rag.state import RAGState
+from rag.question_handlers.utils import question_mentions_players, build_player_filter, format_delivery_header
 from rag.state import RAGState
 from rag.vector_store import get_known_players, get_player_stats
 
@@ -48,22 +47,14 @@ def _format_player_stats_block(stats: dict) -> str:
     return "\n".join(lines)
 
 
-def _build_player_filter(player_name: str) -> dict:
-    """Build a ChromaDB where-filter for a specific player."""
-    return {
-        "$or": [
-            {"batter": {"$eq": player_name}},
-            {"bowler": {"$eq": player_name}},
-            {"player_out": {"$eq": player_name}},
-        ]
-    }
+# _build_player_filter removed in favor of utils function
 
 
 def handle_player_performance(state: RAGState) -> RAGState:
     """Handle player_performance questions with player stats and filtered retrieval."""
     question = state["rewritten_question"] or state["question"]
     known_players = get_known_players()
-    mentioned_players = _question_mentions_players(question, known_players)
+    mentioned_players = question_mentions_players(question, known_players)
 
     if not mentioned_players:
         # Fallback: no player detected, use semantic retrieval without filter
@@ -101,7 +92,7 @@ def handle_player_performance(state: RAGState) -> RAGState:
         player_stats_list = [player_stats_data]
 
     # ── Retrieval: semantic search filtered to this player ────────────────
-    player_filter = _build_player_filter(player_name)
+    player_filter = build_player_filter(player_name)
     query_variants, initial_docs, retrieved_docs, trace = retrieve_documents(
         question,
         where=player_filter,
@@ -122,19 +113,7 @@ def handle_player_performance(state: RAGState) -> RAGState:
         context_lines.append("=== Key Deliveries ===")
         for index, doc in enumerate(retrieved_docs, start=1):
             meta = doc["metadata"]
-            header = (
-                f"[{index}] Inn {meta.get('innings', '?')} | "
-                f"{meta.get('over', '?')}.{meta.get('ball', '?')} | "
-                f"Batter: {meta.get('batter', '?')} | "
-                f"Bowler: {meta.get('bowler', '?')} | "
-                f"Event: {str(meta.get('event', '?')).upper()}"
-            )
-            if meta.get("event") != "wicket":
-                header += f" | Runs: {meta.get('runs_total', '?')}"
-            if meta.get("player_out"):
-                header += (
-                    f" | OUT: {meta['player_out']} ({meta.get('wicket_kind', '')})"
-                )
+            header = format_delivery_header(meta, index)
             commentary = (
                 meta.get("commentary")
                 or doc["text"].split("Commentary:")[-1].strip()

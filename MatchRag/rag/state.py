@@ -1,13 +1,13 @@
 from typing import TypedDict
 
-from rag.schemas import RetrievalPlan
+from rag.schemas import RetrievalPlan, QuestionType
 
 
 class RAGState(TypedDict):
     """Shared state that flows through all nodes of the graph."""
     question:           str
     rewritten_question: str
-    question_type:      str          # match_summary, player_performance, over_summary, comparison, general
+    question_type:      QuestionType # match_summary, player_performance, over_summary, comparison, general
     query_variants:     list[str]
     chat_history:       list[dict]   # [{role, content}, ...]
     retrieval_plan:     RetrievalPlan | None
