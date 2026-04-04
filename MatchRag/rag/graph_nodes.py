@@ -184,6 +184,94 @@ def rewrite_question(state: RAGState) -> RAGState:
     return {**state, "rewritten_question": rewritten, "llm_traces": llm_traces}
 
 
+# ---------------------------------------------------------------------------
+# Question type signals for classify_question
+# ---------------------------------------------------------------------------
+
+_MATCH_SUMMARY_SIGNALS = {
+    "summarize the match",
+    "summarise the match",
+    "match summary",
+    "how did the match go",
+    "recap the match",
+    "recap of the match",
+    "what happened in the match",
+    "how was the match",
+    "overview of the match",
+    "match overview",
+    "tell me about the match",
+}
+
+_COMPARISON_SIGNALS = {
+    "compare",
+    "comparison",
+    "versus",
+    " vs ",
+    "better than",
+    "who was better",
+    "who performed better",
+    "who played better",
+    "head to head",
+}
+
+_PLAYER_SUMMARY_SIGNALS = {
+    "how did",
+    "how was",
+    "performance",
+    "perform",
+    "summary",
+    "summarize",
+    "summarise",
+    "innings of",
+    "played",
+}
+
+_OVER_SUMMARY_SIGNALS_PATTERNS = [
+    r"\bover\s+\d{1,2}\b",
+    r"\blast over\b",
+    r"\bfinal over\b",
+]
+
+
+def classify_question(state: RAGState) -> RAGState:
+    """Classify the (rewritten) question into a question type for routing."""
+    question = state["rewritten_question"] or state["question"]
+    q_lower = question.lower().strip()
+    known_players = get_known_players()
+
+    # ── 1. Match summary ──────────────────────────────────────────────────
+    # Only match if NO specific player is mentioned — otherwise it's player_performance.
+    mentioned_players = _question_mentions_players(question, known_players)
+    if not mentioned_players and any(signal in q_lower for signal in _MATCH_SUMMARY_SIGNALS):
+        return {**state, "question_type": "match_summary"}
+
+    # ── 2. Comparison ─────────────────────────────────────────────────────
+    # Needs 2+ players AND a comparison signal.
+    if len(mentioned_players) >= 2 and any(signal in q_lower for signal in _COMPARISON_SIGNALS):
+        return {**state, "question_type": "comparison"}
+
+    # ── 3. Over / phase summary ───────────────────────────────────────────
+    # Check for stat-like signals first — "How many sixes in the powerplay?" is general.
+    is_stat_like = any(signal in q_lower for signal in _STAT_SIGNAL_WORDS)
+
+    if not is_stat_like:
+        # Phase keywords (powerplay, death overs, middle overs)
+        for keyword in sorted(_PHASE_KEYWORDS, key=len, reverse=True):
+            if keyword in q_lower:
+                return {**state, "question_type": "over_summary"}
+        # Specific over patterns
+        for pattern in _OVER_SUMMARY_SIGNALS_PATTERNS:
+            if re.search(pattern, q_lower):
+                return {**state, "question_type": "over_summary"}
+
+    # ── 4. Player performance ─────────────────────────────────────────────
+    if mentioned_players and any(signal in q_lower for signal in _PLAYER_SUMMARY_SIGNALS):
+        return {**state, "question_type": "player_performance"}
+
+    # ── 5. Default: general ───────────────────────────────────────────────
+    return {**state, "question_type": "general"}
+
+
 def _resolve_players(candidates: list[str], known_players: list[str]) -> list[str]:
     resolved: list[str] = []
     for candidate in candidates:
@@ -831,6 +919,7 @@ def generate_answer(state: RAGState) -> RAGState:
         chat_history=state["chat_history"],
         context=state["context"],
         aggregate_stats=state.get("aggregate_stats"),
+        question_type=state.get("question_type", "general"),
     )
     llm_traces = state.get("llm_traces", []) + [trace]
     return {**state, "answer": answer, "llm_traces": llm_traces}
@@ -843,5 +932,6 @@ def generate_answer_stream(state: RAGState) -> tuple[Generator[str, None, None],
         chat_history=state["chat_history"],
         context=state["context"],
         aggregate_stats=state.get("aggregate_stats"),
+        question_type=state.get("question_type", "general"),
     )
     return iter(stream), trace

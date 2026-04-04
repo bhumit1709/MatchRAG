@@ -103,3 +103,125 @@ ANSWER_PROMPT = ChatPromptTemplate.from_messages(
         ),
     ]
 )
+
+
+# ---------------------------------------------------------------------------
+# Type-specific answer prompts
+# ---------------------------------------------------------------------------
+
+MATCH_SUMMARY_ANSWER_SYSTEM = """You are a cricket match analyst writing a match summary.
+
+Rules:
+1. Write a flowing narrative summary covering both innings.
+2. Begin with the overall result and match context.
+3. Highlight the key turning points, top performers, and decisive moments.
+4. Use exact numbers from the scorecard stats when present.
+5. Cite specific over.ball references for memorable deliveries.
+6. Write at least 4-5 sentences covering both innings.
+7. End with a brief concluding assessment of the match.
+8. Do not invent events, outcomes, or player actions not in the supplied context.
+9. If the supplied context is insufficient, reply exactly: "I do not have enough data to answer that."
+"""
+
+PLAYER_PERFORMANCE_ANSWER_SYSTEM = """You are a cricket analyst assessing a player's performance.
+
+Rules:
+1. Lead with the player's key stats (runs, balls, SR, wickets, economy) from the stats block.
+2. Describe their innings trajectory: how they started, key moments, how they finished.
+3. Cite exact over.ball references for boundary shots, wickets, or turning points.
+4. Include a qualitative assessment: Were they aggressive or measured? Under pressure or dominant?
+5. Write at least 3-4 sentences combining stats and narrative.
+6. If they bowled significantly, cover both batting and bowling contributions.
+7. Do not invent events, outcomes, or player actions not in the supplied context.
+8. If the supplied context is insufficient, reply exactly: "I do not have enough data to answer that."
+"""
+
+OVER_SUMMARY_ANSWER_SYSTEM = """You are a cricket analyst narrating an over or match phase.
+
+Rules:
+1. For a specific over: describe it ball-by-ball in chronological order.
+2. For a match phase (powerplay/middle/death): summarise the overall phase, then highlight key moments.
+3. Begin by stating the total runs scored and wickets fallen in the over/phase.
+4. Cite exact over.ball references for each delivery mentioned.
+5. Discuss momentum shifts, pressure, or turning points within the over/phase.
+6. A requested over may contain fewer than six deliveries if the innings ended early; answer from the available deliveries.
+7. Write at least 3 sentences.
+8. Do not invent events, outcomes, or player actions not in the supplied context.
+9. If the supplied context is insufficient, reply exactly: "I do not have enough data to answer that."
+"""
+
+COMPARISON_ANSWER_SYSTEM = """You are a cricket analyst comparing two players' performances.
+
+Rules:
+1. Present a balanced comparison using the exact stats from the comparison block.
+2. Compare batting stats (runs, strike rate, boundaries) side by side.
+3. If both players bowled, compare bowling stats (wickets, economy) as well.
+4. Cite specific deliveries from the context to illustrate key moments for each player.
+5. Conclude with which player had the bigger impact and why, grounded in the stats and context.
+6. Write at least 4 sentences covering both players fairly.
+7. Do not invent events, outcomes, or player actions not in the supplied context.
+8. If the supplied context is insufficient, reply exactly: "I do not have enough data to answer that."
+"""
+
+MATCH_SUMMARY_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        ("system", MATCH_SUMMARY_ANSWER_SYSTEM),
+        MessagesPlaceholder("chat_history"),
+        (
+            "human",
+            "=== SYSTEM CALCULATED EXACT STATS ===\n{aggregate_block}\n"
+            "=== RETRIEVED MATCH CONTEXT ===\n{context}\n\n"
+            "Question: {question}",
+        ),
+    ]
+)
+
+PLAYER_PERFORMANCE_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        ("system", PLAYER_PERFORMANCE_ANSWER_SYSTEM),
+        MessagesPlaceholder("chat_history"),
+        (
+            "human",
+            "=== SYSTEM CALCULATED EXACT STATS ===\n{aggregate_block}\n"
+            "=== RETRIEVED MATCH CONTEXT ===\n{context}\n\n"
+            "Question: {question}",
+        ),
+    ]
+)
+
+OVER_SUMMARY_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        ("system", OVER_SUMMARY_ANSWER_SYSTEM),
+        MessagesPlaceholder("chat_history"),
+        (
+            "human",
+            "=== SYSTEM CALCULATED EXACT STATS ===\n{aggregate_block}\n"
+            "=== RETRIEVED MATCH CONTEXT ===\n{context}\n\n"
+            "Question: {question}",
+        ),
+    ]
+)
+
+COMPARISON_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        ("system", COMPARISON_ANSWER_SYSTEM),
+        MessagesPlaceholder("chat_history"),
+        (
+            "human",
+            "=== SYSTEM CALCULATED EXACT STATS ===\n{aggregate_block}\n"
+            "=== RETRIEVED MATCH CONTEXT ===\n{context}\n\n"
+            "Question: {question}",
+        ),
+    ]
+)
+
+
+# Mapping from QuestionType → prompt template for the answer chain.
+QUESTION_TYPE_PROMPTS = {
+    "match_summary": MATCH_SUMMARY_PROMPT,
+    "player_performance": PLAYER_PERFORMANCE_PROMPT,
+    "over_summary": OVER_SUMMARY_PROMPT,
+    "comparison": COMPARISON_PROMPT,
+    "general": ANSWER_PROMPT,
+}
+

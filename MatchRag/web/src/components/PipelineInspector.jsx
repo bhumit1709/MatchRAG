@@ -42,6 +42,21 @@ export default function PipelineInspector({ meta }) {
                         </div>
                     </div>
 
+                    {/* Question Type */}
+                    {meta.question_type && (
+                        <div className="inspector-section">
+                            <div className="inspector-label">Question Type</div>
+                            <div className="inspector-value">
+                                <span className="inspector-badge" style={{ background: "var(--accent-purple)", color: "#fff" }}>
+                                    {meta.question_type.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())}
+                                </span>
+                                <span style={{ fontSize: "11px", color: "var(--text-dim)", marginLeft: "8px" }}>
+                                    strategy: "{meta.answer_strategy}"
+                                </span>
+                            </div>
+                        </div>
+                    )}
+
                     {/* History info */}
                     <div className="inspector-section">
                         <div className="inspector-label">History</div>

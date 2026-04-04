@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatchRAG Langgraph Flow</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --node-bg: #1e293b;
+            --node-border: #334155;
+            --node-text: #f8fafc;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.5);
+            --branch-1: #10b981; /* Green */
+            --branch-2: #8b5cf6; /* Purple */
+            --branch-3: #f59e0b; /* Amber */
+            --branch-4: #ec4899; /* Pink */
+            --branch-5: #06b6d4; /* Cyan */
+            --line-color: #475569;
+            --code-bg: #0b1120;
+            --code-text: #38bdf8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--node-text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 1050px;
+            height: 750px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #cbd5e1;
+            font-weight: 400;
+            margin-top: 5px;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        path {
+            fill: none;
+            stroke: var(--line-color);
+            stroke-width: 3;
+            transition: stroke 0.3s ease;
+        }
+
+        .particle {
+            fill: #fff;
+            filter: drop-shadow(0 0 8px #fff);
+            opacity: 0;
+        }
+
+        .nodes-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin-top: 50px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            gap: 25px;
+            position: relative;
+        }
+
+        .node {
+            background: var(--node-bg);
+            border: 2px solid var(--node-border);
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+            text-align: center;
+            min-width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .node.active {
+            transform: scale(1.08);
+        }
+
+        .node-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        /* Payload card */
+        .payload-card {
+            position: absolute;
+            background: rgba(11, 17, 32, 0.95);
+            border: 1px solid var(--node-border);
+            border-radius: 8px;
+            padding: 14px;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--code-text);
+            width: 280px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            z-index: 10;
+            text-align: left;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            backdrop-filter: blur(4px);
+        }
+
+        .payload-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .payload-card .key { color: #f472b6; }
+        .payload-card .string { color: #a3e635; }
+        .payload-card .bool { color: #fbbf24; }
+        .payload-card .info { color: #94a3b8; font-style: italic; }
+
+        /* General Payload placement logic */
+        /* Move all side payloads slightly down or left so they don't clip other nodes */
+        #payload-rewrite { top: -20px; left: calc(100% + 25px); width: 330px; }
+        #payload-classify { top: -20px; right: calc(100% + 25px); width: 320px; }
+        #payload-answer { top: -20px; left: calc(100% + 25px); width: 350px; }
+
+        /* Branches sit in center of the gap between row 2 and answer */
+        .branch-payload {
+            top: calc(100% + 20px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px) !important; /* overrides standard translateY */
+            width: 320px;
+        }
+        .branch-payload.visible {
+            transform: translateX(-50%) translateY(0) !important;
+        }
+
+        /* Adjust specific branch payload placements to avoid collisions */
+        /* If match summary is active, pushing it a bit to center prevents bleeding */
+        #payload-match { transform: translateX(-30%) translateY(10px) !important; }
+        #payload-match.visible { transform: translateX(-30%) translateY(0) !important; }
+        
+        #payload-gen { transform: translateX(-70%) translateY(10px) !important; }
+        #payload-gen.visible { transform: translateX(-70%) translateY(0) !important; }
+
+        /* Branch coloring */
+        .node.branch-1.active { border-color: var(--branch-1); box-shadow: 0 0 20px rgba(16, 185, 129, 0.6); }
+        .node.branch-2.active { border-color: var(--branch-2); box-shadow: 0 0 20px rgba(139, 92, 246, 0.6); }
+        .node.branch-3.active { border-color: var(--branch-3); box-shadow: 0 0 20px rgba(245, 158, 11, 0.6); }
+        .node.branch-4.active { border-color: var(--branch-4); box-shadow: 0 0 20px rgba(236, 72, 153, 0.6); }
+        .node.branch-5.active { border-color: var(--branch-5); box-shadow: 0 0 20px rgba(6, 182, 212, 0.6); }
+        .node.primary.active { border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
+
+        .tag {
+            position: absolute;
+            bottom: 15px;
+            font-size: 13px;
+            color: #94a3b8;
+            font-family: monospace;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title">Langgraph Flow<div class="subtitle">MatchRAG State Pipeline Transformations</div></div>
+    
+    <svg id="linesSvg"></svg>
+
+    <div class="nodes-wrapper">
+        <div class="row">
+            <div class="node primary" id="n-rewrite">
+                <div class="node-icon">🔄</div>
+                Rewrite Question
+                <div class="payload-card" id="payload-rewrite">...</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="node primary" id="n-classify">
+                <div class="node-icon">🧠</div>
+                Classify Question
+                <div class="payload-card" id="payload-classify">...</div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 30px; margin-bottom: 80px;">
+            <div class="node branch-1" id="n-match">
+                <div class="node-icon">🏟️</div>
+                Match Summary
+                <div class="payload-card branch-payload" id="payload-match"></div>
+            </div>
+            <div class="node branch-2" id="n-player">
+                <div class="node-icon">🏏</div>
+                Player Perf
+                <div class="payload-card branch-payload" id="payload-player"></div>
+            </div>
+            <div class="node branch-3" id="n-over">
+                <div class="node-icon">⚡</div>
+                Over Summary
+            </div>
+            <div class="node branch-4" id="n-comp">
+                <div class="node-icon">⚖️</div>
+                Comparison
+            </div>
+            <div class="node branch-5" id="n-gen">
+                <div class="node-icon">🔍</div>
+                General RAG
+                <div class="payload-card branch-payload" id="payload-gen"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="node primary" id="n-answer">
+                <div class="node-icon">✨</div>
+                Generate Answer
+                <div class="payload-card" id="payload-answer">...</div>
+            </div>
+        </div>
+    </div>
+    <div class="tag">System Context -> Execution Flow</div>
+</div>
+
+<script>
+    const svg = document.getElementById('linesSvg');
+    
+    const nodes = {
+        rewrite: document.getElementById('n-rewrite'),
+        classify: document.getElementById('n-classify'),
+        match: document.getElementById('n-match'),
+        player: document.getElementById('n-player'),
+        over: document.getElementById('n-over'),
+        comp: document.getElementById('n-comp'),
+        gen: document.getElementById('n-gen'),
+        answer: document.getElementById('n-answer'),
+    };
+
+    const payloads = {
+        rewrite: document.getElementById('payload-rewrite'),
+        classify: document.getElementById('payload-classify'),
+        answer: document.getElementById('payload-answer'),
+    };
+
+    const branchPayloadNodes = {
+        match: document.getElementById('payload-match'),
+        player: document.getElementById('payload-player'),
+        gen: document.getElementById('payload-gen'),
+    }
+
+    // Updated Scenario Scripts
+    const scenarios = [
+        {
+            branch: 'player',
+            color: '#8b5cf6',
+            initQuestion: "How did Samson play vs NZ?",
+            rewriteState: "{\n  <span class='key'>\"rewritten_question\"</span>: <span class='string'>\"How many runs did SV Samson score in the India vs New Zealand match?\"</span>\n}",
+            classifyState: "{\n  <span class='key'>\"question_type\"</span>: <span class='string'>\"player_performance\"</span>,\n  <span class='key'>\"is_stat_question\"</span>: <span class='bool'>true</span>\n}",
+            branchState: "{\n  <span class='key'>\"retrieval_filters\"</span>: {<span class='key'>\"batter\"</span>: <span class='string'>\"SV Samson\"</span>},\n  <span class='info'>// Context Fetched: 65 deliveries</span>\n  <span class='key'>\"player_stats\"</span>: {\"runs\": 107, \"balls\": 50}\n}",
+            answerState: "<span class='info'>// System prompt assembled dynamically</span>\n{\n  <span class='key'>\"answer\"</span>: <span class='string'>\"SV Samson had a spectacular innings, scoring 107 runs off just 50 deliveries...\"</span>\n}"
+        },
+        {
+            branch: 'match',
+            color: '#10b981',
+            initQuestion: "Who won the Ind vs NZ game?",
+            rewriteState: "{\n  <span class='key'>\"rewritten_question\"</span>: <span class='string'>\"Which team won the India vs New Zealand T20 match and by what margin?\"</span>\n}",
+            classifyState: "{\n  <span class='key'>\"question_type\"</span>: <span class='string'>\"match_summary\"</span>,\n  <span class='key'>\"answer_strategy\"</span>: <span class='string'>\"high_impact\"</span>\n}",
+            branchState: "{\n  <span class='info'>// Top Match turning points extracted</span>\n  <span class='key'>\"retrieved_docs\"</span>: [&lt;Top 5 impact events&gt;],\n  <span class='key'>\"context\"</span>: <span class='string'>\"India scored 212/4... NZ restricted to 190/9\"</span>\n}",
+            answerState: "<span class='info'>// Aggregated stats provided via Context</span>\n{\n  <span class='key'>\"answer\"</span>: <span class='string'>\"India won the match by 22 runs. After posting 212/4, their bowlers restricted New Zealand to 190...\"</span>\n}"
+        },
+        {
+            branch: 'gen',
+            color: '#06b6d4',
+            initQuestion: "How did MJ Henry bowl his first over?",
+            rewriteState: "{\n  <span class='key'>\"rewritten_question\"</span>: <span class='string'>\"What happened in the first over bowled by MJ Henry in the India vs New Zealand match?\"</span>\n}",
+            classifyState: "{\n  <span class='key'>\"question_type\"</span>: <span class='string'>\"general\"</span>,\n  <span class='key'>\"answer_strategy\"</span>: <span class='string'>\"semantic\"</span>\n}",
+            branchState: "{\n  <span class='info'>// Vector Semantic Search Executed</span>\n  <span class='info'>// Context Fetched: 8 chunks retrieved</span>\n  <span class='key'>\"retrieved_docs\"</span>: [&lt;Docs for balls 0.1 to 0.6&gt;]\n}",
+            answerState: "<span class='info'>// Applying Chain of Thought on chunks</span>\n{\n  <span class='key'>\"answer\"</span>: <span class='string'>\"MJ Henry's first over was tight, conceding only 4 runs without taking a wicket...\"</span>\n}"
+        }
+    ];
+
+    function getBox(el) {
+        const rect = el.getBoundingClientRect();
+        const containerRect = document.querySelector('.container').getBoundingClientRect();
+        return {
+            x: rect.left - containerRect.left + rect.width / 2,
+            y: rect.top - containerRect.top,
+            bottomY: rect.bottom - containerRect.top,
+            width: rect.width,
+            height: rect.height
+        };
+    }
+
+    function createPath(startNode, endNode, id) {
+        const start = getBox(startNode);
+        const end = getBox(endNode);
+        
+        let pathStr = '';
+        if (start.x === end.x) {
+            pathStr = `M ${start.x} ${start.bottomY} L ${end.x} ${end.y}`;
+        } else {
+            const midY = start.bottomY + (end.y - start.bottomY) / 2;
+            pathStr = `M ${start.x} ${start.bottomY} C ${start.x} ${midY}, ${end.x} ${midY}, ${end.x} ${end.y}`;
+        }
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', pathStr);
+        path.setAttribute('id', id);
+        svg.appendChild(path);
+        return path;
+    }
+
+    let paths = {};
+    setTimeout(() => {
+        paths = {
+            r_c: createPath(nodes.rewrite, nodes.classify, 'p_r_c'),
+            c_match: createPath(nodes.classify, nodes.match, 'p_c_m'),
+            c_player: createPath(nodes.classify, nodes.player, 'p_c_p'),
+            c_over: createPath(nodes.classify, nodes.over, 'p_c_o'),
+            c_comp: createPath(nodes.classify, nodes.comp, 'p_c_c'),
+            c_gen: createPath(nodes.classify, nodes.gen, 'p_c_g'),
+            match_a: createPath(nodes.match, nodes.answer, 'p_m_a'),
+            player_a: createPath(nodes.player, nodes.answer, 'p_p_a'),
+            over_a: createPath(nodes.over, nodes.answer, 'p_o_a'),
+            comp_a: createPath(nodes.comp, nodes.answer, 'p_c_a'),
+            gen_a: createPath(nodes.gen, nodes.answer, 'p_g_a'),
+        };
+    }, 100);
+
+    function animateAlongPath(pathElement, color, duration) {
+        return new Promise(resolve => {
+            const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            particle.setAttribute('r', '8');
+            particle.setAttribute('class', 'particle');
+            particle.setAttribute('fill', color || '#fff');
+            svg.appendChild(particle);
+
+            const length = pathElement.getTotalLength();
+            pathElement.style.stroke = color || 'var(--primary)';
+            particle.style.opacity = '1';
+
+            let start = null;
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const progress = (timestamp - start) / duration;
+                
+                if (progress < 1) {
+                    const point = pathElement.getPointAtLength(progress * length);
+                    particle.setAttribute('cx', point.x);
+                    particle.setAttribute('cy', point.y);
+                    window.requestAnimationFrame(step);
+                } else {
+                    particle.remove();
+                    pathElement.style.stroke = 'var(--line-color)';
+                    resolve();
+                }
+            }
+            window.requestAnimationFrame(step);
+        });
+    }
+
+    async function sleep(ms) {
+        return new Promise(r => setTimeout(r, ms));
+    }
+
+    function showPayload(el, htmlContent) {
+        if(!el) return;
+        el.innerHTML = htmlContent;
+        el.classList.add('visible');
+    }
+
+    function hidePayload(el) {
+        if(!el) return;
+        el.classList.remove('visible');
+    }
+
+    async function runFlow() {
+        let scenarioIdx = 0;
+        await sleep(500);
+        while (scenarioIdx < scenarios.length) {
+            const s = scenarios[scenarioIdx];
+            const nodeKey = s.branch;
+            
+            // Rewrite Question
+            nodes.rewrite.classList.add('active');
+            showPayload(payloads.rewrite, `<span class='info'>// Request Incoming: "${s.initQuestion}"</span>\n` + s.rewriteState);
+            await sleep(1800);
+            nodes.rewrite.classList.remove('active');
+            hidePayload(payloads.rewrite);
+            
+            await animateAlongPath(paths.r_c, '#3b82f6', 600);
+            
+            // Classify Question
+            nodes.classify.classList.add('active');
+            showPayload(payloads.classify, s.classifyState);
+            await sleep(1800);
+            nodes.classify.classList.remove('active');
+            hidePayload(payloads.classify);
+
+            await animateAlongPath(paths['c_' + s.branch], s.color, 600);
+
+            // Sub-pipeline
+            const branchEl = nodes[s.branch];
+            branchEl.classList.add('active');
+            showPayload(branchPayloadNodes[s.branch], s.branchState);
+            await sleep(2200);
+            branchEl.classList.remove('active');
+            hidePayload(branchPayloadNodes[s.branch]);
+
+            await animateAlongPath(paths[s.branch + '_a'], s.color, 600);
+
+            // Answer
+            nodes.answer.classList.add('active');
+            showPayload(payloads.answer, s.answerState);
+            await sleep(2800);
+            nodes.answer.classList.remove('active');
+            hidePayload(payloads.answer);
+            
+            await sleep(800); // Wait before next cycle
+            scenarioIdx++;
+            if(scenarioIdx >= scenarios.length) scenarioIdx = 0; // loop forever
+        }
+    }
+
+    // Start loop
+    setTimeout(() => {
+        runFlow();
+    }, 500);
+
+</script>
+</body>
+</html>

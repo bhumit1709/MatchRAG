@@ -10,7 +10,7 @@ from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 from langchain_core.output_parsers import PydanticOutputParser, StrOutputParser
 
 from config import MULTI_QUERY_COUNT
-from rag.prompts import ANSWER_PROMPT, MULTI_QUERY_PROMPT, RETRIEVAL_PLAN_PROMPT, REWRITE_PROMPT
+from rag.prompts import ANSWER_PROMPT, MULTI_QUERY_PROMPT, QUESTION_TYPE_PROMPTS, RETRIEVAL_PLAN_PROMPT, REWRITE_PROMPT
 from rag.providers import get_chat_model
 from rag.schemas import LLMTrace, RetrievalPlan
 
@@ -118,9 +118,11 @@ def build_answer_prompt_value(
     chat_history: list[dict],
     context: str,
     aggregate_stats: str | None,
+    question_type: str = "general",
 ):
-    """Build the final answer prompt value."""
-    return ANSWER_PROMPT.invoke(
+    """Build the final answer prompt value using the type-specific prompt."""
+    prompt_template = QUESTION_TYPE_PROMPTS.get(question_type, ANSWER_PROMPT)
+    return prompt_template.invoke(
         {
             "chat_history": history_to_messages(chat_history),
             "aggregate_block": aggregate_stats or "No exact aggregate stats supplied.",
@@ -135,9 +137,10 @@ def invoke_answer_chain(
     chat_history: list[dict],
     context: str,
     aggregate_stats: str | None,
+    question_type: str = "general",
 ) -> tuple[str, dict]:
     """Run the final answer-generation chain."""
-    prompt_value = build_answer_prompt_value(question, chat_history, context, aggregate_stats)
+    prompt_value = build_answer_prompt_value(question, chat_history, context, aggregate_stats, question_type)
     response = get_chat_model().invoke(prompt_value.to_messages())
     content = response.content if isinstance(response.content, str) else json.dumps(response.content)
     return content.strip(), _trace("generate_answer", prompt_value, content)
@@ -148,9 +151,10 @@ def stream_answer_chain(
     chat_history: list[dict],
     context: str,
     aggregate_stats: str | None,
+    question_type: str = "general",
 ) -> tuple[Iterable[str], dict]:
     """Stream the final answer-generation chain."""
-    prompt_value = build_answer_prompt_value(question, chat_history, context, aggregate_stats)
+    prompt_value = build_answer_prompt_value(question, chat_history, context, aggregate_stats, question_type)
     trace = _trace("generate_answer", prompt_value, "<streamed to chat UI>")
 
     def _stream() -> Iterable[str]:

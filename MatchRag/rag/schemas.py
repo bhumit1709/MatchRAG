@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 AnswerStrategy = Literal["semantic", "aggregate", "sequential", "hybrid"]
+QuestionType = Literal["match_summary", "player_performance", "over_summary", "comparison", "general"]
 Phase = Literal["powerplay", "middle", "death"]
 
 class RetrievalPlan(BaseModel):

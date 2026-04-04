@@ -573,25 +573,22 @@ def test_ask_stream_emits_metadata_then_tokens(monkeypatch):
 
     monkeypatch.setattr("rag.rag_graph.rewrite_question", lambda state: {**state, "rewritten_question": state["question"]})
     monkeypatch.setattr(
-        "rag.rag_graph.plan_retrieval",
+        "rag.rag_graph.classify_question",
+        lambda state: {**state, "question_type": "general"},
+    )
+    monkeypatch.setattr(
+        "rag.rag_graph.handle_general",
         lambda state: {
             **state,
             "retrieval_plan": RetrievalPlan(normalized_question=state["question"]),
             "retrieval_filters": None,
             "answer_strategy": "semantic",
-        },
-    )
-    monkeypatch.setattr("rag.rag_graph.compute_aggregate_stats", lambda state: state)
-    monkeypatch.setattr(
-        "rag.rag_graph.retrieve",
-        lambda state: {
-            **state,
             "query_variants": [state["question"]],
             "initial_docs": [{"metadata": {"innings": 1, "over": 2, "ball": 3, "batter": "A", "bowler": "B", "event": "six", "runs_total": 6}}],
             "retrieved_docs": [{"metadata": {"innings": 1, "over": 2, "ball": 3, "batter": "A", "bowler": "B", "event": "six", "runs_total": 6}}],
+            "context": "sample context",
         },
     )
-    monkeypatch.setattr("rag.rag_graph.build_context", lambda state: {**state, "context": "sample context"})
     monkeypatch.setattr(
         "rag.rag_graph.generate_answer_stream",
         lambda state: (iter(["Hello", " world"]), {"node": "generate_answer", "prompt": "p", "response": "<streamed>"}),
@@ -601,6 +598,7 @@ def test_ask_stream_emits_metadata_then_tokens(monkeypatch):
 
     assert isinstance(events[0], dict)
     assert events[0]["answer_strategy"] == "semantic"
+    assert events[0]["question_type"] == "general"
     assert events[0]["query_variants"] == ["How did India win?"]
     assert events[1:] == ["Hello", " world"]
 

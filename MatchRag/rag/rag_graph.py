@@ -7,12 +7,16 @@ from langgraph.graph import StateGraph, END
 from rag.state import RAGState
 from rag.graph_nodes import (
     rewrite_question,
-    plan_retrieval,
-    compute_aggregate_stats,
-    retrieve,
-    build_context,
+    classify_question,
     generate_answer,
     generate_answer_stream,
+)
+from rag.question_handlers import (
+    handle_match_summary,
+    handle_player_performance,
+    handle_over_summary,
+    handle_comparison,
+    handle_general,
 )
 
 
@@ -45,42 +49,83 @@ def _timed(node_name: str):
 
 
 # ---------------------------------------------------------------------------
+# Routing function for conditional edges
+# ---------------------------------------------------------------------------
+
+def _route_by_question_type(state: RAGState) -> str:
+    """Return the question type for LangGraph conditional routing."""
+    return state.get("question_type", "general")
+
+
+# ---------------------------------------------------------------------------
 # Graph construction
 # ---------------------------------------------------------------------------
 
 def _build_full_graph():
     """
-    6-node graph used by ask().
+    Conditional routing graph used by ask().
 
-    Pipeline: rewrite_question → plan_retrieval → compute_aggregate_stats
-              → retrieve → build_context → generate_answer
+    Pipeline:
+      rewrite_question → classify_question ──┬── handle_match_summary ──┐
+                                             ├── handle_player_performance ──┤
+                                             ├── handle_over_summary ──┤
+                                             ├── handle_comparison ──├── generate_answer → END
+                                             └── handle_general ──┘
     """
     graph = StateGraph(RAGState)
 
-    graph.add_node("rewrite_question",       _timed("rewrite_question"))
-    graph.add_node("plan_retrieval",         _timed("plan_retrieval"))
-    graph.add_node("compute_aggregate_stats", _timed("compute_aggregate_stats"))
-    graph.add_node("retrieve",               _timed("retrieve"))
-    graph.add_node("build_context",          _timed("build_context"))
-    graph.add_node("generate_answer",        _timed("generate_answer"))
+    # Common entry nodes
+    graph.add_node("rewrite_question",           _timed("rewrite_question"))
+    graph.add_node("classify_question",          _timed("classify_question"))
 
+    # Type-specific handler nodes
+    graph.add_node("handle_match_summary",       _timed("handle_match_summary"))
+    graph.add_node("handle_player_performance",  _timed("handle_player_performance"))
+    graph.add_node("handle_over_summary",        _timed("handle_over_summary"))
+    graph.add_node("handle_comparison",          _timed("handle_comparison"))
+    graph.add_node("handle_general",             _timed("handle_general"))
+
+    # Common exit
+    graph.add_node("generate_answer",            _timed("generate_answer"))
+
+    # Entry
     graph.set_entry_point("rewrite_question")
-    graph.add_edge("rewrite_question",        "plan_retrieval")
-    graph.add_edge("plan_retrieval",          "compute_aggregate_stats")
-    graph.add_edge("compute_aggregate_stats", "retrieve")
-    graph.add_edge("retrieve",                "build_context")
-    graph.add_edge("build_context",           "generate_answer")
-    graph.add_edge("generate_answer",         END)
+    graph.add_edge("rewrite_question", "classify_question")
+
+    # Conditional routing based on question type
+    graph.add_conditional_edges(
+        "classify_question",
+        _route_by_question_type,
+        {
+            "match_summary":      "handle_match_summary",
+            "player_performance": "handle_player_performance",
+            "over_summary":       "handle_over_summary",
+            "comparison":         "handle_comparison",
+            "general":            "handle_general",
+        },
+    )
+
+    # All handler branches converge to answer generation
+    for handler in [
+        "handle_match_summary",
+        "handle_player_performance",
+        "handle_over_summary",
+        "handle_comparison",
+        "handle_general",
+    ]:
+        graph.add_edge(handler, "generate_answer")
+
+    graph.add_edge("generate_answer", END)
 
     return graph.compile()
 
 
 def _build_pre_answer_graph():
     """
-    5-node graph used by ask_stream().
+    Conditional routing graph used by ask_stream().
 
-    Runs everything up to and including build_context, then returns control
-    so token streaming can happen outside the graph.
+    Runs everything up to and including the type-specific handlers, then
+    returns control so token streaming can happen outside the graph.
 
     Why not use the full graph for streaming?
     LangGraph's .stream() emits completed-node state snapshots, not token-level
@@ -89,18 +134,43 @@ def _build_pre_answer_graph():
     """
     graph = StateGraph(RAGState)
 
-    graph.add_node("rewrite_question",       _timed("rewrite_question"))
-    graph.add_node("plan_retrieval",         _timed("plan_retrieval"))
-    graph.add_node("compute_aggregate_stats", _timed("compute_aggregate_stats"))
-    graph.add_node("retrieve",               _timed("retrieve"))
-    graph.add_node("build_context",          _timed("build_context"))
+    # Common entry nodes
+    graph.add_node("rewrite_question",           _timed("rewrite_question"))
+    graph.add_node("classify_question",          _timed("classify_question"))
 
+    # Type-specific handler nodes
+    graph.add_node("handle_match_summary",       _timed("handle_match_summary"))
+    graph.add_node("handle_player_performance",  _timed("handle_player_performance"))
+    graph.add_node("handle_over_summary",        _timed("handle_over_summary"))
+    graph.add_node("handle_comparison",          _timed("handle_comparison"))
+    graph.add_node("handle_general",             _timed("handle_general"))
+
+    # Entry
     graph.set_entry_point("rewrite_question")
-    graph.add_edge("rewrite_question",        "plan_retrieval")
-    graph.add_edge("plan_retrieval",          "compute_aggregate_stats")
-    graph.add_edge("compute_aggregate_stats", "retrieve")
-    graph.add_edge("retrieve",                "build_context")
-    graph.add_edge("build_context",           END)
+    graph.add_edge("rewrite_question", "classify_question")
+
+    # Conditional routing
+    graph.add_conditional_edges(
+        "classify_question",
+        _route_by_question_type,
+        {
+            "match_summary":      "handle_match_summary",
+            "player_performance": "handle_player_performance",
+            "over_summary":       "handle_over_summary",
+            "comparison":         "handle_comparison",
+            "general":            "handle_general",
+        },
+    )
+
+    # All handler branches go to END (no generate_answer for streaming)
+    for handler in [
+        "handle_match_summary",
+        "handle_player_performance",
+        "handle_over_summary",
+        "handle_comparison",
+        "handle_general",
+    ]:
+        graph.add_edge(handler, END)
 
     return graph.compile()
 
@@ -130,7 +200,7 @@ def _get_pre_answer_graph():
 # Backward-compatible alias — kept so any code that calls build_graph()
 # directly (e.g. scripts or notebooks) continues to work.
 def build_graph():
-    """Return a compiled 6-node full-pipeline graph. Kept for compatibility."""
+    """Return a compiled full-pipeline graph. Kept for compatibility."""
     return _build_full_graph()
 
 
@@ -142,6 +212,7 @@ def _initial_state(question: str, chat_history: list[dict]) -> RAGState:
     return {
         "question":           question,
         "rewritten_question": "",
+        "question_type":      "general",
         "query_variants":     [],
         "chat_history":       chat_history or [],
         "retrieval_plan":     None,
@@ -173,8 +244,8 @@ def ask(question: str, chat_history: list[dict] = None) -> str:
     """
     Run the full RAG pipeline for a single question and return the answer.
 
-    Uses the compiled 6-node LangGraph so the framework drives state passing,
-    edge traversal, and future features (checkpointing, parallelism, tracing).
+    Uses the compiled conditional-routing LangGraph so the framework drives
+    state passing, edge traversal, and routing to type-specific handlers.
     """
     state = _initial_state(question, chat_history or [])
     result = _get_full_graph().invoke(state)
@@ -188,12 +259,13 @@ def ask_stream(
     """
     Streaming variant of ask().
 
-    Uses the compiled 5-node pre-answer graph to drive nodes 1–5, then streams
-    LLM tokens outside the graph via generate_answer_stream().
+    Uses the compiled pre-answer graph to drive nodes (rewrite, classify,
+    handler), then streams LLM tokens outside the graph via
+    generate_answer_stream().
 
     Yields:
       1. FIRST: a dict with pipeline metadata (for the Pipeline Inspector)
-         {\"rewritten_question\": ..., \"num_docs\": ..., \"top_docs\": [...], ...}
+         {\"rewritten_question\": ..., \"question_type\": ..., \"num_docs\": ..., ...}
       2. THEN: raw token strings from the LLM answer step
 
     Callers should check `isinstance(item, dict)` for the metadata event.
@@ -239,6 +311,7 @@ def ask_stream(
     meta = {
         "rewritten_question": state["rewritten_question"],
         "was_rewritten":      state["rewritten_question"] != question,
+        "question_type":      state.get("question_type", "general"),
         "query_variants":     state.get("query_variants", []),
         "retrieval_filters":  state.get("retrieval_filters"),
         "aggregate_stats":    state.get("aggregate_stats"),
